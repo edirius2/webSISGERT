@@ -1,0 +1,22 @@
+<h1>Lista Empleados</h1>
+<button class="btn btn-primary" [routerLink]='["/empleados-agregar"]'>Agregar Empleado</button>
+<table >
+  <thead class="table">
+    <tr>
+      <th>ID</th>
+      <th>Numero Documento</th>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let empleado of empleados">
+      <td>{{empleado.id}}</td>
+      <td>{{empleado.numeroDocumento}}</td>
+      <td>{{empleado.nombre}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/empleados-editar/" + empleado.id]'>Editar</button>
+        <button class="btn btn-danger">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

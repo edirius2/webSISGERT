@@ -1,0 +1,23 @@
+<h1>Lista Tareas</h1>
+<button [routerLink]='["/tareas-agregar"]' class="btn btn-primary">Agregar tarea</button>
+<p *ngIf="!(tareas && tareas.Length )">No hay registros que mostrar</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Precio Referencial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tarea of tareas">
+      <td>{{tarea.id}}</td>
+      <td>{{tarea.nombre}}</td>
+      <td>{{tarea.precioReferencial}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/tareas-editar/" + tarea.id]'>Editar</button>
+        <button class="btn btn-danger">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

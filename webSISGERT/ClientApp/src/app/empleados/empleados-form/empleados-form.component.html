@@ -1,0 +1,93 @@
+<h1>Agregar Empleado </h1>
+<form class="form-horizontal" novalidate
+      (ngSubmit)="save()" [formGroup]="formGroup">
+  <fieldset>
+    <div class="form-group">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Numero Documento</mat-label>
+        <input type="text" matInput formControlName="numeroDocumento" [errorStateMatcher]="matcher"
+               placeholder="12345678" required>
+
+        <mat-error *ngIf="(formGroup.get('numeroDocumento').touched || formGroup.get('numeroDocumento').dirty) &&  formGroup.get('numeroDocumento').errors">
+          Por favor ingrese un Numero Documento valido.
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('numeroDocumento').errors && formGroup.get('numeroDocumento').errors.required">
+          Numero Documento es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('numeroDocumento').errors && formGroup.get('numeroDocumento').errors.maxlength">
+          El numero de documento solo puede tener maximo 12 caracteres
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{'has-error': (formGroup.get('nombre').touched || formGroup.get('nombre').dirty) &&  !formGroup.get('nombre').valid}">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input type="text" matInput formControlName="nombre" [errorStateMatcher]="matcher"
+               placeholder="Ex. Juan Perez" required>
+        <!--<mat-hint>Errors appear instantly!</mat-hint>-->
+        <mat-error *ngIf="(formGroup.get('nombre').touched || formGroup.get('nombre').dirty) &&  formGroup.get('nombre').errors">
+          Por favor ingrese un nombre valido.
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('nombre').errors && formGroup.get('nombre').errors.required">
+          Nombre es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Correo Electronico</mat-label>
+        <input type="text" matInput formControlName="correoElectronico" [errorStateMatcher]="matcher"
+               placeholder="Ex. pat@ejemplo.com" required>
+
+        <mat-error *ngIf="(formGroup.get('correoElectronico').touched || formGroup.get('correoElectronico').dirty) &&  formGroup.get('correoElectronico').errors">
+          Por favor ingrese un correo electronico valido.
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('correoElectronico').errors && formGroup.get('correoElectronico').errors.required">
+          Correo Electronico es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('correoElectronico').errors && formGroup.get('correoElectronico').errors.email">
+          Correo Electronico es <strong>Invalido</strong>: usar @
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+
+
+    <div class="form-group">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Telefono</mat-label>
+        <input type="text" matInput formControlName="telefono" [errorStateMatcher]="matcher"
+               placeholder="123456789">
+
+        <mat-error *ngIf="(formGroup.get('telefono').touched || formGroup.get('telefono').dirty) &&  formGroup.get('telefono').errors">
+          Por favor ingrese un Numero Documento valido.
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('telefono').errors && formGroup.get('telefono').errors.required">
+          Telefono es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('telefono').errors && formGroup.get('telefono').errors.maxlength">
+          El telefono solo puede tener maximo 9 caracteres
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-4 col-md-offset-2">
+        <span>
+          <button class="btn btn-primary"
+                  type="submit"
+                  [disabled]="!formGroup.valid">
+            Salvar
+          </button>
+          <button class="btn"
+                  [routerLink]='["/empleados"]'>
+            Cancelar
+          </button>
+        </span>
+      </div>
+    </div>
+  </fieldset>
+</form>

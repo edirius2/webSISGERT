@@ -1,0 +1,25 @@
+
+<button [routerLink]="['/ordenesTrabajo-editar/' + OrdenTrabajoId + '/detalleTarea-agregar/'+ ordenTrabajoId]" class="btn btn-primary">Agregar Detalle</button>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let detalleTarea of detalleTareas">
+      <td>{{detalleTarea.tarea.nombre}}</td>
+      <td>{{detalleTarea.cantidad}}</td>
+      <td>{{detalleTarea.precio}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/tareas-editar/" ]'>Editar</button>
+        <button class="btn btn-danger">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+

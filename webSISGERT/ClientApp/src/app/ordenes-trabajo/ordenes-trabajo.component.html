@@ -1,0 +1,40 @@
+
+<!--<mat-grid-list cols="3" rowHeight="2:1">
+  <mat-grid-tile>1</mat-grid-tile>
+  <mat-grid-tile>2</mat-grid-tile>
+  <mat-grid-tile>3</mat-grid-tile>
+  <mat-grid-tile>4</mat-grid-tile>
+</mat-grid-list>-->
+
+<button mat-raised-button [routerLink]='["/ordenesTrabajo-agregar"]'>Agregar Orden Trabajo</button>
+
+<div></div>
+<div class="container" *ngFor="let OT of ordenesTrabajo" style="margin-top:5px">
+  <div class="card" [routerLink]='["/ordenesTrabajo-editar/" + OT.id]' style="width:18rem;">
+    <!--<img src="tigre.jpg" alt="" class="card-img-top">-->
+    <div class="card-body cajaOT">
+      <h5 class="card-title">Codigo: {{OT.codigo}}</h5>
+      <p class="card-text">{{OT.cliente.nombre}}</p>
+      <p class="card-text">{{OT.cliente.contacto}}</p>
+      <p class="card-text">{{OT.cliente.telefono}}</p>
+      <p class="card-text">{{OT.cliente.correoElectronico}}</p>
+      <p class="card-text">Fecha: {{OT.fecha}}</p>
+      <div class="row" style="padding-right:10px; margin-left:3px">
+        <p class="card-text" style="color:cadetblue">Tareas: </p>
+        <p class="card-text" style="color:Highlight">{{OT.detallesTareas.length}}</p>
+        <p class="card-text" style="color:cadetblue"> Total Pagos: </p>
+        <p class="card-text" style="color:Highlight">{{OT.sumaPagos}}</p>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<mat-paginator [length]="100"
+               [pageSize]="10"
+               [pageSizeOptions]="[5, 10, 25, 100]"
+               aria-label="Seleccionar pagina">
+</mat-paginator>
+
+
+

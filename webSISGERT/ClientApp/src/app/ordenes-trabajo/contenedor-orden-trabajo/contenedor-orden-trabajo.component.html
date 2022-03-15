@@ -1,0 +1,24 @@
+
+<p>contenedor orden trabajo works</p>
+<a [routerLink]="['/contenedorTrabajo/detallesTareas']">Agregar tarea</a>
+<a [routerLink]="['/contenedorTrabajo/detalleTarea-agregar']">Lista tarea </a>
+<!--<a [routerLink]="['/contenedorTrabajo/detallesTareas']">Agregar tarea</a>-->
+<mat-tab-group>
+  <mat-tab label="Tareas">
+
+
+    <router-outlet></router-outlet>
+
+
+    <!--<app-detalle-tarea [ordenTrabajoEntrante]="ordenTrabajo"></app-detalle-tarea>-->
+  </mat-tab>
+  <mat-tab label="Repuestos">
+    <div class="container">
+      <!--<app-detalle-tarea-form></app-detalle-tarea-form>-->
+    </div>
+  </mat-tab>
+  <mat-tab label="Pagos"> Pagos  blah</mat-tab>
+</mat-tab-group>
+
+
+

@@ -1,0 +1,18 @@
+<h1>Lista de Repuestos</h1>
+<button class="btm btn-primary" [routerLink]='["/repuesto-agregar"]'>Agregar Repuesto</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nombre</th>
+      <th>Precio Ref:</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let repuesto of listaRepuestos">
+      <td>{{repuesto.id}}</td>
+      <td>{{repuesto.nombre}}</td>
+      <td>{{repuesto.precioReferencial}}</td>
+    </tr>
+  </tbody>
+</table>
