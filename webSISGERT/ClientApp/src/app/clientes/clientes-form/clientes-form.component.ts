@@ -64,6 +64,7 @@ export class ClientesFormComponent implements OnInit {
         error => console.error(error));
     }
     else {
+      cliente.id = 0;
       this.clienteService.createCliente(cliente).subscribe(
         cliente => this.onSaveSucess(),
         error => console.error(error));

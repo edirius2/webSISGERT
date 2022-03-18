@@ -1,24 +1,83 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<div class="container cajaOT">
+  <mat-list>
+    <ng-container>
+      <mat-list-item>
+        <span class="material-icons">
+          fact_check
+        </span>
+        Tareas
 
-<p>contenedor orden trabajo works</p>
-<a [routerLink]="['/contenedorTrabajo/detallesTareas']">Agregar tarea</a>
-<a [routerLink]="['/contenedorTrabajo/detalleTarea-agregar']">Lista tarea </a>
-<!--<a [routerLink]="['/contenedorTrabajo/detallesTareas']">Agregar tarea</a>-->
-<mat-tab-group>
-  <mat-tab label="Tareas">
 
+      </mat-list-item>
+      <ng-container>
+        <mat-list *ngIf="ordenTrabajo">
+          <div *ngFor="let detTarea of ordenTrabajo.detallesTareas">
+            <mat-list-item>
+              <h6 class="detalleLista">
+                {{detTarea.tarea.nombre}} {{detTarea.cantidad}} S/.{{detTarea.precio}}
+              </h6>
+            </mat-list-item>
+          </div>
+        </mat-list>
+        <div *ngIf="ordenTrabajo && ordenTrabajo.detallesTareas">
+          <h6 class="row justify-content-end">
+            Total: S/. {{ordenTrabajo.sumaTareas| number:'1.2-2'}}
+          </h6>
+        </div>
+      </ng-container>
 
-    <router-outlet></router-outlet>
-
-
-    <!--<app-detalle-tarea [ordenTrabajoEntrante]="ordenTrabajo"></app-detalle-tarea>-->
-  </mat-tab>
-  <mat-tab label="Repuestos">
-    <div class="container">
-      <!--<app-detalle-tarea-form></app-detalle-tarea-form>-->
-    </div>
-  </mat-tab>
-  <mat-tab label="Pagos"> Pagos  blah</mat-tab>
-</mat-tab-group>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span class="material-icons">
+          paid
+        </span>
+        Pagos
+      </mat-list-item>
+      <ng-container>
+        <mat-list *ngIf="ordenTrabajo">
+          <div *ngFor="let detPago of ordenTrabajo.detallesPagos">
+            <mat-list-item>
+              <h6 class="detalleLista">
+                {{detPago.fecha | date:'dd-MM-yyyy'}}  <span class="detalleListaGreen">     S/.{{detPago.pago}}  </span>
+              </h6>
+            </mat-list-item>
+          </div>
+        </mat-list>
+        <div *ngIf="ordenTrabajo && ordenTrabajo.detallesPagos">
+          <h6 class="row justify-content-end">
+            Total: S/. {{ordenTrabajo.sumaPagos| number:'1.2-2'}}
+          </h6>
+        </div>
+      </ng-container>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <mat-icon aria-hidden="false" aria-label="Example home icon">face</mat-icon>
+        Empleados Asignados
+      </mat-list-item>
+      <ng-container>
+        <mat-list *ngIf="ordenTrabajo">
+          <div *ngFor="let detEmpleado of ordenTrabajo.detallesEmpleados">
+            <mat-list-item>
+              <h6 class="detalleLista">
+                {{detEmpleado.empleado.nombre}} 
+              </h6>
+            </mat-list-item>
+          </div>
+        </mat-list>
+      </ng-container>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span class="material-icons">
+          car_repair
+        </span>
+        Repuestos Usados
+      </mat-list-item>
+    </ng-container>
+  </mat-list>
+  
+</div>
 
 
 

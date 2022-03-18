@@ -1,6 +1,18 @@
 <body>
   <app-nav-menu></app-nav-menu>
   <div class="container">
-    <router-outlet></router-outlet>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="container">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="container">
+          <app-contenedor-orden-trabajo></app-contenedor-orden-trabajo>
+        </div>
+      </div>
+    </div>
   </div>
+  
 </body>

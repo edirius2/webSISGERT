@@ -25,7 +25,7 @@ namespace webSISGERT.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrdenTrabajo>>> GetOrdenesTrabajo()
         {
-            return await _context.OrdenesTrabajo.Include(clientes=>clientes.cliente).Include(dt=>dt.DetallesTareas).Include(dp=>dp.DetallesPagos).Include(de=>de.DetallesEmpleados).ToListAsync();
+            return await _context.OrdenesTrabajo.Include(clientes=>clientes.cliente).Include(dt=>dt.DetallesTareas).ThenInclude(t=> t.tarea).Include(dp=>dp.DetallesPagos).Include(de=>de.DetallesEmpleados).ToListAsync();
         }
 
         // GET: api/OrdenesTrabajo/5
@@ -34,7 +34,7 @@ namespace webSISGERT.Controllers
         {
             //var ordenTrabajo = await _context.OrdenesTrabajo.FindAsync(id);
 
-            var ordenTrabajo = await _context.OrdenesTrabajo.Include(cliente =>cliente.cliente).Include(dt => dt.DetallesTareas).Include(dp => dp.DetallesPagos).Include(de => de.DetallesEmpleados).Where(ot=>ot.Id == id ).FirstAsync();
+            var ordenTrabajo = await _context.OrdenesTrabajo.Include(cliente =>cliente.cliente).Include(dt => dt.DetallesTareas).ThenInclude(t => t.tarea).Include(dp => dp.DetallesPagos).Include(de => de.DetallesEmpleados).ThenInclude(ee=> ee.empleado) .Where(ot=>ot.Id == id ).FirstAsync();
 
             if (ordenTrabajo == null)
             {

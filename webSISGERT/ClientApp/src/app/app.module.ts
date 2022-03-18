@@ -25,7 +25,7 @@ import { DetalleTareaComponent } from './ordenes-trabajo/detalle-tarea/detalle-t
 import { ContenedorOrdenTrabajoComponent } from './ordenes-trabajo/contenedor-orden-trabajo/contenedor-orden-trabajo.component';
 import { DetalleTareaService } from './ordenes-trabajo/detalle-tarea/detalle-tarea.service';
 import { DetalleTareaFormComponent } from './ordenes-trabajo/detalle-tarea/detalle-tarea-form/detalle-tarea-form.component';
-import { MatFormField, MatInput, MatOption, MatAutocomplete, MatCheckboxModule, MatLabel, MatAutocompleteModule, MatOptionModule, MatPaginatorModule, MatFormFieldModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatFormField, MatInput, MatOption, MatAutocomplete, MatCheckboxModule, MatLabel, MatAutocompleteModule, MatOptionModule, MatPaginatorModule, MatFormFieldModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule, MatTooltipModule } from '@angular/material';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpleadosService } from './empleados/empleados.service';
 import { EmpleadosFormComponent } from './empleados/empleados-form/empleados-form.component';
@@ -38,6 +38,7 @@ import { DetallePagoFormComponent } from './ordenes-trabajo/detalle-pago/detalle
 import { RepuestosService } from './repuestos/repuestos.service';
 import { RepuestosComponent } from './repuestos/repuestos.component';
 import { RepuestosFormComponent } from './repuestos/repuestos-form/repuestos-form.component';
+import { contenedorOrdenTrabajoService } from './ordenes-trabajo/contenedor-orden-trabajo/contenedor-orden-trabajo.service';
 
 
 @NgModule({
@@ -85,6 +86,10 @@ import { RepuestosFormComponent } from './repuestos/repuestos-form/repuestos-for
     MatFormFieldModule,
     MatPaginatorModule,
     MatGridListModule,
+    MatListModule,
+    MatIconModule,
+    MatGridListModule,
+    MatTooltipModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: OrdenesTrabajoComponent, pathMatch: 'full' },
@@ -100,6 +105,7 @@ import { RepuestosFormComponent } from './repuestos/repuestos-form/repuestos-for
       { path: 'empleados-agregar', component: EmpleadosFormComponent },
       { path: 'empleados-editar/:id', component: EmpleadosFormComponent },
       { path: 'ordenesTrabajo', component: OrdenesTrabajoComponent },
+      { path: 'contenedorOrdenTrabajo', component: ContenedorOrdenTrabajoComponent },
       {
         path: 'ordenesTrabajo-agregar', component: OrdenesTrabajoFormComponent,
         children: [
@@ -135,7 +141,7 @@ import { RepuestosFormComponent } from './repuestos/repuestos-form/repuestos-for
       
     ])
   ],
-  providers: [ClientesService, TareasService, DetalleTareaService, MatDatepickerModule, EmpleadosService, DetalleEmpleadoService, DetallePagoService, RepuestosService],
+  providers: [ClientesService, TareasService, DetalleTareaService, MatDatepickerModule, EmpleadosService, DetalleEmpleadoService, DetallePagoService, RepuestosService, contenedorOrdenTrabajoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

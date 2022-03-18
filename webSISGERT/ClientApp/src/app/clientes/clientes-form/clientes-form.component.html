@@ -4,113 +4,103 @@
   <fieldset>
 
 
-    <div class="form-group"
-         [ngClass]="{'has-error': (formGroup.get('tipoDocumento').touched || formGroup.get('tipoDocumento').dirty) &&  !formGroup.get('tipoDocumento').valid}">
-      <label class="col-md-2 control-label"
-             for="tipoDocumentoId">Tipo Documento 2</label>
-      <div class="col-md-8">
-        <input class="form-control"
-               id="tipoDocumentoId"
-               type="text"
-               required
-               formControlName="tipoDocumento" />
-        <span class="help-block" *ngIf="(formGroup.get('tipoDocumento').touched || formGroup.get('tipoDocumento').dirty) &&  formGroup.get('tipoDocumento').errors">
-          <span *ngIf="formGroup.get('tipoDocumento').errors.required">
-            El campo tipoDocumento es requerido
-          </span>
-        </span>
-      </div>
+    <div class="form-group">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Tipo Documento</mat-label>
+        <input type="text" matInput formControlName="tipoDocumento" [errorStateMatcher]="matcher"
+               placeholder="0" required />
+      </mat-form-field>
+      <mat-error *ngIf="(formGroup.get('tipoDocumento').touched || formGroup.get('tipoDocumento').dirty) &&  formGroup.get('tipoDocumento').errors">
+        Por favor ingrese un Tipo Documento valido.
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('tipoDocumento').errors && formGroup.get('tipoDocumento').errors.required">
+        Tipo Documento es <strong>requerido</strong>
+      </mat-error>
     </div>
 
-    <div class="form-group"
-         [ngClass]="{'has-error': (formGroup.get('numeroDocumento').touched || formGroup.get('numeroDocumento').dirty) &&  !formGroup.get('numeroDocumento').valid}">
-      <label class="col-md-2 control-label"
-             for="numeroDocumentoId">Numero Documento</label>
-      <div class="col-md-8">
-        <input class="form-control"
-               id="numeroDocumentoId"
-               type="text"
-               required
-               formControlName="numeroDocumento" />
-        <span class="help-block" *ngIf="(formGroup.get('numeroDocumento').touched || formGroup.get('numeroDocumento').dirty) &&  formGroup.get('numeroDocumento').errors">
-          <span *ngIf="formGroup.get('numeroDocumento').errors.required">
-            El campo Numero Documento es requerido
-          </span>
-        </span>
-      </div>
+    <div class="form-group">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Numero Documento</mat-label>
+        <input type="text" matInput formControlName="numeroDocumento" [errorStateMatcher]="matcher"
+               placeholder="12345678" required>
+
+        <mat-error *ngIf="(formGroup.get('numeroDocumento').touched || formGroup.get('numeroDocumento').dirty) &&  formGroup.get('numeroDocumento').errors">
+          Por favor ingrese un Numero Documento valido.
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('numeroDocumento').errors && formGroup.get('numeroDocumento').errors.required">
+          Numero Documento es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('numeroDocumento').errors && formGroup.get('numeroDocumento').errors.maxlength">
+          El numero de documento solo puede tener maximo 12 caracteres
+        </mat-error>
+      </mat-form-field>
     </div>
 
     <div class="form-group"
          [ngClass]="{'has-error': (formGroup.get('nombre').touched || formGroup.get('nombre').dirty) &&  !formGroup.get('nombre').valid}">
-      <label class="col-md-2 control-label"
-             for="nombreId">Nombre</label>
-      <div class="col-md-8">
-        <input class="form-control"
-               id="nombreId"
-               type="text"
-               required
-               formControlName="nombre" />
-        <span class="help-block" *ngIf="(formGroup.get('nombre').touched || formGroup.get('nombre').dirty) &&  formGroup.get('nombre').errors">
-          <span *ngIf="formGroup.get('nombre').errors.required">
-            El campo Nombre es requerido
-          </span>
-        </span>
-      </div>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input type="text" matInput formControlName="nombre" [errorStateMatcher]="matcher"
+               placeholder="Ex. Juan Perez" required>
+        <!--<mat-hint>Errors appear instantly!</mat-hint>-->
+        <mat-error *ngIf="(formGroup.get('nombre').touched || formGroup.get('nombre').dirty) &&  formGroup.get('nombre').errors">
+          Por favor ingrese un nombre valido.
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('nombre').errors && formGroup.get('nombre').errors.required">
+          Nombre es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
     </div>
 
-    <div class="form-group"
-         [ngClass]="{'has-error': (formGroup.get('contacto').touched || formGroup.get('contacto').dirty) &&  !formGroup.get('contacto').valid}">
-      <label class="col-md-2 control-label"
-             for="contactoId">Contacto</label>
-      <div class="col-md-8">
-        <input class="form-control"
-               id="contactoId"
-               type="text"
-               required
-               formControlName="contacto" />
-        <span class="help-block" *ngIf="(formGroup.get('contacto').touched || formGroup.get('contacto').dirty) &&  formGroup.get('contacto').errors">
-          <span *ngIf="formGroup.get('contacto').errors.required">
-            El campo Contacto es requerido
-          </span>
-        </span>
-      </div>
+    <div class="form-group">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Contacto</mat-label>
+        <input type="text" matInput formControlName="contacto" [errorStateMatcher]="matcher"
+               placeholder="Ex. Juan Perez" required>
+        <!--<mat-hint>Errors appear instantly!</mat-hint>-->
+        <mat-error *ngIf="(formGroup.get('contacto').touched || formGroup.get('contacto').dirty) &&  formGroup.get('contacto').errors">
+          Por favor ingrese un contacto valido.
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('contacto').errors && formGroup.get('contacto').errors.required">
+          Contacto es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
     </div>
 
-    <div class="form-group"
-         [ngClass]="{'has-error': (formGroup.get('telefono').touched || formGroup.get('telefono').dirty) &&  !formGroup.get('telefono').valid}">
-      <label class="col-md-2 control-label"
-             for="telefonoId">Contacto</label>
-      <div class="col-md-8">
-        <input class="form-control"
-               id="telefonoId"
-               type="text"
-               required
-               formControlName="telefono" />
-        <span class="help-block" *ngIf="(formGroup.get('telefono').touched || formGroup.get('telefono').dirty) &&  formGroup.get('telefono').errors">
-          <span *ngIf="formGroup.get('telefono').errors.required">
-            El campo telefono es requerido
-          </span>
-        </span>
-      </div>
+    <div class="form-group">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Telefono</mat-label>
+        <input type="text" matInput formControlName="telefono" [errorStateMatcher]="matcher"
+               placeholder="989898989" required>
+        <!--<mat-hint>Errors appear instantly!</mat-hint>-->
+        <mat-error *ngIf="(formGroup.get('telefono').touched || formGroup.get('telefono').dirty) &&  formGroup.get('telefono').errors">
+          Por favor ingrese un telefono valido.
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('telefono').errors && formGroup.get('telefono').errors.required">
+          Telefono es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
     </div>
 
-    <div class="form-group"
-         [ngClass]="{'has-error': (formGroup.get('correoElectronico').touched || formGroup.get('correoElectronico').dirty) &&  !formGroup.get('correoElectronico').valid}">
-      <label class="col-md-2 control-label"
-             for="correoElectronicoId">Correo Electronico</label>
-      <div class="col-md-8">
-        <input class="form-control"
-               id="correoElectronicoId"
-               type="text"
-               required
-               formControlName="correoElectronico" />
-        <span class="help-block" *ngIf="(formGroup.get('correoElectronico').touched || formGroup.get('correoElectronico').dirty) &&  formGroup.get('correoElectronico').errors">
-          <span *ngIf="formGroup.get('correoElectronico').errors.required">
-            El campo correoElectronico es requerido
-          </span>
-        </span>
-      </div>
+    <div class="form-group">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Correo Electronico</mat-label>
+        <input type="text" matInput formControlName="correoElectronico" [errorStateMatcher]="matcher"
+               placeholder="Ex. pat@ejemplo.com" required>
+
+        <mat-error *ngIf="(formGroup.get('correoElectronico').touched || formGroup.get('correoElectronico').dirty) &&  formGroup.get('correoElectronico').errors">
+          Por favor ingrese un correo electronico valido.
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('correoElectronico').errors && formGroup.get('correoElectronico').errors.required">
+          Correo Electronico es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('correoElectronico').errors && formGroup.get('correoElectronico').errors.email">
+          Correo Electronico es <strong>Invalido</strong>: usar @
+        </mat-error>
+      </mat-form-field>
     </div>
+
+
 
     <div class="form-group">
       <div class="col-md-4 col-md-offset-2">

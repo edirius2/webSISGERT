@@ -10,8 +10,9 @@ export interface iOrdenTrabajo {
   cliente: ICliente,
   fecha: Date,
   precioReferencial: number,
-  detallesTarea: iDetalleTarea[],
+  detallesTareas: iDetalleTarea[],
   detallesPagos: IDetallePago[],
   detallesEmpleados: IDetalleEmpleado[],
-  sumaPagos:number
+  sumaPagos: number,
+  sumaTareas: number,
 }

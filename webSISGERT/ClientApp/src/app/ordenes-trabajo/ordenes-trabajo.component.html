@@ -1,4 +1,5 @@
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 <!--<mat-grid-list cols="3" rowHeight="2:1">
   <mat-grid-tile>1</mat-grid-tile>
   <mat-grid-tile>2</mat-grid-tile>
@@ -9,24 +10,43 @@
 <button mat-raised-button [routerLink]='["/ordenesTrabajo-agregar"]'>Agregar Orden Trabajo</button>
 
 <div></div>
-<div class="container" *ngFor="let OT of ordenesTrabajo" style="margin-top:5px">
-  <div class="card" [routerLink]='["/ordenesTrabajo-editar/" + OT.id]' style="width:18rem;">
-    <!--<img src="tigre.jpg" alt="" class="card-img-top">-->
-    <div class="card-body cajaOT">
-      <h5 class="card-title">Codigo: {{OT.codigo}}</h5>
-      <p class="card-text">{{OT.cliente.nombre}}</p>
-      <p class="card-text">{{OT.cliente.contacto}}</p>
-      <p class="card-text">{{OT.cliente.telefono}}</p>
-      <p class="card-text">{{OT.cliente.correoElectronico}}</p>
-      <p class="card-text">Fecha: {{OT.fecha}}</p>
-      <div class="row" style="padding-right:10px; margin-left:3px">
-        <p class="card-text" style="color:cadetblue">Tareas: </p>
-        <p class="card-text" style="color:Highlight">{{OT.detallesTareas.length}}</p>
-        <p class="card-text" style="color:cadetblue"> Total Pagos: </p>
-        <p class="card-text" style="color:Highlight">{{OT.sumaPagos}}</p>
+<mat-grid-list cols="2">
+  <mat-grid-tile *ngFor="let OT of ordenesTrabajo" style="margin-top:5px">
+    <div class="card" style="width:18rem;">
+      <!--<img src="tigre.jpg" alt="" class="card-img-top">-->
+      <div class="card-body cajaOT">
+        <h5 class="card-title">
+          Codigo: {{OT.codigo}}
+          <button mat-button class="icono" matTooltip="Ver detalle">
+            <span class="material-icons" (click)="llenarDetalle(OT.id)">
+              visibility
+            </span>
+          </button>
+          
+          <button mat-button class="icono" matTooltip="Editar">
+            <span class="material-icons" [routerLink]='["/ordenesTrabajo-editar/" + OT.id]'>
+              edit
+            </span>
+          </button>
+        </h5>
+        <p class="card-text">{{OT.cliente.nombre}}</p>
+        <p class="card-text">{{OT.cliente.contacto}}</p>
+        <p class="card-text">{{OT.cliente.telefono}}</p>
+        <p class="card-text">{{OT.cliente.correoElectronico}}</p>
+        <p class="card-text">Fecha: {{OT.fecha | date:'dd-MM-yyyy'}}</p>
+        <div class="row" style="padding-right:10px; margin-left:3px">
+          <p class="card-text" style="color:cadetblue">Tareas : </p>
+          <p class="card-text" style="color:Highlight">{{OT.detallesTareas.length}}</p>
+          <p class="card-text" style="color:cadetblue"> Total Pagos: </p>
+          <p class="card-text" style="color:Highlight">{{OT.sumaPagos}}</p>
+        </div>
       </div>
     </div>
-  </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div class="container" >
+  
   
 </div>
 
