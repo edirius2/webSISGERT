@@ -25,7 +25,7 @@ import { DetalleTareaComponent } from './ordenes-trabajo/detalle-tarea/detalle-t
 import { ContenedorOrdenTrabajoComponent } from './ordenes-trabajo/contenedor-orden-trabajo/contenedor-orden-trabajo.component';
 import { DetalleTareaService } from './ordenes-trabajo/detalle-tarea/detalle-tarea.service';
 import { DetalleTareaFormComponent } from './ordenes-trabajo/detalle-tarea/detalle-tarea-form/detalle-tarea-form.component';
-import { MatFormField, MatInput, MatOption, MatAutocomplete, MatCheckboxModule, MatLabel, MatAutocompleteModule, MatOptionModule, MatPaginatorModule, MatFormFieldModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule, MatTooltipModule } from '@angular/material';
+import { MatFormField, MatInput, MatOption, MatAutocomplete, MatCheckboxModule, MatLabel, MatAutocompleteModule, MatOptionModule, MatPaginatorModule, MatFormFieldModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule, MatTooltipModule, MatExpansionModule } from '@angular/material';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpleadosService } from './empleados/empleados.service';
 import { EmpleadosFormComponent } from './empleados/empleados-form/empleados-form.component';
@@ -90,6 +90,7 @@ import { contenedorOrdenTrabajoService } from './ordenes-trabajo/contenedor-orde
     MatIconModule,
     MatGridListModule,
     MatTooltipModule,
+    MatExpansionModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: OrdenesTrabajoComponent, pathMatch: 'full' },

@@ -28,6 +28,12 @@ namespace webSISGERT.Controllers
             return await _context.OrdenesTrabajo.Include(clientes=>clientes.cliente).Include(dt=>dt.DetallesTareas).ThenInclude(t=> t.tarea).Include(dp=>dp.DetallesPagos).Include(de=>de.DetallesEmpleados).ToListAsync();
         }
 
+        [HttpGet("[action]/{filtroClienteId}")]
+        public async Task<ActionResult<IEnumerable<OrdenTrabajo>>> GetFiltroOrdenesTrabajo(int filtroClienteId)
+        {
+            return await _context.OrdenesTrabajo.Include(clientes => clientes.cliente).Include(dt => dt.DetallesTareas).Include(dp => dp.DetallesPagos).Include(de => de.DetallesEmpleados).Where(ot=> ot.ClienteId == filtroClienteId) .ToListAsync();
+        }
+
         // GET: api/OrdenesTrabajo/5
         [HttpGet("{id}")]
         public async Task<ActionResult<OrdenTrabajo>> GetOrdenTrabajo(int id)

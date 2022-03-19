@@ -1,12 +1,31 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-<!--<mat-grid-list cols="3" rowHeight="2:1">
-  <mat-grid-tile>1</mat-grid-tile>
-  <mat-grid-tile>2</mat-grid-tile>
-  <mat-grid-tile>3</mat-grid-tile>
-  <mat-grid-tile>4</mat-grid-tile>
-</mat-grid-list>-->
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filtrar:
+    </mat-panel-title>
+    <mat-panel-description>
+      
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <mat-form-field appearance="fill">
+    <mat-label>Cliente</mat-label>
+    <input matInput
+           aria-label="Cliente"
+           [matAutocomplete]="auto"
+           [formControl]="stateCtrl"
+           >
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let cliente of listaClientes" [value]="cliente.nombre" (onSelectionChange)='getPosts(cliente)'>
+        <span>{{cliente.nombre}}</span> |
+        <small>Contacto: {{cliente.contacto}}</small>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</mat-expansion-panel>
 
+<hr />
 <button mat-raised-button [routerLink]='["/ordenesTrabajo-agregar"]'>Agregar Orden Trabajo</button>
 
 <div></div>

@@ -19,6 +19,10 @@ export class OrdenesTrabajoService {
     return this.httpClient.get<iOrdenTrabajo[]>(this.apiURL);
   }
 
+  getOrdenesTrabajoConFiltro(filtroIdCliente: string): Observable<iOrdenTrabajo[]> {
+    return this.httpClient.get<iOrdenTrabajo[]>(this.apiURL + "/GetFiltroOrdenesTrabajo/" + filtroIdCliente);
+  }
+
   getOrdenTrabajo(idOrdenTrabajo: string): Observable<iOrdenTrabajo> {
     return this.httpClient.get<iOrdenTrabajo>(this.apiURL + "/" + idOrdenTrabajo);
   }
