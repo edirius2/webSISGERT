@@ -13,6 +13,10 @@ namespace webSISGERT.Models.OT
         public int ClienteId { get; set; }
         public virtual Cliente cliente { get; set; }
         public DateTime Fecha { get; set; }
+        public string InformePreliminar { get; set; }
+        public string FormatoRecepcionEquipos { get; set; }
+        public string ActaConformidad { get; set; }
+        public string Estado { get; set; }
         public virtual ICollection<DetalleTarea> DetallesTareas { get; set; }
         public virtual ICollection<DetalleEmpleado> DetallesEmpleados { get; set; }
         public virtual ICollection<DetalleRepuesto> DetallesRepuestos { get; set; }

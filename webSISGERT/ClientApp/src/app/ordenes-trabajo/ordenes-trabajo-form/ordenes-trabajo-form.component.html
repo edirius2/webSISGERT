@@ -33,66 +33,66 @@
 
       </div>
       <!--<div formGroupName="fcliente">
-        <div class="form-group col-md-6"
-             [ngClass]="{'has-error': (formGroup.get('fcliente').get('nombre').touched || formGroup.get('fcliente').get('nombre').dirty) &&  !formGroup.get('fcliente').get('nombre').valid}">
-          <div class="row">
-            <label class="col-md-4 control-label"
-                   for="clientenombreId">Cliente</label>
-            <div class="col-md-8">
-              <input class="form-control"
-                     id="clientenombreId"
-                     type="text"
-                     required
-                     formControlName="nombre" />
-              <span class="help-block" *ngIf="(formGroup.get('fcliente').get('nombre').touched || formGroup.get('fcliente').get('nombre').dirty) &&  formGroup.get('fcliente').get('nombre').errors">
-                <span *ngIf="formGroup.get('nombre').errors.required">
-                  El campo cliente es requerido
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>-->
-      <!--<div class="form-group col-md-6"
-           [ngClass]="{'has-error': (formGroup.get('id').touched || formGroup.get('id').dirty) &&  !formGroup.get('id').valid}">
-        <div class="row">
-          <label class="col-md-4 control-label"
-                 for="tareaId">Id</label>
-          <div class="col-md-8">
-            <input class="form-control"
-                   id="tareaId"
-                   type="text"
-                   style="width:5rem"
-                   required
-                   formControlName="id" />
-            <span class="help-block" *ngIf="(formGroup.get('id').touched || formGroup.get('id').dirty) &&  formGroup.get('id').errors">
-              <span *ngIf="formGroup.get('id').errors.required">
-                El campo id es requerido
-              </span>
+    <div class="form-group col-md-6"
+         [ngClass]="{'has-error': (formGroup.get('fcliente').get('nombre').touched || formGroup.get('fcliente').get('nombre').dirty) &&  !formGroup.get('fcliente').get('nombre').valid}">
+      <div class="row">
+        <label class="col-md-4 control-label"
+               for="clientenombreId">Cliente</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="clientenombreId"
+                 type="text"
+                 required
+                 formControlName="nombre" />
+          <span class="help-block" *ngIf="(formGroup.get('fcliente').get('nombre').touched || formGroup.get('fcliente').get('nombre').dirty) &&  formGroup.get('fcliente').get('nombre').errors">
+            <span *ngIf="formGroup.get('nombre').errors.required">
+              El campo cliente es requerido
             </span>
-          </div>
+          </span>
         </div>
-      </div>-->
+      </div>
+    </div>
+  </div>-->
       <!--<div class="form-group col-md-6"
-           [ngClass]="{'has-error': (formGroup.get('codigo').touched || formGroup.get('codigo').dirty) &&  !formGroup.get('codigo').valid}">
-        <div class="row">
-          <label class="col-md-4 control-label"
-                 for="codigoId">Codigo</label>
-          <div class="col-md-8">
-            <input class="form-control"
-                   id="codigoId"
-                   type="text"
-                   style="width:7rem"
-                   required
-                   formControlName="codigo" />
-            <span class="help-block" *ngIf="(formGroup.get('codigo').touched || formGroup.get('codigo').dirty) &&  formGroup.get('codigo').errors">
-              <span *ngIf="formGroup.get('codigo').errors.required">
-                El campo Codigo es requerido
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>-->
+       [ngClass]="{'has-error': (formGroup.get('id').touched || formGroup.get('id').dirty) &&  !formGroup.get('id').valid}">
+    <div class="row">
+      <label class="col-md-4 control-label"
+             for="tareaId">Id</label>
+      <div class="col-md-8">
+        <input class="form-control"
+               id="tareaId"
+               type="text"
+               style="width:5rem"
+               required
+               formControlName="id" />
+        <span class="help-block" *ngIf="(formGroup.get('id').touched || formGroup.get('id').dirty) &&  formGroup.get('id').errors">
+          <span *ngIf="formGroup.get('id').errors.required">
+            El campo id es requerido
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>-->
+      <!--<div class="form-group col-md-6"
+       [ngClass]="{'has-error': (formGroup.get('codigo').touched || formGroup.get('codigo').dirty) &&  !formGroup.get('codigo').valid}">
+    <div class="row">
+      <label class="col-md-4 control-label"
+             for="codigoId">Codigo</label>
+      <div class="col-md-8">
+        <input class="form-control"
+               id="codigoId"
+               type="text"
+               style="width:7rem"
+               required
+               formControlName="codigo" />
+        <span class="help-block" *ngIf="(formGroup.get('codigo').touched || formGroup.get('codigo').dirty) &&  formGroup.get('codigo').errors">
+          <span *ngIf="formGroup.get('codigo').errors.required">
+            El campo Codigo es requerido
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>-->
       <!--[value]="date.value"-->
 
       <div class="form-group">
@@ -107,33 +107,46 @@
       </div>
 
 
+
+      <button mat-flat-button color="primary" (click)="csvInput.click()">Subir Acta Inicio</button>
+      <input #csvInput
+             onclick="this.value=null" (change)="csvInputChange($event)"
+             id="dlgFile"
+             hidden="hidden"
+             type="file"
+             required>
+
+
+
+      <br />
+      <hr />
       <!--<div class="form-group col-md-6"
-           [ngClass]="{'has-error': (formGroup.get('fecha').touched || formGroup.get('fecha').dirty) &&  !formGroup.get('fecha').valid}">
-        <div class="row">
-          <label class="col-md-4 control-label"
-                 for="fechaId">Fecha</label>
-          <div class="col-md-8">
-            <input class="form-control"
-                   id="fechaId"
-                   type="date"
-                   style="width:13rem"
-                   required
-                   formControlName="fecha" />
-            <span class="help-block" *ngIf="(formGroup.get('fecha').touched || formGroup.get('fecha').dirty) &&  formGroup.get('fecha').errors">
-              <span *ngIf="formGroup.get('fecha').errors.required">
-                El campo Fecha es requerido
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>-->
-      <!--<div class="form-row">
-        <div class="col-md-4 col-md-offset-2">
-          <span>
-            <a (click)="CrearDetalleTarea()">Agregar Tarea </a>
+       [ngClass]="{'has-error': (formGroup.get('fecha').touched || formGroup.get('fecha').dirty) &&  !formGroup.get('fecha').valid}">
+    <div class="row">
+      <label class="col-md-4 control-label"
+             for="fechaId">Fecha</label>
+      <div class="col-md-8">
+        <input class="form-control"
+               id="fechaId"
+               type="date"
+               style="width:13rem"
+               required
+               formControlName="fecha" />
+        <span class="help-block" *ngIf="(formGroup.get('fecha').touched || formGroup.get('fecha').dirty) &&  formGroup.get('fecha').errors">
+          <span *ngIf="formGroup.get('fecha').errors.required">
+            El campo Fecha es requerido
           </span>
-        </div>
-      </div>-->
+        </span>
+      </div>
+    </div>
+  </div>-->
+      <!--<div class="form-row">
+    <div class="col-md-4 col-md-offset-2">
+      <span>
+        <a (click)="CrearDetalleTarea()">Agregar Tarea </a>
+      </span>
+    </div>
+  </div>-->
 
 
 

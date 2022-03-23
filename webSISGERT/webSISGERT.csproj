@@ -29,6 +29,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20220322162405_actualizacionImagenes.cs" />
+    <Compile Remove="Migrations\20220322162405_actualizacionImagenes.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ClientApp\src\app\clientes\cliente.ts" />
     <None Remove="ClientApp\src\app\detalle-ordenes-trabajo\detalleOrdenTrabajo.ts" />
     <None Remove="ClientApp\src\app\empleados\empleado.ts" />
