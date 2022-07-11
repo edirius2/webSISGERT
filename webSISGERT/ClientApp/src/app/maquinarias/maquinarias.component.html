@@ -1,0 +1,43 @@
+<h1>Lista de Maquinarias</h1>
+<div>
+  <button class="btn btn-primary" [routerLink]='["/maquinaria-agregar"]'>Agregar Maquinaria</button>
+</div>
+
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Cliente</mat-label>
+  <input matInput
+         aria-label="Cliente"
+         [matAutocomplete]="auto"
+         >
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let cliente of listaClientes" [value]="cliente.nombre" (onSelectionChange)='cargarMaquinarias(cliente.id)'>
+      <span>{{cliente.nombre}}</span> |
+      <small>Contacto: {{cliente.contacto}}</small>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Placa</th>
+      <th>Marca</th>
+      <th>Tipo</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let maquinaria of listaMaquinarias">
+      <td>{{maquinaria.id}}</td>
+      <td>{{maquinaria.placa}}</td>
+      <td>{{maquinaria.marca.descripcion}}</td>
+      <td>{{maquinaria.tipo.descripcion}}</td>
+      <td>{{maquinaria.estado.descripcion}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/maquinaria-editar/" + maquinaria.id]'>Editar</button>
+        <button class="btn btn-danger">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,22 @@
+<h1>Lista Marcas Maquinarias</h1>
+<button [routerLink]='["/marcaMaquinaria-agregar"]' class="btn btn-primary">Agregar Marca Maquinaria</button>
+<p *ngIf="!(marcaMaquinarias && marcaMaquinarias.Lenght)">No hay registros para mostrar</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Descripcion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let marcaMaquinaria of marcaMaquinarias">
+      <td>{{marcaMaquinaria.id}}</td>
+      <td>{{marcaMaquinaria.descripcion}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/marcaMaquinaria-editar/" + marcaMaquinaria.id]'>Editar</button>
+        <button class="btn btn-danger">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

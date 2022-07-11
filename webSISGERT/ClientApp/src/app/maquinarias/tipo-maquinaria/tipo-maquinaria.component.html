@@ -1,0 +1,21 @@
+<h1>
+  Lista Tipo Maquinarias
+</h1>
+<button [routerLink]='["/tipoMaquinaria-agregar"]' class="btn btn-primary">Agregar Tipo Maquinaria</button>
+
+<p *ngIf="!(tipoMaquinarias && tipoMaquinarias.Length)">No hay registros por mostrar</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Descripcion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tipoMaquinaria of listaTipoMaquinarias">
+      <td>{{tipoMaquinaria.id}}</td>
+      <td>{{tipoMaquinaria.descripcion}}</td>
+    </tr>
+  </tbody>
+</table>

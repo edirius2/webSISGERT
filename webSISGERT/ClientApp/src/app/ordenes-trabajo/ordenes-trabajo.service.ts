@@ -1,9 +1,17 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { iOrdenTrabajo } from './ordenTrabajo';
+import { RequestOptions } from '@angular/http';
 
 
+
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Accept': 'application/json' }),
+  'responseType': 'text'
+}
+const headers = new HttpHeaders().append('Content-Disposition', 'multipart/form-data') ;
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +19,7 @@ import { iOrdenTrabajo } from './ordenTrabajo';
 export class OrdenesTrabajoService {
 
   private apiURL = this.baseUrl + "api/OrdenesTrabajo";
+
 
 
   constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
@@ -37,4 +46,24 @@ export class OrdenesTrabajoService {
     return this.httpClient.put<iOrdenTrabajo>(this.apiURL + "/" + ordenTrabajo.id, ordenTrabajo);
   }
 
+  crearImagenInformePreliminar(archivo: File): Observable<string> {
+    var formData = new FormData();
+    formData.append("archivo", archivo, archivo.name)
+    var lol = this.httpClient.post(this.apiURL + "/CrearImagenInformePreliminar", formData, { headers: headers, responseType: 'text' } );
+    return lol;
+  }
+
+  crearImagenRecepcionEquipos(archivo: File): Observable<string> {
+    var formData = new FormData();
+    formData.append("archivo", archivo, archivo.name)
+    var lol = this.httpClient.post(this.apiURL + "/CrearImagenRecepcionEquipos", formData, { headers: headers, responseType: 'text' });
+    return lol;
+  }
+
+  crearImagenActaConformidad(archivo: File): Observable<string> {
+    var formData = new FormData();
+    formData.append("archivo", archivo, archivo.name)
+    var lol = this.httpClient.post(this.apiURL + "/CrearImagenActaConformidad", formData, { headers: headers, responseType: 'text' });
+    return lol;
+  }
 }

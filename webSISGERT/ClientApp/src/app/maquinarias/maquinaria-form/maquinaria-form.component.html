@@ -1,0 +1,100 @@
+<h1>Agregar Maquinaria</h1>
+<form class="form-horizontal" novalidate
+      (ngSubmit)="save()" [formGroup]="formGroup">
+
+  <div class="container">
+    <div class="row">
+      <div formGroupName="cliente" class="col-md-6">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Cliente</mat-label>
+          <input matInput
+                 aria-label="Cliente"
+                 [matAutocomplete]="auto"
+                 [formControl]="stateCtrl"
+                 formControlName="nombre">
+          <mat-autocomplete #auto="matAutocomplete" class="example-full-width">
+            <mat-option *ngFor="let cliente of listaClientes" [value]="cliente.nombre" (onSelectionChange)='getPostCliente(cliente)'>
+              <span>{{cliente.nombre}}</span>
+              <small>Contacto: {{cliente.contacto}}</small>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+
+      <div formGroupName="marca" class="col-md-6">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Marca Maquinaria</mat-label>
+          <input matInput
+                 aria-label="MarcaMaquinaria"
+                 [matAutocomplete]="auto2"
+                 [formControl]="stateCtrl2"
+                 formControlName="descripcion" />
+          <mat-autocomplete #auto2="matAutocomplete">
+            <mat-option *ngFor="let marca of listaMarcasMaquinaria" [value]="marca.descripcion" (onSelectionChange)='getPostMarcaMaquinaria(marca)'>
+              <span>{{marca.descripcion}}</span>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+      </div>
+    </div>
+  </div>
+  <div formGroupName="estado">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Estado Maquinaria</mat-label>
+      <input matInput
+             aria-label="EstadoMaquinaria"
+             [matAutocomplete]="auto3"
+             [formControl]="stateCtrl3"
+             formControlName="descripcion" />
+      <mat-autocomplete #auto3="matAutocomplete">
+        <mat-option *ngFor="let estado of listaEstadosMaquinaria" [value]="estado.descripcion" (onSelectionChange)='getPostEstadoMaquinaria(estado)'>
+          <span>{{estado.descripcion}}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div formGroupName="tipo">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Tipo Maquinaria</mat-label>
+      <input matInput
+             aria-label="TipoMaquinaria"
+             [matAutocomplete]="auto4"
+             [formControl]="stateCtrl4"
+             formControlName="descripcion" />
+      <mat-autocomplete #auto4="matAutocomplete">
+        <mat-option *ngFor="let tipo of listaTiposMaquinaria" [value]="tipo.descripcion" (onSelectionChange)='getPostTipoMaquinaria(tipo)'>
+          <span>{{tipo.descripcion}}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Placa</mat-label>
+      <input matInput placeholder="Ex0001"
+             required
+             formControlName="placa">
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-4 col-md-offset-2">
+      <span>
+        <button class="btn btn-primary"
+                type="submit"
+                [disabled]="!formGroup.valid">
+          Salvar
+        </button>
+        <button class="btn"
+                [routerLink]='["/maquinarias"]'>
+          Cancelar
+        </button>
+
+      </span>
+    </div>
+  </div>
+</form>

@@ -145,6 +145,58 @@ namespace webSISGERT.Migrations
                     b.ToTable("Empleados");
                 });
 
+            modelBuilder.Entity("webSISGERT.Models.OT.EstadoMaquinaria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descripcion");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EstadosMaquinaria");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.OT.Maquinaria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ClienteId");
+
+                    b.Property<int>("EstadoMaquinariaId");
+
+                    b.Property<int>("MarcaMaquinariaId");
+
+                    b.Property<string>("Placa");
+
+                    b.Property<int>("TipoMaquinariaId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("EstadoMaquinariaId");
+
+                    b.HasIndex("MarcaMaquinariaId");
+
+                    b.HasIndex("TipoMaquinariaId");
+
+                    b.ToTable("Maquinarias");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.OT.MarcaMaquinaria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descripcion");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MarcasMaquinaria");
+                });
+
             modelBuilder.Entity("webSISGERT.Models.OT.OrdenTrabajo", b =>
                 {
                     b.Property<int>("Id")
@@ -201,6 +253,18 @@ namespace webSISGERT.Migrations
                     b.ToTable("Tarea");
                 });
 
+            modelBuilder.Entity("webSISGERT.Models.OT.TipoMaquinaria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descripcion");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TiposMaquinaria");
+                });
+
             modelBuilder.Entity("webSISGERT.Models.OT.DetalleEmpleado", b =>
                 {
                     b.HasOne("webSISGERT.Models.OT.Empleado", "empleado")
@@ -245,6 +309,29 @@ namespace webSISGERT.Migrations
                     b.HasOne("webSISGERT.Models.OT.Tarea", "tarea")
                         .WithMany()
                         .HasForeignKey("TareaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.OT.Maquinaria", b =>
+                {
+                    b.HasOne("webSISGERT.Models.OT.Cliente", "cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.OT.EstadoMaquinaria", "Estado")
+                        .WithMany()
+                        .HasForeignKey("EstadoMaquinariaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.OT.MarcaMaquinaria", "Marca")
+                        .WithMany()
+                        .HasForeignKey("MarcaMaquinariaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.OT.TipoMaquinaria", "Tipo")
+                        .WithMany()
+                        .HasForeignKey("TipoMaquinariaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

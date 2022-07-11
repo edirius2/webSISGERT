@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using MySql.Data.EntityFrameworkCore;
 
 using webSISGERT.Models;
+using webSISGERT.Utilidades;
 
 namespace webSISGERT
 {
@@ -38,6 +39,9 @@ namespace webSISGERT
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddSingleton<IAlmacenadorArchivos, AlmacenadorArchivosEnLocal>();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

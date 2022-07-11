@@ -37,6 +37,10 @@
     <None Remove="ClientApp\src\app\clientes\cliente.ts" />
     <None Remove="ClientApp\src\app\detalle-ordenes-trabajo\detalleOrdenTrabajo.ts" />
     <None Remove="ClientApp\src\app\empleados\empleado.ts" />
+    <None Remove="ClientApp\src\app\maquinarias\estado-maquinarias\estadoMaquinaria.ts" />
+    <None Remove="ClientApp\src\app\maquinarias\maquinaria.ts" />
+    <None Remove="ClientApp\src\app\maquinarias\marca-maquinaria\marcaMaquinaria.ts" />
+    <None Remove="ClientApp\src\app\maquinarias\tipo-maquinaria\tipoMaquinaria.ts" />
     <None Remove="ClientApp\src\app\ordenes-trabajo\detalle-empleado\detalleEmpleado.ts" />
     <None Remove="ClientApp\src\app\ordenes-trabajo\detalle-pago\detallePago.ts" />
     <None Remove="ClientApp\src\app\ordenes-trabajo\detalle-repuesto\detalleRepuesto.ts" />
@@ -47,13 +51,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Cotizaciones\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\clientes\cliente.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\detalle-ordenes-trabajo\detalleOrdenTrabajo.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\empleados\empleado.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\maquinarias\estado-maquinarias\estadoMaquinaria.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\maquinarias\maquinaria.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\maquinarias\marca-maquinaria\marcaMaquinaria.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\maquinarias\tipo-maquinaria\tipoMaquinaria.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ordenes-trabajo\detalle-empleado\detalleEmpleado.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ordenes-trabajo\detalle-pago\detallePago.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ordenes-trabajo\detalle-repuesto\detalleRepuesto.ts" />

@@ -35,16 +35,32 @@
       <!--<img src="tigre.jpg" alt="" class="card-img-top">-->
       <div class="card-body cajaOT">
         <h5 class="card-title">
-          Codigo: {{OT.codigo}}
+          <small>Cod:</small> 
+           {{OT.codigo}}
           <button mat-button class="icono" matTooltip="Ver detalle">
             <span class="material-icons" (click)="llenarDetalle(OT.id)">
               visibility
             </span>
           </button>
-          
+
           <button mat-button class="icono" matTooltip="Editar">
             <span class="material-icons" [routerLink]='["/ordenesTrabajo-editar/" + OT.id]'>
               edit
+            </span>
+          </button>
+          <button mat-button class="icono" matTooltip="Informe Preliminar" (click)="openDialog(OT.informePreliminar)">
+            <span class="material-icons">
+              receipt
+            </span>
+          </button>
+          <button mat-button class="icono" matTooltip="Formato de Recepcion Equipos" (click)="openDialog(OT.formatoRecepcionEquipos)">
+            <span class="material-icons">
+              assignment
+            </span>
+          </button>
+          <button mat-button class="icono" matTooltip="Acta de Conformidad" (click)="openDialog(OT.actaConformidad)">
+            <span class="material-icons">
+              fact_check
             </span>
           </button>
         </h5>

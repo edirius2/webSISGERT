@@ -1,0 +1,34 @@
+<h1>Agregar Tipo Maquinaria</h1>
+<form class="form-horizontal" novalidate (ngSubmit)="save()" [formGroup]="formGroup">
+  <fieldset>
+    <div class="form-group">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Descripcion</mat-label>
+        <input type="text" matInput formControlName="descripcion" [errorStateMatcher]="matcher"
+               placeholder="Ejemplo" required />
+      </mat-form-field>
+      <mat-error *ngIf="(formGroup.get('descripcion').touched || formGroup.get('descripcion').dirty) &&  formGroup.get('descripcion').errors">
+        Por favor ingrese una Descripcion valida.
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('descripcion').errors && formGroup.get('descripcion').errors.required">
+        Descripcion es <strong>requerida</strong>
+      </mat-error>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-4 col-md-offset-2">
+        <span>
+          <button class="btn btn-primary"
+                  type="submit"
+                  [disabled]="!formGroup.valid">
+            Salvar
+          </button>
+          <button class="btn"
+                  [routerLink]='["/tipo-Maquinarias"]'>
+            Cancelar
+          </button>
+        </span>
+      </div>
+    </div>
+  </fieldset>
+</form>

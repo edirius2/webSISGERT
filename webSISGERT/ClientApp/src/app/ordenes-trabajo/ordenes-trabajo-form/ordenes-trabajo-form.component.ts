@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { OrdenesTrabajoService } from '../ordenes-trabajo.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,7 +9,12 @@ import { Observable } from 'rxjs';
 import { iOrdenTrabajo } from '../ordenTrabajo';
 import { Console } from '@angular/core/src/console';
 import { map, startWith } from 'rxjs/operators';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ContenedorImagenComponent } from '../contenedor-imagen/contenedor-imagen.component';
 
+export interface DialogData {
+  ruta: string;
+}
 
 @Component({
   selector: 'app-ordenes-trabajo-form',
@@ -19,8 +24,23 @@ import { map, startWith } from 'rxjs/operators';
 export class OrdenesTrabajoFormComponent implements OnInit {
   stateCtrl = new FormControl();
 
+  formatLabel(value: number) {
+    if (value == 0) {
+      return 'A';
+    }
+
+    if (value == 50) {
+      return 'P';
+    }
+
+    if (value == 100) {
+      return 'C';
+    }
+    return value;
+  }
+
   constructor(private fb: FormBuilder, private ordenesTrabajoService: OrdenesTrabajoService, private clientesService: ClientesService, private router: Router,
-    private activatedRouter: ActivatedRoute) {
+    private activatedRouter: ActivatedRoute, public dialog: MatDialog) {
     this.filtroClientes = this.stateCtrl.valueChanges.pipe(
       startWith(''),
       map(state => (state ? this._filterClientes(state) : this.listaClientes.slice())),
@@ -36,7 +56,10 @@ export class OrdenesTrabajoFormComponent implements OnInit {
   filtroClientes: Observable<ICliente[]>;
   clienteSeleccionado: ICliente;
   modoSeleccion: boolean = false;
-  
+
+  rutaInformePreliminar: string = "";
+  rutaActaRecepcionEquipos: string = "";
+  rutaActaConformidad: string = "";
 
   ngOnInit() {
     this.formGroup = this.fb.group({
@@ -75,13 +98,7 @@ export class OrdenesTrabajoFormComponent implements OnInit {
     return this.listaClientes.filter(cliente => cliente.nombre.toLowerCase().includes(filterValue));
   }
 
-  //prueba() {
-  //  console.log(this.formGroup.get('id').errors);
-  //  console.log(this.formGroup.get('codigo').errors);
-  //  console.log(this.formGroup.get('fecha').errors);
-  //  console.log(this.formGroup.get('cliente').get('nombre').value);
-  //  console.log(this.formGroup.get('cliente').get('id').value);
-  //}
+
 
   getPosts(option: any) {
     this.clienteSeleccionado = option;
@@ -103,12 +120,18 @@ export class OrdenesTrabajoFormComponent implements OnInit {
     ordenTrabajo.clienteId = ordenTrabajo.cliente.id;
     
     if (this.modoEdicion) {
+      ordenTrabajo.informePreliminar = this.rutaInformePreliminar;
+      ordenTrabajo.actaConformidad = this.rutaActaConformidad;
+      ordenTrabajo.formatoRecepcionEquipos = this.rutaActaRecepcionEquipos;
       this.ordenesTrabajoService.editarOrdenTrabajo(ordenTrabajo).
         subscribe(ordenTrabajo => this.onSaveSucess(),
           error => console.error(error));
     }
     else {
       ordenTrabajo.id = 0;
+      ordenTrabajo.informePreliminar = this.rutaInformePreliminar;
+      ordenTrabajo.actaConformidad = this.rutaActaConformidad;
+      ordenTrabajo.formatoRecepcionEquipos = this.rutaActaRecepcionEquipos;
       this.ordenesTrabajoService.createOrdenTrabajo(ordenTrabajo).
         subscribe(ordenTrabajo => this.onSaveSucess(),
           error => console.error(error));
@@ -129,6 +152,68 @@ export class OrdenesTrabajoFormComponent implements OnInit {
       cliente: this.clienteSeleccionado,
       fecha: ordenTrabajo.fecha
     });
-    
+    this.rutaInformePreliminar = ordenTrabajo.informePreliminar;
+    this.rutaActaConformidad = ordenTrabajo.actaConformidad;
+    this.rutaActaRecepcionEquipos = ordenTrabajo.formatoRecepcionEquipos;
+  }
+
+
+  InputChange(fileInputEvent: any) {
+    console.log(fileInputEvent.target.files[0]);
+    this.ordenesTrabajoService.crearImagenInformePreliminar(fileInputEvent.target.files[0]).
+      subscribe(nombreArchivo => this.prueba(nombreArchivo),
+        error => console.error(error));
+  }
+
+  InputChangeRecepcion(fileInputEvent: any) {
+    console.log(fileInputEvent.target.files[0]);
+    this.ordenesTrabajoService.crearImagenRecepcionEquipos(fileInputEvent.target.files[0]).
+      subscribe(nombreArchivo => this.rutaActaRecepcionEquipos = nombreArchivo,
+        error => console.error(error));
+  }
+
+  InputChangeConformidad(fileInputEvent: any) {
+    console.log(fileInputEvent.target.files[0]);
+    this.ordenesTrabajoService.crearImagenActaConformidad(fileInputEvent.target.files[0]).
+      subscribe(nombreArchivo => this.rutaActaConformidad = nombreArchivo,
+        error => console.error(error));
+  }
+
+
+  prueba(archi: string) {
+    this.rutaInformePreliminar = archi;
+    console.log(this.rutaInformePreliminar);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ContenedorImagenComponent, {
+      width: '700px',
+      data: { ruta: this.rutaInformePreliminar},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.rutaInformePreliminar = result;
+    });
+  }
+
+  getSliderTickInterval() {
+
   }
 }
+
+
+//@Component({
+//  selector: 'dialog-overview-example-dialog',
+//  templateUrl: 'dialog-overview-example-dialog.html',
+//})
+//export class DialogOverviewExampleDialog {
+//  constructor(
+//    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+//    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+//  ) { }
+
+//  onNoClick(): void {
+//    this.dialogRef.close();
+//  }
+//}

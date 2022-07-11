@@ -15,6 +15,10 @@ namespace webSISGERT.Models
 
         }
 
+        public DbSet<MarcaMaquinaria> MarcasMaquinaria { get; set; }
+        public DbSet<TipoMaquinaria> TiposMaquinaria { get; set; }
+        public DbSet<EstadoMaquinaria> EstadosMaquinaria { get; set; }
+        public DbSet<Maquinaria> Maquinarias { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Repuesto> Repuestos { get; set; }
         public DbSet<DetalleTarea> DetallesTareas { get; set; }

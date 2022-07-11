@@ -5,8 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+
+
+
 using webSISGERT.Models;
 using webSISGERT.Models.OT;
+using System.IO;
+using webSISGERT.Utilidades;
 
 namespace webSISGERT.Controllers
 {
@@ -14,11 +20,15 @@ namespace webSISGERT.Controllers
     [ApiController]
     public class OrdenesTrabajoController : ControllerBase
     {
+        private readonly IAlmacenadorArchivos _almacenadorArchivos;
         private readonly AplicationDBContext _context;
+        
 
-        public OrdenesTrabajoController(AplicationDBContext context)
+        public OrdenesTrabajoController(AplicationDBContext context, IAlmacenadorArchivos almacenadorArchivos)
         {
             _context = context;
+            _almacenadorArchivos = almacenadorArchivos;
+
         }
 
         // GET: api/OrdenesTrabajo
@@ -101,6 +111,42 @@ namespace webSISGERT.Controllers
                 throw new Exception(EX.Message);
             }
             
+        }
+
+        [HttpPost("[action]")]
+        public async Task<string> CrearImagenInformePreliminar(IFormFile archivo)
+        {
+            using (var stream = new MemoryStream())
+            {
+                await archivo.CopyToAsync(stream);
+                var filesbytes = stream.ToArray();
+                var lol= await _almacenadorArchivos.Crear(filesbytes, archivo.ContentType, Path.GetExtension(archivo.FileName), ConstantesDeAplicacion.ContenedorFirmaPreliminar, Guid.NewGuid().ToString());
+                return lol;
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<string> CrearImagenRecepcionEquipos(IFormFile archivo)
+        {
+            using (var stream = new MemoryStream())
+            {
+                await archivo.CopyToAsync(stream);
+                var filesbytes = stream.ToArray();
+                var lol = await _almacenadorArchivos.Crear(filesbytes, archivo.ContentType, Path.GetExtension(archivo.FileName), ConstantesDeAplicacion.ContenedorRecepcionEquipos, Guid.NewGuid().ToString());
+                return lol;
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<string> CrearImagenActaConformidad(IFormFile archivo)
+        {
+            using (var stream = new MemoryStream())
+            {
+                await archivo.CopyToAsync(stream);
+                var filesbytes = stream.ToArray();
+                var lol = await _almacenadorArchivos.Crear(filesbytes, archivo.ContentType, Path.GetExtension(archivo.FileName), ConstantesDeAplicacion.ContenedorActaConformidad, Guid.NewGuid().ToString());
+                return lol;
+            }
         }
 
         // DELETE: api/OrdenesTrabajo/5

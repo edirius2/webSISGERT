@@ -1,21 +1,20 @@
-<div class="container">
+<!--<div class="container">-->
   <form class="form-horizontal" novalidate
         (ngSubmit)="save()" [formGroup]="formGroup" style="margin-bottom:25px">
     <fieldset>
-      <div class="row justify-content-end">
-        <div class="form-group example-full-width ">
+      
+        <div class="form-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Codigo</mat-label>
-            <textarea matInput placeholder="Ex. C000001"
+            <input matInput placeholder="Ex. OT000001"
                       required
-                      formControlName="codigo"></textarea>
+                      formControlName="codigo">
           </mat-form-field>
         </div>
-      </div>
+      
 
-      <div formGroupName="cliente" class="example-full-width">
-        <div class="example-form example-full-width">
-          <mat-form-field appearance="fill">
+      <div formGroupName="cliente">
+          <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Cliente</mat-label>
             <input matInput
                    aria-label="Cliente"
@@ -29,124 +28,87 @@
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
+      </div>
+     
+      <div class="row" style="margin-left:2px">
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Fecha</mat-label>
+            <input matInput [matDatepicker]="picker3" [value]="date.value"
+                   required
+                   formControlName="fecha">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+          </mat-form-field>
         </div>
 
-      </div>
-      <!--<div formGroupName="fcliente">
-    <div class="form-group col-md-6"
-         [ngClass]="{'has-error': (formGroup.get('fcliente').get('nombre').touched || formGroup.get('fcliente').get('nombre').dirty) &&  !formGroup.get('fcliente').get('nombre').valid}">
-      <div class="row">
-        <label class="col-md-4 control-label"
-               for="clientenombreId">Cliente</label>
-        <div class="col-md-8">
-          <input class="form-control"
-                 id="clientenombreId"
-                 type="text"
-                 required
-                 formControlName="nombre" />
-          <span class="help-block" *ngIf="(formGroup.get('fcliente').get('nombre').touched || formGroup.get('fcliente').get('nombre').dirty) &&  formGroup.get('fcliente').get('nombre').errors">
-            <span *ngIf="formGroup.get('nombre').errors.required">
-              El campo cliente es requerido
-            </span>
+
+
+        <button mat-button class="icono" color="primary" matTooltip="Subir Acta Inicio" (click)="csvInput.click()">
+          <span class="material-icons">
+            arrow_circle_up
           </span>
-        </div>
-      </div>
-    </div>
-  </div>-->
-      <!--<div class="form-group col-md-6"
-       [ngClass]="{'has-error': (formGroup.get('id').touched || formGroup.get('id').dirty) &&  !formGroup.get('id').valid}">
-    <div class="row">
-      <label class="col-md-4 control-label"
-             for="tareaId">Id</label>
-      <div class="col-md-8">
-        <input class="form-control"
-               id="tareaId"
-               type="text"
-               style="width:5rem"
-               required
-               formControlName="id" />
-        <span class="help-block" *ngIf="(formGroup.get('id').touched || formGroup.get('id').dirty) &&  formGroup.get('id').errors">
-          <span *ngIf="formGroup.get('id').errors.required">
-            El campo id es requerido
+          <span class="material-icons">
+            receipt
           </span>
-        </span>
-      </div>
-    </div>
-  </div>-->
-      <!--<div class="form-group col-md-6"
-       [ngClass]="{'has-error': (formGroup.get('codigo').touched || formGroup.get('codigo').dirty) &&  !formGroup.get('codigo').valid}">
-    <div class="row">
-      <label class="col-md-4 control-label"
-             for="codigoId">Codigo</label>
-      <div class="col-md-8">
-        <input class="form-control"
-               id="codigoId"
-               type="text"
-               style="width:7rem"
-               required
-               formControlName="codigo" />
-        <span class="help-block" *ngIf="(formGroup.get('codigo').touched || formGroup.get('codigo').dirty) &&  formGroup.get('codigo').errors">
-          <span *ngIf="formGroup.get('codigo').errors.required">
-            El campo Codigo es requerido
+        </button>
+        <input #csvInput
+               onclick="this.value=null" (change)="InputChange($event)"
+               id="dlgFile"
+               hidden="hidden"
+               type="file">
+
+        <button mat-flat-button class="icono" color="primary" matTooltip="Subir Recepcion Equipos" (click)="csvInputRecepcion.click()">
+          <span class="material-icons">
+            assignment
           </span>
-        </span>
+        </button>
+        <input #csvInputRecepcion
+               onclick="this.value=null" (change)="InputChangeRecepcion($event)"
+               id="dlgFile2"
+               hidden="hidden"
+               type="file">
+
+        <button mat-flat-button class="icono" color="primary" matTooltip="Subir Acta conformidad" (click)="csvInputConformidad.click()">
+          <span class="material-icons">
+            fact_check
+          </span>
+        </button>
+        <input #csvInputConformidad
+               onclick="this.value=null" (change)="InputChangeConformidad($event)"
+               id="dlgFile3"
+               hidden="hidden"
+               type="file">
       </div>
-    </div>
-  </div>-->
-      <!--[value]="date.value"-->
+     <hr />
 
-      <div class="form-group">
-        <mat-form-field appearance="fill">
-          <mat-label>Fecha</mat-label>
-          <input matInput [matDatepicker]="picker3" [value]="date.value"
-                 required
-                 formControlName="fecha">
-          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-          <mat-datepicker #picker3></mat-datepicker>
-        </mat-form-field>
-      </div>
+      <mat-card class="example-result-card">
+        <mat-card-content>
+          <h6>Estado</h6>
+          <br>
 
 
-
-      <button mat-flat-button color="primary" (click)="csvInput.click()">Subir Acta Inicio</button>
-      <input #csvInput
-             onclick="this.value=null" (change)="csvInputChange($event)"
-             id="dlgFile"
-             hidden="hidden"
-             type="file"
-             required>
-
-
+          <div class="row justify-content-around " style="width:330px">
+            <label id="example-name-label" class="example-name-label">Abierto  </label>
+            <label class="example-value-label">Pendiente Pago   </label>
+            <label class="example-value-label">Cerrado   </label>
+          </div>
+          <mat-slider class="example-margin" style="width:300px"
+                      [disabled]="disabled"
+                      thumbLabel
+                      [displayWith]="formatLabel"
+                      [max]=100
+                      [min]=0
+                      [step]=50
+                      [tickInterval]="getSliderTickInterval()"
+                      aria-labelledby="example-name-label">
+          </mat-slider>
+          <!--[(ngModel)]="value"-->
+        </mat-card-content>
+      </mat-card>
 
       <br />
       <hr />
-      <!--<div class="form-group col-md-6"
-       [ngClass]="{'has-error': (formGroup.get('fecha').touched || formGroup.get('fecha').dirty) &&  !formGroup.get('fecha').valid}">
-    <div class="row">
-      <label class="col-md-4 control-label"
-             for="fechaId">Fecha</label>
-      <div class="col-md-8">
-        <input class="form-control"
-               id="fechaId"
-               type="date"
-               style="width:13rem"
-               required
-               formControlName="fecha" />
-        <span class="help-block" *ngIf="(formGroup.get('fecha').touched || formGroup.get('fecha').dirty) &&  formGroup.get('fecha').errors">
-          <span *ngIf="formGroup.get('fecha').errors.required">
-            El campo Fecha es requerido
-          </span>
-        </span>
-      </div>
-    </div>
-  </div>-->
-      <!--<div class="form-row">
-    <div class="col-md-4 col-md-offset-2">
-      <span>
-        <a (click)="CrearDetalleTarea()">Agregar Tarea </a>
-      </span>
-    </div>
-  </div>-->
 
 
 
@@ -169,38 +131,11 @@
 
     </fieldset>
   </form>
-</div>
+  <button mat-raised-button (click)="openDialog()">Ver Informe Preliminar</button>
+<!--</div>-->
 
 
 
-
-
-<!--<mat-tab-group>
-  <mat-tab label="Tareas">
-
-    <a [routerLink]="['/ordenesTrabajo-editar/' + OrdenTrabajoId + '/detallesTareas/' + OrdenTrabajoId]"> Lista  tarea</a>
-    <a [routerLink]="['/ordenesTrabajo-editar/' + OrdenTrabajoId + '/detalleTarea-agregar/'+ OrdenTrabajoId]"> Agregar tarea </a>
-    <router-outlet></router-outlet>
-
-
-
-  </mat-tab>
-  <mat-tab label="Repuestos">
-    <div class="container">
-
-    </div>
-  </mat-tab>
-  <mat-tab label="Pagos">
-    <a [routerLink]="['/ordenesTrabajo-editar/' + OrdenTrabajoId + '/detallesPagos/' + OrdenTrabajoId]"> Lista  Pagos</a>
-    <a [routerLink]="['/ordenesTrabajo-editar/' + OrdenTrabajoId + '/detallesPago-agregar/'+ OrdenTrabajoId]"> Agregar Pago </a>
-    <router-outlet></router-outlet>
-  </mat-tab>
-  <mat-tab label="Empleados">
-    <a [routerLink]="['/ordenesTrabajo-editar/' + OrdenTrabajoId + '/detallesEmpleados/' + OrdenTrabajoId]"> Lista  Empleados</a>
-    <a [routerLink]="['/ordenesTrabajo-editar/' + OrdenTrabajoId + '/detalleEmpleado-agregar/'+ OrdenTrabajoId]"> Agregar Empleado </a>
-    <router-outlet></router-outlet>
-  </mat-tab>
-</mat-tab-group>-->
 <<nav mat-tab-nav-bar ngClass="tabs">
   <a mat-tab-link
      [routerLink]="['/ordenesTrabajo-editar/' + OrdenTrabajoId + '/detallesTareas/' + OrdenTrabajoId]"

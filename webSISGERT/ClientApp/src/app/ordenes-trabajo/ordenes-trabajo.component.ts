@@ -8,6 +8,12 @@ import { ClientesService } from '../clientes/clientes.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { ContenedorImagenComponent } from './contenedor-imagen/contenedor-imagen.component';
+import { MatDialog } from '@angular/material';
+
+export interface DialogData {
+  ruta: string;
+}
 
 @Component({
   selector: 'app-ordenes-trabajo',
@@ -24,7 +30,8 @@ export class OrdenesTrabajoComponent implements OnInit {
   filtroClientes: Observable<ICliente[]>;
   stateCtrl = new FormControl();
 
-  constructor(private ordenesTrabajosService: OrdenesTrabajoService, private contenedorOrdenTrabajo: contenedorOrdenTrabajoService, private clientesService: ClientesService) {
+  constructor(private ordenesTrabajosService: OrdenesTrabajoService, private contenedorOrdenTrabajo: contenedorOrdenTrabajoService, private clientesService: ClientesService,
+              public dialog: MatDialog) {
     this.filtroClientes = this.stateCtrl.valueChanges.pipe(
       startWith(''),
       map(state => (state ? this._filterClientes(state) : this.listaClientes.slice())),
@@ -68,5 +75,17 @@ export class OrdenesTrabajoComponent implements OnInit {
     this.ordenesTrabajosService.getOrdenesTrabajoConFiltro(this.clienteSeleccionado.id.toString())
       .subscribe(ordenesDesdeWs => this.ordenesTrabajo = ordenesDesdeWs,
         error => console.error(error));
+  }
+
+  openDialog(rutaImagen : string ): void {
+    const dialogRef = this.dialog.open(ContenedorImagenComponent, {
+      width: '700px',
+      data: { ruta: rutaImagen },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.rutaInformePreliminar = result;
+    });
   }
 }

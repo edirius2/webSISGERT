@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -25,7 +25,7 @@ import { DetalleTareaComponent } from './ordenes-trabajo/detalle-tarea/detalle-t
 import { ContenedorOrdenTrabajoComponent } from './ordenes-trabajo/contenedor-orden-trabajo/contenedor-orden-trabajo.component';
 import { DetalleTareaService } from './ordenes-trabajo/detalle-tarea/detalle-tarea.service';
 import { DetalleTareaFormComponent } from './ordenes-trabajo/detalle-tarea/detalle-tarea-form/detalle-tarea-form.component';
-import { MatFormField, MatInput, MatOption, MatAutocomplete, MatCheckboxModule, MatLabel, MatAutocompleteModule, MatOptionModule, MatPaginatorModule, MatFormFieldModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule, MatTooltipModule, MatExpansionModule } from '@angular/material';
+import { MatFormField, MatInput, MatOption, MatAutocomplete, MatCheckboxModule, MatLabel, MatAutocompleteModule, MatOptionModule, MatPaginatorModule, MatFormFieldModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule, MatTooltipModule, MatExpansionModule, MatDialogModule, MatSliderModule, MatCardModule } from '@angular/material';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpleadosService } from './empleados/empleados.service';
 import { EmpleadosFormComponent } from './empleados/empleados-form/empleados-form.component';
@@ -39,6 +39,15 @@ import { RepuestosService } from './repuestos/repuestos.service';
 import { RepuestosComponent } from './repuestos/repuestos.component';
 import { RepuestosFormComponent } from './repuestos/repuestos-form/repuestos-form.component';
 import { contenedorOrdenTrabajoService } from './ordenes-trabajo/contenedor-orden-trabajo/contenedor-orden-trabajo.service';
+import { ContenedorImagenComponent } from './ordenes-trabajo/contenedor-imagen/contenedor-imagen.component';
+import { TipoMaquinariaComponent } from './maquinarias/tipo-maquinaria/tipo-maquinaria.component';
+import { TipoMaquinariaFormComponent } from './maquinarias/tipo-maquinaria/tipo-maquinaria-form/tipo-maquinaria-form.component';
+import { MarcaMaquinariaComponent } from './maquinarias/marca-maquinaria/marca-maquinaria.component';
+import { MarcaMaquinariaFormComponent } from './maquinarias/marca-maquinaria/marca-maquinaria-form/marca-maquinaria-form.component';
+import { EstadoMaquinariasComponent } from './maquinarias/estado-maquinarias/estado-maquinarias.component';
+import { EstadoMaquinariasFormComponent } from './maquinarias/estado-maquinarias/estado-maquinarias-form/estado-maquinarias-form.component';
+import { MaquinariasComponent } from './maquinarias/maquinarias.component';
+import { MaquinariaFormComponent } from './maquinarias/maquinaria-form/maquinaria-form.component';
 
 
 @NgModule({
@@ -68,9 +77,15 @@ import { contenedorOrdenTrabajoService } from './ordenes-trabajo/contenedor-orde
     RepuestosComponent,
     RepuestosFormComponent,
     MatInput,
-
-  
-   
+    ContenedorImagenComponent,
+    TipoMaquinariaComponent,
+    TipoMaquinariaFormComponent,
+    MarcaMaquinariaComponent,
+    MarcaMaquinariaFormComponent,
+    EstadoMaquinariasComponent,
+    EstadoMaquinariasFormComponent,
+    MaquinariasComponent,
+    MaquinariaFormComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -91,7 +106,12 @@ import { contenedorOrdenTrabajoService } from './ordenes-trabajo/contenedor-orde
     MatGridListModule,
     MatTooltipModule,
     MatExpansionModule,
+    MatDialogModule,
+    MatSliderModule,
+    MatCardModule,
     BrowserAnimationsModule,
+   
+
     RouterModule.forRoot([
       { path: '', component: OrdenesTrabajoComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
@@ -106,6 +126,18 @@ import { contenedorOrdenTrabajoService } from './ordenes-trabajo/contenedor-orde
       { path: 'empleados-agregar', component: EmpleadosFormComponent },
       { path: 'empleados-editar/:id', component: EmpleadosFormComponent },
       { path: 'ordenesTrabajo', component: OrdenesTrabajoComponent },
+      { path: 'tipo-maquinarias', component: TipoMaquinariaComponent },
+      { path: 'tipoMaquinaria-agregar', component: TipoMaquinariaFormComponent },
+      { path: 'tipoMaquinaria-editar/:id', component: TipoMaquinariaFormComponent },
+      { path: 'marca-maquinarias', component: MarcaMaquinariaComponent },
+      { path: 'marcaMaquinaria-agregar', component: MarcaMaquinariaFormComponent },
+      { path: 'marcaMaquinaria-editar/:id', component: MarcaMaquinariaFormComponent },
+      { path: 'estado-maquinarias', component: EstadoMaquinariasComponent },
+      { path: 'estadoMaquinaria-agregar', component: EstadoMaquinariasFormComponent },
+      { path: 'estadoMaquinaria-editar/:id', component: EstadoMaquinariasFormComponent },
+      { path: 'maquinarias', component: MaquinariasComponent },
+      { path: 'maquinaria-agregar', component: MaquinariaFormComponent },
+      { path: 'maquinaria-editar/:id', component: MaquinariaFormComponent },
       { path: 'contenedorOrdenTrabajo', component: ContenedorOrdenTrabajoComponent },
       {
         path: 'ordenesTrabajo-agregar', component: OrdenesTrabajoFormComponent,
@@ -143,6 +175,7 @@ import { contenedorOrdenTrabajoService } from './ordenes-trabajo/contenedor-orde
     ])
   ],
   providers: [ClientesService, TareasService, DetalleTareaService, MatDatepickerModule, EmpleadosService, DetalleEmpleadoService, DetallePagoService, RepuestosService, contenedorOrdenTrabajoService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ContenedorImagenComponent],
 })
 export class AppModule { }

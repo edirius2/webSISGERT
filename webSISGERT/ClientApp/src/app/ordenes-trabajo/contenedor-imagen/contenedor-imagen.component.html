@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Informe Preliminar</h1>
+<div mat-dialog-content>
+  <img src="{{data.ruta}}" />
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Salir</button>
+  <button mat-button [mat-dialog-close]="data.ruta" cdkFocusInitial>Ok</button>
+</div>
+

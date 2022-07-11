@@ -1,0 +1,23 @@
+<h1>Lista Estados Maquinarias</h1>
+
+<button [routerLink]='["/estadoMaquinaria-agregar"]' class="btn btn-primary" >Agregar Estado</button>
+
+<p *ngIf="!(estadosMaquinarias && estadosMaquinarias.Length)">No hay estados para mostrar</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Descripcion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let estadoMaquinaria of estadosMaquinarias">
+      <td>{{estadoMaquinaria.id}}</td>
+      <td>{{estadoMaquinaria.descripcion}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/estadoMaquinaria-editar/" + estadoMaquinaria.id]'>Editar</button>
+        <button class="btn btn-danger">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
