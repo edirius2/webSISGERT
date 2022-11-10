@@ -26,7 +26,7 @@
 </mat-expansion-panel>
 
 <hr />
-<button mat-raised-button [routerLink]='["/ordenesTrabajo-agregar"]'>Agregar Orden Trabajo</button>
+<button mat-raised-button [routerLink]='["/principal/ordenesTrabajo-agregar"]'>Agregar Orden Trabajo</button>
 
 <div></div>
 <mat-grid-list cols="2">
@@ -85,6 +85,60 @@
   
 </div>
 
+<div class="mat-elevation-z8">
+ <table class="table">
+   <thead>
+     <tr>
+       <th>Codigo</th>
+       <th>Nombre</th>
+       <th>Descripcion</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr *ngFor="let ot of ordenesTrabajo">
+       <td>{{ot.codigo}}</td>
+       <td>{{ot.cliente.nombre}}</td>
+
+       <td>
+         <button mat-button class="icono" matTooltip="Ver detalle">
+           <span class="material-icons" (click)="llenarDetalle(ot.id)">
+             visibility
+           </span>
+         </button>
+       </td>
+       <td>
+         <button mat-button class="icono" matTooltip="Editar">
+           <span class="material-icons" [routerLink]='["/principal/ordenesTrabajo-editar/" + ot.id]'>
+             edit
+           </span>
+         </button>
+       </td>
+       <td>
+         <button mat-button class="icono" matTooltip="Informe Preliminar" (click)="openDialog(ot.informePreliminar)">
+           <span class="material-icons">
+             receipt
+           </span>
+         </button>
+       </td>
+       <td>
+         <button mat-button class="icono" matTooltip="Formato de Recepcion Equipos" (click)="openDialog(ot.formatoRecepcionEquipos)">
+           <span class="material-icons">
+             assignment
+           </span>
+         </button>
+       </td>
+       <td>
+         <button mat-button class="icono" matTooltip="Acta de Conformidad" (click)="openDialog(ot.actaConformidad)">
+           <span class="material-icons">
+             fact_check
+           </span>
+         </button>
+       </td>
+     </tr>
+     
+   </tbody>
+ </table>
+</div>
 <mat-paginator [length]="100"
                [pageSize]="10"
                [pageSizeOptions]="[5, 10, 25, 100]"

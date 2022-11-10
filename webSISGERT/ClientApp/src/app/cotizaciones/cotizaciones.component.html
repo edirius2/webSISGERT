@@ -1,0 +1,77 @@
+
+
+<button class="btn btn-primary" [routerLink]='["/principal/cotizaciones-agregar"]'>Agregar Cotizacion</button>
+
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filtrar:
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-form-field appearance="fill">
+    <mat-label>Cliente</mat-label>
+    <input matInput
+           aria-label="Cliente"
+           [matAutocomplete]="auto"
+           [formControl]="stateCtrl">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let cliente of listaClientes" [value]="cliente.nombre" (onSelectionChange)='getPosts(cliente)'>
+        <span>{{cliente.nombre}}</span> |
+        <small>Contacto: {{cliente.contacto}}</small>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Maquinaria</mat-label>
+    <input matInput
+           aria-label="Maquinaria"
+           [matAutocomplete]="auto"
+           [formControl]="stateCtrl">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let maquina of listaMaquinarias" [value]="Maquinaria.nombre" (onSelectionChange)='getPosts(maquinaria)'>
+        <span>{{maquinaria.nombre}}</span> |
+        <small>Contacto: {{maquinaria.contacto}}</small>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Estado</mat-label>
+    <input matInput
+           aria-label="Estado"
+           [matAutocomplete]="auto"
+           [formControl]="stateCtrl">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let estado of listaEstados" [value]="estado.nombre" (onSelectionChange)='getPosts(estado)'>
+        <span>{{Estado}}</span> |
+        <small>Contacto: {{Estado}}</small>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</mat-expansion-panel>
+
+<p>
+  Lista de Cotizaciones
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Codigo</th>
+      <th>Cliente</th>
+      <th>Maquinaria</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{Codigo}}</td>
+      <td>{{Cliente}}</td>
+      <td>{{Maquinaria}}</td>
+      <td>{{Estado}}</td>
+      <td>
+        <button class="btn btn-primary">Editar</button>
+        <button class="btn btn-primary">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -12,5 +12,6 @@ namespace webSISGERT.Models.OT
         public virtual Empleado empleado { get; set; }
         public int OrdenTrabajoId { get; set; }
         public virtual OrdenTrabajo ordenTrabajo { get; set; }
+        public double Horas { get; set; }
     }
 }

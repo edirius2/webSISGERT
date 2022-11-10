@@ -10,6 +10,11 @@ using MySql.Data.EntityFrameworkCore;
 
 using webSISGERT.Models;
 using webSISGERT.Utilidades;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System;
 
 namespace webSISGERT
 {
@@ -26,6 +31,23 @@ namespace webSISGERT
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AplicationDBContext>(options => options.UseMySql(Configuration.GetConnectionString("SISGERTContext")));
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AplicationDBContext>()
+                .AddDefaultTokenProviders();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = "yourdomain.com",
+                    ValidAudience = "yourdomain.com",
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(Configuration["Llave_super_secreta"])),
+                        ClockSkew = TimeSpan.Zero
+                });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //Codigo para evitar la repeticion de los objetos
@@ -63,6 +85,7 @@ namespace webSISGERT
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

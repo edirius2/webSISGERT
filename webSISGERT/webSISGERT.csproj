@@ -31,9 +31,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20220322162405_actualizacionImagenes.cs" />
     <Compile Remove="Migrations\20220322162405_actualizacionImagenes.Designer.cs" />
+    <Compile Remove="Migrations\20221109134715_cambiosVarios.cs" />
+    <Compile Remove="Migrations\20221109134715_cambiosVarios.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\account\user-info.ts" />
     <None Remove="ClientApp\src\app\clientes\cliente.ts" />
     <None Remove="ClientApp\src\app\detalle-ordenes-trabajo\detalleOrdenTrabajo.ts" />
     <None Remove="ClientApp\src\app\empleados\empleado.ts" />
@@ -51,6 +54,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\account\user-info.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\clientes\cliente.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\detalle-ordenes-trabajo\detalleOrdenTrabajo.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\empleados\empleado.ts" />

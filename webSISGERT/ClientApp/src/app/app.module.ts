@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 
@@ -25,7 +25,7 @@ import { DetalleTareaComponent } from './ordenes-trabajo/detalle-tarea/detalle-t
 import { ContenedorOrdenTrabajoComponent } from './ordenes-trabajo/contenedor-orden-trabajo/contenedor-orden-trabajo.component';
 import { DetalleTareaService } from './ordenes-trabajo/detalle-tarea/detalle-tarea.service';
 import { DetalleTareaFormComponent } from './ordenes-trabajo/detalle-tarea/detalle-tarea-form/detalle-tarea-form.component';
-import { MatFormField, MatInput, MatOption, MatAutocomplete, MatCheckboxModule, MatLabel, MatAutocompleteModule, MatOptionModule, MatPaginatorModule, MatFormFieldModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule, MatTooltipModule, MatExpansionModule, MatDialogModule, MatSliderModule, MatCardModule } from '@angular/material';
+import { MatFormField, MatInput, MatOption, MatAutocomplete, MatCheckboxModule, MatLabel, MatAutocompleteModule, MatOptionModule, MatPaginatorModule, MatFormFieldModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule, MatTooltipModule, MatExpansionModule, MatDialogModule, MatSliderModule, MatCardModule, MatTableModule } from '@angular/material';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpleadosService } from './empleados/empleados.service';
 import { EmpleadosFormComponent } from './empleados/empleados-form/empleados-form.component';
@@ -48,6 +48,18 @@ import { EstadoMaquinariasComponent } from './maquinarias/estado-maquinarias/est
 import { EstadoMaquinariasFormComponent } from './maquinarias/estado-maquinarias/estado-maquinarias-form/estado-maquinarias-form.component';
 import { MaquinariasComponent } from './maquinarias/maquinarias.component';
 import { MaquinariaFormComponent } from './maquinarias/maquinaria-form/maquinaria-form.component';
+import { RegisterComponent } from './account/register/register.component';
+import { LoginComponent } from './account/login/login.component';
+import { AccountService } from './account/account.service';
+import { AuthGuardService } from './account/auth-guard.service';
+import { LogInterceptorService } from './account/log-interceptor.service';
+import { PrincipalComponent } from './principal/principal.component';
+import { CotizacionesComponent } from './cotizaciones/cotizaciones.component';
+import { CotizacionesFormComponent } from './cotizaciones/cotizaciones-form/cotizaciones-form.component';
+import { DetalleTareaCComponent } from './cotizaciones/detalle-tarea-c/detalle-tarea-c.component';
+import { DetalleTareaCFormComponent } from './cotizaciones/detalle-tarea-c/detalle-tarea-cform/detalle-tarea-cform.component';
+import { DetalleGastoCComponent } from './cotizaciones/detalle-gasto-c/detalle-gasto-c.component';
+import { DetalleGastoCFormComponent } from './cotizaciones/detalle-gasto-c/detalle-gasto-cform/detalle-gasto-cform.component';
 
 
 @NgModule({
@@ -77,6 +89,7 @@ import { MaquinariaFormComponent } from './maquinarias/maquinaria-form/maquinari
     RepuestosComponent,
     RepuestosFormComponent,
     MatInput,
+   
     ContenedorImagenComponent,
     TipoMaquinariaComponent,
     TipoMaquinariaFormComponent,
@@ -86,6 +99,15 @@ import { MaquinariaFormComponent } from './maquinarias/maquinaria-form/maquinari
     EstadoMaquinariasFormComponent,
     MaquinariasComponent,
     MaquinariaFormComponent,
+    RegisterComponent,
+    LoginComponent,
+    PrincipalComponent,
+    CotizacionesComponent,
+    CotizacionesFormComponent,
+    DetalleTareaCComponent,
+    DetalleTareaCFormComponent,
+    DetalleGastoCComponent,
+    DetalleGastoCFormComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -109,72 +131,114 @@ import { MaquinariaFormComponent } from './maquinarias/maquinaria-form/maquinari
     MatDialogModule,
     MatSliderModule,
     MatCardModule,
+    MatTableModule,
+    
+    
     BrowserAnimationsModule,
+    
    
 
     RouterModule.forRoot([
-      { path: '', component: OrdenesTrabajoComponent, pathMatch: 'full' },
+      { path: '', component: LoginComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'clientes', component: ClientesComponent },
-      { path: 'clientes-agregar', component: ClientesFormComponent },
-      { path: 'clientes-editar/:id', component: ClientesFormComponent },
-      { path: 'tareas', component: TareasComponent },
-      { path: 'tareas-agregar', component: TareasFormComponent },
-      { path: 'tareas-editar/:id', component: TareasFormComponent },
-      { path: 'empleados', component: EmpleadosComponent },
-      { path: 'empleados-agregar', component: EmpleadosFormComponent },
-      { path: 'empleados-editar/:id', component: EmpleadosFormComponent },
-      { path: 'ordenesTrabajo', component: OrdenesTrabajoComponent },
-      { path: 'tipo-maquinarias', component: TipoMaquinariaComponent },
-      { path: 'tipoMaquinaria-agregar', component: TipoMaquinariaFormComponent },
-      { path: 'tipoMaquinaria-editar/:id', component: TipoMaquinariaFormComponent },
-      { path: 'marca-maquinarias', component: MarcaMaquinariaComponent },
-      { path: 'marcaMaquinaria-agregar', component: MarcaMaquinariaFormComponent },
-      { path: 'marcaMaquinaria-editar/:id', component: MarcaMaquinariaFormComponent },
-      { path: 'estado-maquinarias', component: EstadoMaquinariasComponent },
-      { path: 'estadoMaquinaria-agregar', component: EstadoMaquinariasFormComponent },
-      { path: 'estadoMaquinaria-editar/:id', component: EstadoMaquinariasFormComponent },
-      { path: 'maquinarias', component: MaquinariasComponent },
-      { path: 'maquinaria-agregar', component: MaquinariaFormComponent },
-      { path: 'maquinaria-editar/:id', component: MaquinariaFormComponent },
+     
       { path: 'contenedorOrdenTrabajo', component: ContenedorOrdenTrabajoComponent },
+     
+      { path: 'register', component: RegisterComponent },
       {
-        path: 'ordenesTrabajo-agregar', component: OrdenesTrabajoFormComponent,
-        children: [
-          { path: 'detallesTareas/:idOT', component: DetalleTareaComponent },
-          { path: 'detalleTarea-agregar/:idOT', component: DetalleTareaFormComponent },
-          { path: 'detalleTarea-editar/:id', component: DetalleTareaFormComponent },
-          { path: 'detallesEmpleados/:idOT', component: DetalleEmpleadoComponent },
-          { path: 'detallesEmpleados-agregar/:idOT', component: DetalleEmpleadoFormComponent },
-          { path: 'detallesEmpleados-editar/:id', component: DetalleEmpleadoFormComponent },
-          { path: 'detallesPagos/:idOT', component: DetallePagoComponent },
-          { path: 'detallesPago-agregar/:idOT', component: DetallePagoFormComponent },
-          { path: 'detallesPago-editar/:id', component: DetallePagoFormComponent},
-        ]
+        path: 'principal', component: PrincipalComponent, children: [
 
-      },
-      {
-        path: 'ordenesTrabajo-editar/:id', component: OrdenesTrabajoFormComponent,
-        children: [
-          { path: 'detallesTareas/:idOT', component: DetalleTareaComponent },
-          { path: 'detalleTarea-agregar/:idOT', component: DetalleTareaFormComponent },
-          { path: 'detalleTarea-editar/:id', component: DetalleTareaFormComponent },
-          { path: 'detallesEmpleados/:idOT', component: DetalleEmpleadoComponent },
-          { path: 'detalleEmpleado-agregar/:idOT', component: DetalleEmpleadoFormComponent },
-          { path: 'detalleEmpleado-editar/:id', component: DetalleEmpleadoFormComponent },
-          { path: 'detallesPagos/:idOT', component: DetallePagoComponent },
-          { path: 'detallesPago-agregar/:idOT', component: DetallePagoFormComponent },
-          { path: 'detallesPago-editar/:id', component: DetallePagoFormComponent },
-        ]
+          { path: 'detalleTareasC', component: DetalleTareaCComponent },
+          { path: 'maquinarias', component: MaquinariasComponent, canActivate: [AuthGuardService] },
+          { path: 'cotizaciones', component: CotizacionesComponent },
+          {
+            path: 'cotizaciones-agregar', component: CotizacionesFormComponent,
+            children: [
+              { path: 'detallesTareasC', component: DetalleTareaCComponent },
+              { path: 'detallesGastosC', component: DetalleGastoCComponent },
+              { path: 'detalleGastoC-agregar', component: DetalleGastoCFormComponent },
+              { path: 'detalleTareaC-agregar', component: DetalleTareaCFormComponent },
+            ]
+          },
+          {
+            path: 'cotizaciones-editar/:id', component: CotizacionesComponent,
+            children: [
+              { path: 'detallesTareasC/:idC', component: DetalleTareaCComponent },
+              { path: 'detallesGastosC', component: DetalleGastoCComponent },
+              { path: 'detalleGastoC-agregar', component: DetalleGastoCFormComponent },
+              { path: 'detalleTareaC-agregar', component: DetalleTareaCFormComponent },
+            ]
+          },
+          { path: 'clientes', component: ClientesComponent },
+          { path: 'clientes-agregar', component: ClientesFormComponent },
+          { path: 'clientes-editar/:id', component: ClientesFormComponent },
+          { path: 'tareas', component: TareasComponent },
+          { path: 'tareas-agregar', component: TareasFormComponent },
+          { path: 'tareas-editar/:id', component: TareasFormComponent },
+          { path: 'empleados', component: EmpleadosComponent },
+          { path: 'empleados-agregar', component: EmpleadosFormComponent },
+          { path: 'empleados-editar/:id', component: EmpleadosFormComponent },
+          { path: 'ordenesTrabajo', component: OrdenesTrabajoComponent },
+          { path: 'tipo-maquinarias', component: TipoMaquinariaComponent },
+          { path: 'tipoMaquinaria-agregar', component: TipoMaquinariaFormComponent },
+          { path: 'tipoMaquinaria-editar/:id', component: TipoMaquinariaFormComponent },
+          { path: 'marca-maquinarias', component: MarcaMaquinariaComponent },
+          { path: 'marcaMaquinaria-agregar', component: MarcaMaquinariaFormComponent },
+          { path: 'marcaMaquinaria-editar/:id', component: MarcaMaquinariaFormComponent },
+          { path: 'estado-maquinarias', component: EstadoMaquinariasComponent },
+          { path: 'estadoMaquinaria-agregar', component: EstadoMaquinariasFormComponent },
+          { path: 'estadoMaquinaria-editar/:id', component: EstadoMaquinariasFormComponent },
+          { path: 'maquinaria-agregar', component: MaquinariaFormComponent },
+          { path: 'maquinaria-editar/:id', component: MaquinariaFormComponent },
+          {
+            path: 'ordenesTrabajo-agregar', component: OrdenesTrabajoFormComponent,
+            children: [
+              { path: 'detallesTareas/:idOT', component: DetalleTareaComponent },
+              { path: 'detalleTarea-agregar/:idOT', component: DetalleTareaFormComponent },
+              { path: 'detalleTarea-editar/:id', component: DetalleTareaFormComponent },
+              { path: 'detallesEmpleados/:idOT', component: DetalleEmpleadoComponent },
+              { path: 'detallesEmpleados-agregar/:idOT', component: DetalleEmpleadoFormComponent },
+              { path: 'detallesEmpleados-editar/:id', component: DetalleEmpleadoFormComponent },
+              { path: 'detallesPagos/:idOT', component: DetallePagoComponent },
+              { path: 'detallesPago-agregar/:idOT', component: DetallePagoFormComponent },
+              { path: 'detallesPago-editar/:id', component: DetallePagoFormComponent },
+            ]
 
+          },
+          {
+            path: 'ordenesTrabajo-editar/:id', component: OrdenesTrabajoFormComponent,
+            children: [
+              { path: 'detallesTareas/:idOT', component: DetalleTareaComponent },
+              { path: 'detalleTarea-agregar/:idOT', component: DetalleTareaFormComponent },
+              { path: 'detalleTarea-editar/:id', component: DetalleTareaFormComponent },
+              { path: 'detallesEmpleados/:idOT', component: DetalleEmpleadoComponent },
+              { path: 'detalleEmpleado-agregar/:idOT', component: DetalleEmpleadoFormComponent },
+              { path: 'detalleEmpleado-editar/:id', component: DetalleEmpleadoFormComponent },
+              { path: 'detallesPagos/:idOT', component: DetallePagoComponent },
+              { path: 'detallesPago-agregar/:idOT', component: DetallePagoFormComponent },
+              { path: 'detallesPago-editar/:id', component: DetallePagoFormComponent },
+            ]
+
+          },
+          { path: 'repuestos', component: RepuestosComponent },
+          { path: 'repuesto-agregar', component: RepuestosFormComponent },
+
+        ]
       },
-      { path: 'repuestos', component: RepuestosComponent },
-      { path: 'repuesto-agregar', component: RepuestosFormComponent },
       
     ])
   ],
-  providers: [ClientesService, TareasService, DetalleTareaService, MatDatepickerModule, EmpleadosService, DetalleEmpleadoService, DetallePagoService, RepuestosService, contenedorOrdenTrabajoService],
+  providers: [ClientesService, TareasService, DetalleTareaService, MatDatepickerModule, EmpleadosService, DetalleEmpleadoService, DetallePagoService, RepuestosService,
+    contenedorOrdenTrabajoService,
+    AccountService,
+    AuthGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LogInterceptorService,
+      multi: true
+    }
+    ],
   bootstrap: [AppComponent],
   entryComponents: [ContenedorImagenComponent],
 })

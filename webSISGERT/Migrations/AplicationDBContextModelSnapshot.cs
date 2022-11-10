@@ -17,6 +17,285 @@ namespace webSISGERT.Migrations
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("ProviderKey");
+
+                    b.Property<string>("ProviderDisplayName");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.Cotizaciones.Cotizacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ClienteId");
+
+                    b.Property<string>("Codigo")
+                        .HasMaxLength(15);
+
+                    b.Property<bool>("Enlazado");
+
+                    b.Property<int>("Estado");
+
+                    b.Property<DateTime>("Fecha");
+
+                    b.Property<int>("MaquinariaId");
+
+                    b.Property<string>("Observaciones");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("MaquinariaId");
+
+                    b.ToTable("Cotizaciones");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.Cotizaciones.Cotizacion_OT", b =>
+                {
+                    b.Property<int>("CotizacionId");
+
+                    b.Property<int>("OrdenTrabajoId");
+
+                    b.HasKey("CotizacionId", "OrdenTrabajoId");
+
+                    b.HasIndex("OrdenTrabajoId");
+
+                    b.ToTable("CotizacionesOrdenTrabajos");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.Cotizaciones.DetalleCostoCotizacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CostoId");
+
+                    b.Property<double>("Precio");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CostoId");
+
+                    b.ToTable("DetallesCostoCotizacion");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.Cotizaciones.DetalleCostoTareaCotizacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CostoId");
+
+                    b.Property<int>("DetalleTareaCotizacionId");
+
+                    b.Property<double>("Precio");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CostoId");
+
+                    b.HasIndex("DetalleTareaCotizacionId");
+
+                    b.ToTable("DetallesCostoTareaCotizacion");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.Cotizaciones.DetalleRepuestosCotizacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("CostoRepuesto");
+
+                    b.Property<int>("RepuestoId");
+
+                    b.Property<int?>("cotizacionId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RepuestoId");
+
+                    b.HasIndex("cotizacionId");
+
+                    b.ToTable("DetallesRepuestosCotizacion");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.Cotizaciones.DetalleTareaCotizacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Cantidad");
+
+                    b.Property<double>("Hora");
+
+                    b.Property<double>("Precio");
+
+                    b.Property<int>("TareaId");
+
+                    b.Property<int?>("cotizacionId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TareaId");
+
+                    b.HasIndex("cotizacionId");
+
+                    b.ToTable("DetallesTareaCotizacion");
+                });
+
             modelBuilder.Entity("webSISGERT.Models.OT.Cliente", b =>
                 {
                     b.Property<int>("Id")
@@ -33,6 +312,8 @@ namespace webSISGERT.Migrations
                         .IsRequired()
                         .HasMaxLength(15);
 
+                    b.Property<string>("Observaciones");
+
                     b.Property<string>("Telefono");
 
                     b.Property<int>("TipoDocumento");
@@ -42,12 +323,71 @@ namespace webSISGERT.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("webSISGERT.Models.OT.Costo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Codigo")
+                        .HasMaxLength(9);
+
+                    b.Property<string>("Comentario");
+
+                    b.Property<string>("Descripcion");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Costo");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.OT.DetalleCosto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CostoId");
+
+                    b.Property<int>("OrdenTrabajoId");
+
+                    b.Property<double>("Precio");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CostoId");
+
+                    b.HasIndex("OrdenTrabajoId");
+
+                    b.ToTable("DetallesCosto");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.OT.DetalleCostoTarea", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CostoId");
+
+                    b.Property<int>("DetalleTareaId");
+
+                    b.Property<double>("Precio");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CostoId");
+
+                    b.HasIndex("DetalleTareaId");
+
+                    b.ToTable("DetallesCostoTareas");
+                });
+
             modelBuilder.Entity("webSISGERT.Models.OT.DetalleEmpleado", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("EmpleadoId");
+
+                    b.Property<double>("Horas");
 
                     b.Property<int>("OrdenTrabajoId");
 
@@ -107,6 +447,8 @@ namespace webSISGERT.Migrations
 
                     b.Property<int>("Cantidad");
 
+                    b.Property<double>("Horas");
+
                     b.Property<int>("OrdenTrabajoId");
 
                     b.Property<double>("Precio");
@@ -135,6 +477,8 @@ namespace webSISGERT.Migrations
                     b.Property<string>("NumeroDocumento")
                         .IsRequired()
                         .HasMaxLength(15);
+
+                    b.Property<string>("Observaciones");
 
                     b.Property<string>("Telefono");
 
@@ -206,9 +550,12 @@ namespace webSISGERT.Migrations
 
                     b.Property<int>("ClienteId");
 
-                    b.Property<string>("Codigo");
+                    b.Property<string>("Codigo")
+                        .HasMaxLength(15);
 
-                    b.Property<string>("Estado");
+                    b.Property<string>("Descripcion");
+
+                    b.Property<int>("Estado");
 
                     b.Property<bool>("Favorito");
 
@@ -218,9 +565,15 @@ namespace webSISGERT.Migrations
 
                     b.Property<string>("InformePreliminar");
 
+                    b.Property<int>("MaquinariaId");
+
+                    b.Property<string>("Observaciones");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("MaquinariaId");
 
                     b.ToTable("OrdenesTrabajo");
                 });
@@ -263,6 +616,148 @@ namespace webSISGERT.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TiposMaquinaria");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("webSISGERT.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("webSISGERT.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("webSISGERT.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.Cotizaciones.Cotizacion", b =>
+                {
+                    b.HasOne("webSISGERT.Models.OT.Cliente", "cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.OT.Maquinaria", "maquinaria")
+                        .WithMany()
+                        .HasForeignKey("MaquinariaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.Cotizaciones.Cotizacion_OT", b =>
+                {
+                    b.HasOne("webSISGERT.Models.Cotizaciones.Cotizacion", "cotizacion")
+                        .WithMany("OrdenesTrabajo")
+                        .HasForeignKey("CotizacionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.OT.OrdenTrabajo", "ordenTrabajo")
+                        .WithMany()
+                        .HasForeignKey("OrdenTrabajoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.Cotizaciones.DetalleCostoCotizacion", b =>
+                {
+                    b.HasOne("webSISGERT.Models.OT.Costo", "costo")
+                        .WithMany()
+                        .HasForeignKey("CostoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.Cotizaciones.DetalleCostoTareaCotizacion", b =>
+                {
+                    b.HasOne("webSISGERT.Models.OT.Costo", "costo")
+                        .WithMany()
+                        .HasForeignKey("CostoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.Cotizaciones.DetalleTareaCotizacion", "detalleTareaCotizacion")
+                        .WithMany("DetallesCostos")
+                        .HasForeignKey("DetalleTareaCotizacionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.Cotizaciones.DetalleRepuestosCotizacion", b =>
+                {
+                    b.HasOne("webSISGERT.Models.OT.Repuesto", "repuesto")
+                        .WithMany()
+                        .HasForeignKey("RepuestoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.Cotizaciones.Cotizacion", "cotizacion")
+                        .WithMany("DetallesRepuestos")
+                        .HasForeignKey("cotizacionId");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.Cotizaciones.DetalleTareaCotizacion", b =>
+                {
+                    b.HasOne("webSISGERT.Models.OT.Tarea", "tarea")
+                        .WithMany()
+                        .HasForeignKey("TareaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.Cotizaciones.Cotizacion", "cotizacion")
+                        .WithMany("DetallesTareas")
+                        .HasForeignKey("cotizacionId");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.OT.DetalleCosto", b =>
+                {
+                    b.HasOne("webSISGERT.Models.OT.Costo", "costo")
+                        .WithMany()
+                        .HasForeignKey("CostoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.OT.OrdenTrabajo", "ordenTrabajo")
+                        .WithMany("DetallesCosto")
+                        .HasForeignKey("OrdenTrabajoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.OT.DetalleCostoTarea", b =>
+                {
+                    b.HasOne("webSISGERT.Models.OT.Costo", "costo")
+                        .WithMany()
+                        .HasForeignKey("CostoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.OT.DetalleTarea", "detalleTarea")
+                        .WithMany("DetallesCosto")
+                        .HasForeignKey("DetalleTareaId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("webSISGERT.Models.OT.DetalleEmpleado", b =>
@@ -340,6 +835,11 @@ namespace webSISGERT.Migrations
                     b.HasOne("webSISGERT.Models.OT.Cliente", "cliente")
                         .WithMany()
                         .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.OT.Maquinaria", "maquinaria")
+                        .WithMany()
+                        .HasForeignKey("MaquinariaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

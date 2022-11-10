@@ -1,0 +1,64 @@
+<form class="form-horizontal" novalidate
+      (ngSubmit)="save()" [formGroup]="formGroup" style="margin-bottom:25px">
+  <fieldset>
+    <div class="row justify-content-start">
+      <div class="formGroup cajacodigo">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Pre</mat-label>
+          <input matInput placeholder="Ex:OC"
+                 required
+                 formControlName="Codigo1" />
+        </mat-form-field>
+        
+      </div>
+      <div class="formGroup">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Codigo</mat-label>
+          <input matInput placeholder="Ex:0001"
+                 required
+                 formControlName="Codigo3" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="formGroup">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Descripcion:</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha:</mat-label>
+        <input matInput [matDatepicker]="dtpFecha" formControlName="Fecha" />
+        <mat-datepicker-toggle matSuffix [for]="dtpFecha"></mat-datepicker-toggle>
+        <mat-datepicker #dtpFecha></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Cliente:</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Maquinaria</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </div>
+  </fieldset>
+</form>
+
+<nav mat-tab-nav-bar ngClass="tabs">
+  <a mat-tab-link
+     [routerLink]="['/principal/cotizaciones-agregar/detallesTareasC']"
+     routerLinkActive="active-link">Lista de Tareas</a>
+  <a mat-tab-link
+     [routerLink]="['/principal/cotizaciones-agregar/detallesGastosC']"
+
+     >Gastos varios</a>
+</nav>
+<router-outlet></router-outlet>

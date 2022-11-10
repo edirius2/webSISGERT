@@ -1,0 +1,57 @@
+
+<div class="vh-100 justify-content-center align-items-center">
+  <h1 class="col-auto row justify-content-center align-items-center">Ingrese sus datos</h1>
+  <form class="form-horizontal" novalidate
+        [formGroup]="formGroup">
+    <fieldset>
+      <div class="form-group col-auto row justify-content-center align-items-center"
+           [ngClass]="{'has-error': (formGroup.get('email').touched || formGroup.get('email').dirty)&&  !formGroup.get('email').valid}">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Correo</mat-label>
+          <input matInput
+                 id="correoId"
+                 type="text"
+                 required
+                 formControlName="email" />
+        </mat-form-field>
+      </div>
+      <div class="form-group col-auto row justify-content-center align-items-center"
+           [ngClass]="{'has-error': (formGroup.get('password').touched || formGroup.get('password').dirty) &&  !formGroup.get('password').valid}">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput
+                 id="passwordId"
+                 type="password"
+                 required
+                 formControlName="password" />
+        </mat-form-field>
+      </div>
+
+      <div class="form-group col-auto row justify-content-center align-items-center">
+        <div class="col-auto">
+          <span>
+            <button class="btn btn-primary"
+                    type="button"
+                    (click)="loguearse()"
+                    [disabled]="!formGroup.valid">
+              Login
+            </button>
+            <button class="btn btn-primary"
+                    type="button"
+                    (click)="registrarse()">
+              Registrarse
+            </button>
+            <button class="btn"
+                    type="button"
+                    [routerLink]='["/"]'>
+              Salir
+            </button>
+          </span>
+
+        </div>
+
+      </div>
+
+    </fieldset>
+  </form>
+</div>

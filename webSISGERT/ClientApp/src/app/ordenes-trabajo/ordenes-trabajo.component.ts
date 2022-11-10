@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrdenesTrabajoService } from './ordenes-trabajo.service';
 import { iOrdenTrabajo } from './ordenTrabajo';
 import { forEach } from '@angular/router/src/utils/collection';
@@ -10,6 +10,7 @@ import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { ContenedorImagenComponent } from './contenedor-imagen/contenedor-imagen.component';
 import { MatDialog } from '@angular/material';
+
 
 export interface DialogData {
   ruta: string;
@@ -30,6 +31,11 @@ export class OrdenesTrabajoComponent implements OnInit {
   filtroClientes: Observable<ICliente[]>;
   stateCtrl = new FormControl();
 
+
+  
+
+
+
   constructor(private ordenesTrabajosService: OrdenesTrabajoService, private contenedorOrdenTrabajo: contenedorOrdenTrabajoService, private clientesService: ClientesService,
               public dialog: MatDialog) {
     this.filtroClientes = this.stateCtrl.valueChanges.pipe(
@@ -44,7 +50,9 @@ export class OrdenesTrabajoComponent implements OnInit {
 
     this.clientesService.getClientes().
       subscribe(clientesDesdeWS => this.listaClientes = clientesDesdeWS,
-        error => console.error(error));
+      error => console.error(error));
+
+
   }
 
   prueba(ordenes: iOrdenTrabajo[]) {

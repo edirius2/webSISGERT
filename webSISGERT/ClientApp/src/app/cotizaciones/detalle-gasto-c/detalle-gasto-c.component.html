@@ -1,0 +1,22 @@
+<h5>Lista de gastos</h5>
+<button [routerLink]="['/principal/cotizaciones-agregar/detalleGastoC-agregar']">Agregar Gasto</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Monto</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{Nombre}}</td>
+      <td>{{Monto}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/tareas-editar/" ]'>Editar</button>
+        <button class="btn btn-danger">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<mat-label>Total Gastos :</mat-label>
+<mat-label>00.00 </mat-label>

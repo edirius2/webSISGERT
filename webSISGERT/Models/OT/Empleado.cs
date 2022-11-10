@@ -23,5 +23,6 @@ namespace webSISGERT.Models.OT
         public string Telefono { get; set; }
         [MaxLength(50, ErrorMessage = "El campo correo electronico debe tener maximo 50 caracteres")]
         public string CorreoElectronico { get; set; }
+        public string Observaciones { get; set; }
     }
 }

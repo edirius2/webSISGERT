@@ -1,0 +1,20 @@
+<form class="form-horizontal" novalidate
+      (ngSubmit)="save()">
+  <fieldset>
+    <div class="example-form">
+      <mat-form-field class="example-full-width" appearance="fill" align="right">
+        <mat-label>Tarea</mat-label>
+        <input matInput
+               aria-label="tarea"
+               [matAutocomplete]="tarea">
+
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill" align="right">
+        <mat-label>Horas Hombre</mat-label>
+        <input matInput
+               aria-label="horas" />
+      </mat-form-field>
+    </div>
+  </fieldset>
+</form>
