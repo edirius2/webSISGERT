@@ -22,17 +22,17 @@ namespace webSISGERT.Controllers
         }
 
         // GET: api/DetalleCostoCotizaciones
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DetalleCostoCotizacion>>> GetDetallesCostoCotizacion()
+        [HttpGet("{idC}")]
+        public async Task<ActionResult<IEnumerable<DetalleCostoCotizacion>>> GetDetallesCostoCotizacion(int idC)
         {
-            return await _context.DetallesCostoCotizacion.ToListAsync();
+            return await _context.DetallesCostoCotizacion.Include(c=> c.costo).Where(c=> c.cotizacionId == idC).ToListAsync();
         }
 
         // GET: api/DetalleCostoCotizaciones/5
-        [HttpGet("{id}")]
+        [HttpGet("[action]/{id}")]
         public async Task<ActionResult<DetalleCostoCotizacion>> GetDetalleCostoCotizacion(int id)
         {
-            var detalleCostoCotizacion = await _context.DetallesCostoCotizacion.FindAsync(id);
+            var detalleCostoCotizacion = await _context.DetallesCostoCotizacion.Include(c=>c.costo).Where(c=> c.Id == id).FirstAsync();
 
             if (detalleCostoCotizacion == null)
             {
@@ -76,6 +76,7 @@ namespace webSISGERT.Controllers
         [HttpPost]
         public async Task<ActionResult<DetalleCostoCotizacion>> PostDetalleCostoCotizacion(DetalleCostoCotizacion detalleCostoCotizacion)
         {
+            _context.Costo.Attach(detalleCostoCotizacion.costo);
             _context.DetallesCostoCotizacion.Add(detalleCostoCotizacion);
             await _context.SaveChangesAsync();
 

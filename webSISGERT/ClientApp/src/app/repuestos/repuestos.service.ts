@@ -13,18 +13,18 @@ export class RepuestosService {
   constructor(private httpClient: HttpClient, @Inject('BASE_URL') private base_Url: string) { }
 
   getRepuestos(): Observable<IRepuesto[]> {
-    return this.httpClient.get<IRepuesto[]>(this.base_Url);
+    return this.httpClient.get<IRepuesto[]>(this.apiURL);
   }
 
   getRepuesto(idRepuesto: string): Observable<IRepuesto> {
-    return this.httpClient.get<IRepuesto>(this.base_Url + '/' + idRepuesto);
+    return this.httpClient.get<IRepuesto>(this.apiURL + '/' + idRepuesto);
   }
 
   createRepuesto(repuesto: IRepuesto): Observable<IRepuesto> {
-    return this.httpClient.post<IRepuesto>(this.base_Url, repuesto);
+    return this.httpClient.post<IRepuesto>(this.apiURL, repuesto);
   }
 
   editarRepuesto(repuesto: IRepuesto): Observable<IRepuesto> {
-    return this.httpClient.put<IRepuesto>(this.base_Url + '/' + repuesto.id, repuesto);
+    return this.httpClient.put<IRepuesto>(this.apiURL + '/' + repuesto.id, repuesto);
   }
 }

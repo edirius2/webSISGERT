@@ -1,21 +1,89 @@
 <h1>Lista de Maquinarias</h1>
 <div>
-  <button class="btn btn-primary" [routerLink]='["/maquinaria-agregar"]'>Agregar Maquinaria</button>
+  <button class="btn btn-primary" [routerLink]='["/principal/maquinaria-agregar"]'>Agregar Maquinaria</button>
 </div>
 
-<mat-form-field class="example-full-width" appearance="fill">
-  <mat-label>Cliente</mat-label>
-  <input matInput
-         aria-label="Cliente"
-         [matAutocomplete]="auto"
-         >
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let cliente of listaClientes" [value]="cliente.nombre" (onSelectionChange)='cargarMaquinarias(cliente.id)'>
-      <span>{{cliente.nombre}}</span> |
-      <small>Contacto: {{cliente.contacto}}</small>
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filtros:
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Cliente</mat-label>
+    <input matInput
+           aria-label="Cliente"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let cliente of listaClientes" [value]="cliente.nombre" (onSelectionChange)='cargarXCliente(cliente.id, $event)'>
+        <span>{{cliente.nombre}}</span> |
+        <small>Contacto: {{cliente.contacto}}</small>
+      </mat-option>
+      <mat-divider></mat-divider>
+      <mat-option [value]="" (onSelectionChange)='cargarXCliente(0, $event)'>
+        <span>Todos</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Placa</mat-label>
+    <input matInput
+           aria-label="Placa"
+           (input)="cargarXPlacaMaquinaria($event.target.value, $event)"
+           />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Tipo Maquinaria</mat-label>
+    <input matInput
+           aria-label="TipoMaquinaria"
+           [matAutocomplete]="auto3">
+    <mat-autocomplete #auto3="matAutocomplete" >
+      <mat-option *ngFor="let tipo of listaTipoMaquinaria" [value]="tipo.descripcion" (onSelectionChange)='cargarXTipoMaquinaria(tipo.id, $event)'>
+        <span>{{tipo.descripcion}}</span> |
+      </mat-option>
+      <mat-divider></mat-divider>
+      <mat-option [value]="" (onSelectionChange)='cargarXTipoMaquinaria(0, $event)'>
+        <span>Todos</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Marca Maquinaria</mat-label>
+    <input matInput
+           aria-label="MarcaMaquinaria"
+           [matAutocomplete]="auto4">
+    <mat-autocomplete #auto4="matAutocomplete">
+      <mat-option *ngFor="let marca of listaMarcaMaquinaria" [value]="marca.descripcion" (onSelectionChange)='cargarXMarcaMaquinaria(marca.id, $event)'>
+        <span>{{marca.descripcion}}</span> |
+      </mat-option>
+      <mat-divider></mat-divider>
+      <mat-option [value]="" (onSelectionChange)='cargarXMarcaMaquinaria(0, $event)'>
+        <span>Todos</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Estado Maquinaria</mat-label>
+    <input matInput
+           aria-label="EstadoMaquinaria"
+           [matAutocomplete]="auto5">
+    <mat-autocomplete #auto5="matAutocomplete">
+      <mat-option *ngFor="let estado of listaEstadoMaquinaria" [value]="estado.descripcion" (onSelectionChange)='cargarXEstadoMaquinaria(estado.id, $event)'>
+        <span>{{estado.descripcion}}</span> |
+      </mat-option>
+      <mat-divider></mat-divider>
+      <mat-option [value]="" (onSelectionChange)='cargarXEstadoMaquinaria(0, $event)'>
+        <span>Todos</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</mat-expansion-panel>
+
 
 <table class="table">
   <thead>
@@ -35,7 +103,7 @@
       <td>{{maquinaria.tipo.descripcion}}</td>
       <td>{{maquinaria.estado.descripcion}}</td>
       <td>
-        <button class="btn btn-primary" [routerLink]='["/maquinaria-editar/" + maquinaria.id]'>Editar</button>
+        <button class="btn btn-primary" [routerLink]='["/principal/maquinaria-editar/" + maquinaria.id]'>Editar</button>
         <button class="btn btn-danger">Eliminar</button>
       </td>
     </tr>

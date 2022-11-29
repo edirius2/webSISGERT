@@ -1,0 +1,49 @@
+<form class="form-horizontal" novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+  <fieldset>
+    <div class="example-form">
+      <div formGroupName="repuesto">
+        <mat-form-field class="example-full-width" appearance="fill" align="right">
+          <mat-label>Repuesto</mat-label>
+          <input matInput
+                 aria-label="Repuesto"
+                 formControlName="nombre"
+                 [matAutocomplete]="auto"
+                 [formControl]="stateCtrl" />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let repuesto of listaRepuestos" [value]="repuesto.nombre" (onSelectionChange)="setRepuesto(repuesto,$event)">
+              {{repuesto.nombre}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <mat-form-field>
+      <mat-label>Cantidad</mat-label>
+      <input matInput
+           aria-label="Cantidad"
+           formControlName="cantidad" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Costo</mat-label>
+        <input matInput
+           aria-label="Costo"
+           formControlName="costoRepuesto" />
+      </mat-form-field>
+
+      <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+          <span>
+            <button class="btn btn-primary"
+                    type="submit"
+                    [disabled]="!formGroup.valid">
+              Salvar
+            </button>
+            <button class="btn" [routerLink]='["/principal/cotizaciones-editar/" + idCotizacion + "/detallesRepuestosC/" + idCotizacion]'>
+              Cancelar
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</form>

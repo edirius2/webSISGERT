@@ -1,0 +1,20 @@
+<h3>Lista de Costos</h3>
+<button class="btn btn-primary" [routerLink]='["/principal/costos-agregar"]'>Agregar Costo</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Codigo</th>
+      <th>Descripcion</th>
+    </tr>
+    <tr *ngFor="let costo of listaCostos">
+      <td>{{costo.codigo}}</td>
+      <td>{{costo.descripcion}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/principal/costos-editar/" + costo.id]'>Editar</button>
+        <button class="btn btn.danger">Eliminar</button>
+      </td>
+    </tr>
+  </thead>
+</table>
+
+

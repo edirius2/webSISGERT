@@ -1,5 +1,5 @@
 <h1>Lista de Repuestos</h1>
-<button class="btm btn-primary" [routerLink]='["/repuesto-agregar"]'>Agregar Repuesto</button>
+<button class="btn btn-primary" [routerLink]='["/principal/repuesto-agregar"]'>Agregar Repuesto</button>
 <table class="table">
   <thead>
     <tr>
@@ -13,6 +13,10 @@
       <td>{{repuesto.id}}</td>
       <td>{{repuesto.nombre}}</td>
       <td>{{repuesto.precioReferencial}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/principal/repuesto-editar/" + repuesto.id]'>Editar</button>
+        <button class="btn btn-danger" >Eliminar</button>
+      </td>
     </tr>
   </tbody>
 </table>

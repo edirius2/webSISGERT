@@ -28,7 +28,7 @@ namespace webSISGERT.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Maquinaria>>> GetMaquinarias()
         {
-            return await _context.Maquinarias.ToListAsync();
+            return await _context.Maquinarias.Include(clientes => clientes.cliente).Include(tipos => tipos.Tipo).Include(estado => estado.Estado).Include(marcas => marcas.Marca).ToListAsync();
         }
 
 
@@ -36,6 +36,78 @@ namespace webSISGERT.Controllers
         public async Task<ActionResult<IEnumerable<Maquinaria>>> GetFiltroMaquinariasXCliente(int filtroClienteId)
         {
             return await _context.Maquinarias.Include(clientes => clientes.cliente).Include(tipos => tipos.Tipo).Include(estado => estado.Estado).Include(marcas => marcas.Marca).Where(m => m.ClienteId == filtroClienteId).ToListAsync();
+        }
+
+        [HttpGet("[action]/{filtroPlaca}/{idTipoMaquinaria}/{idEstadoMaquinaria}/{idMarcaMaquinaria}/{idCliente}")]
+        public async Task<ActionResult<IEnumerable<Maquinaria>>> GetMaquinariasFiltro(string filtroPlaca, int idTipoMaquinaria, int idEstadoMaquinaria, int idMarcaMaquinaria, int idCliente )
+        {
+            string idTipo = "";
+            string idEstado = "";
+            string idMarca = "";
+            string idCliente2 = "";
+
+            if (filtroPlaca=="vacio")
+            {
+                filtroPlaca = "";
+            }
+
+            if (idTipoMaquinaria != 0)
+            {
+                idTipo = idTipoMaquinaria.ToString();
+            }
+
+            if (idEstadoMaquinaria != 0)
+            {
+                idEstado = idEstadoMaquinaria.ToString();
+            }
+
+            if (idMarcaMaquinaria != 0)
+            {
+                idMarca = idMarcaMaquinaria.ToString();
+            }
+
+            if (idCliente != 0)
+            {
+                idCliente2 = idCliente.ToString();
+            }
+
+            return await _context.Maquinarias.Include(clientes => clientes.cliente).Include(tipos => tipos.Tipo).Include(estado => estado.Estado).Include(marcas => marcas.Marca).Where(m => m.Placa.Contains(filtroPlaca))
+                    .Where(t => t.TipoMaquinariaId.ToString().Contains(idTipo))
+                    .Where(t => t.EstadoMaquinariaId.ToString().Contains(idEstado))
+                    .Where(t => t.MarcaMaquinariaId.ToString().Contains(idMarca))
+                    .Where(t=> t.ClienteId.ToString().Contains(idCliente2))
+                    .ToListAsync();
+
+            //if (filtroPlaca != "")
+            //{
+            //    return await _context.Maquinarias.Include(clientes => clientes.cliente).Include(tipos => tipos.Tipo).Include(estado => estado.Estado).Include(marcas => marcas.Marca).Where(m => m.Placa.Contains(filtroPlaca)).ToListAsync();
+            //}
+            //else
+            //{
+            //    if (idTipoMaquinaria!= 0)
+            //    {
+            //        return await _context.Maquinarias.Include(clientes => clientes.cliente).Include(tipos => tipos.Tipo).Include(estado => estado.Estado).Include(marcas => marcas.Marca).Where(m => m.TipoMaquinariaId == idTipoMaquinaria).ToListAsync();
+            //    }
+            //    else
+            //    {
+            //        if (idEstadoMaquinaria != 0)
+            //        {
+            //            return await _context.Maquinarias.Include(clientes => clientes.cliente).Include(tipos => tipos.Tipo).Include(estado => estado.Estado).Include(marcas => marcas.Marca).Where(m => m.EstadoMaquinariaId == idEstadoMaquinaria).ToListAsync();
+            //        }
+            //        else
+            //        {
+            //            if (idMarcaMaquinaria != 0)
+            //            {
+            //                return await _context.Maquinarias.Include(clientes => clientes.cliente).Include(tipos => tipos.Tipo).Include(estado => estado.Estado).Include(marcas => marcas.Marca).Where(m => m.MarcaMaquinariaId == idMarcaMaquinaria).ToListAsync();
+            //            }
+            //            else
+            //            {
+            //                return await _context.Maquinarias.Include(clientes => clientes.cliente).Include(tipos => tipos.Tipo).Include(estado => estado.Estado).Include(marcas => marcas.Marca).ToListAsync();
+            //            }
+            //        }
+            //    }
+            //}
+
         }
 
         // GET: api/Maquinarias/5

@@ -1,0 +1,43 @@
+<form class="form-horizontal" novalidate [formGroup]="formGroup"
+      (ngSubmit)="save()">
+
+  <fieldset>
+    <div class="example-form">
+      <mat-form-field class="example-full-width" appearance="fill" align="right">
+        <mat-label>Codigo</mat-label>
+        <input matInput
+               aria-label="codigo"
+               formControlName="codigo" />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill" align="right">
+        <mat-label>Descripcion</mat-label>
+        <input matInput
+               aria-label="descripcion"
+               formControlName="descripcion" />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill" align="right">
+        <mat-label>Comentario</mat-label>
+        <input matInput
+               aria-label="comentario"
+               formControlName="comentario" />
+      </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+      <div class="col-md-4 col-md-offset-2">
+        <span>
+          <button class="btn btn-primary"
+                  type="submit"
+                  [disabled]="!formGroup.valid">
+            Salvar
+          </button>
+          <button class="btn" [routerLink]='["/principal/costos"]'>
+            Cancelar
+          </button>
+        </span>
+      </div>
+    </div>
+  </fieldset>
+</form>

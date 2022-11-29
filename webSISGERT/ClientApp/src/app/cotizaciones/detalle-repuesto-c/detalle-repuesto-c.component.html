@@ -1,0 +1,22 @@
+<h3>Lista de Repuestos</h3>
+<button class="btn btn-primary" [routerLink]='["/principal/cotizaciones-editar/" + cotizacionId + "/detalleRepuestoC-agregar/" + cotizacionId]'>Agregar Repuesto</button>
+<table class="table" >
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Cantidad</th>
+      <th>Costo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let detalle of listaRepuestos">
+      <td>{{detalle.repuesto.nombre}}</td>
+      <td>{{detalle.cantidad}}</td>
+      <td>{{detalle.costoRepuesto}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/principal/detallesRepuestosC/" + cotizacionId + "/detalleRepuestoC-editar/" + detalle.id]'>Editar</button>
+        <button class="btn btn-danger">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

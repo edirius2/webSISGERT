@@ -13,6 +13,8 @@ namespace webSISGERT.Models.Cotizaciones
         public int RepuestoId { get; set; }
         public virtual Repuesto repuesto { get; set; }
         public double CostoRepuesto { get; set; }
+        public int Cantidad { get; set; }
+        public int CotizacionId { get; set; }
         public virtual Cotizacion cotizacion {get;set;}
     }
 }

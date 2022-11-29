@@ -12,8 +12,19 @@ export class MaquinariasService {
 
   constructor(private httpClient: HttpClient, @Inject('BASE_URL') private base_Url: string) { }
 
+  getMaquinarias(): Observable<iMaquinaria[]> {
+    return this.httpClient.get<iMaquinaria[]>(this.api_url);
+  }
+
   getMaquinariasXCliente(filtroClienteId: string): Observable<iMaquinaria[]> {
     return this.httpClient.get<iMaquinaria[]>(this.api_url + "/GetFiltroMaquinariasXCliente/" + filtroClienteId);
+  }
+
+  getMaquinariasFiltro(filtroPlaca: string, idTipoMaquinaria: string, idEstadoMaquinaria: string, idMarcaMaquinaria: string, idCliente: string): Observable<iMaquinaria[]> {
+    if (filtroPlaca == "") {
+      filtroPlaca = "vacio";
+    }
+    return this.httpClient.get<iMaquinaria[]>(this.api_url + "/getMaquinariasFiltro/" + filtroPlaca + "/" + idTipoMaquinaria + "/" + idEstadoMaquinaria + "/" + idMarcaMaquinaria + "/" + idCliente);
   }
 
   getMaquinaria(maquinaId: string): Observable<iMaquinaria> {

@@ -46,6 +46,7 @@ namespace webSISGERT.Models
         public DbSet<DetalleRepuestosCotizacion> DetallesRepuestosCotizacion { get; set; }
         public DbSet<DetalleCostoCotizacion> DetallesCostoCotizacion { get; set; }
         public DbSet<Cotizacion_OT> CotizacionesOrdenTrabajos { get; set; }
+        public DbSet<webSISGERT.Models.OT.Costo> Costo { get; set; }
 
        
     }

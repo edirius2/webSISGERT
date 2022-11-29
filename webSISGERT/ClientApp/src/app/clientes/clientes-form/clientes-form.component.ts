@@ -73,6 +73,6 @@ export class ClientesFormComponent implements OnInit {
   }
 
   onSaveSucess() {
-    this.router.navigate(["/clientes"]);
+    this.router.navigate(["/principal/clientes"]);
   }
 }

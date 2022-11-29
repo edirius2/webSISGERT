@@ -1,21 +1,22 @@
 
 <h5>Lista de tareas</h5>
-<button [routerLink]="['/principal/cotizaciones-agregar/detalleTareaC-agregar']">Agregar Tarea</button>
+<button [routerLink]="['/principal/cotizaciones-editar/' + cotizacionId + '/detalleTareaC-agregar/' + cotizacionId]">Agregar Tarea</button>
 
 <table class="table">
   <thead>
     <tr>
       <th>Nombre</th>
+      <th>Cantidad</th>
       <th>Horas Hombre</th>
-
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>{{Nombre}}</td>
-      <td>{{Cantidad}}</td>
+    <tr *ngFor="let detalle of detalleTareas">
+      <td>{{detalle.tarea.nombre}}</td>
+      <td>{{detalle.cantidad}}</td>
+      <td>{{detalle.hora}}</td>
       <td>
-        <button class="btn btn-primary" [routerLink]='["/tareas-editar/" ]'>Editar</button>
+        <button class="btn btn-primary" [routerLink]='["/principal/cotizaciones-editar/" + cotizacionId + "/tareas-editar/" + id ]'>Editar</button>
         <button class="btn btn-danger">Eliminar</button>
       </td>
     </tr>

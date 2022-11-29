@@ -182,7 +182,7 @@ export class MaquinariaFormComponent implements OnInit {
     });
   }
   onSaveSucess() {
-    this.router.navigate(["/maquinarias"]);
+    this.router.navigate(["/principal/maquinarias"]);
   }
 
   

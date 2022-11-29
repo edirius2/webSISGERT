@@ -1,4 +1,4 @@
-<form class="form-horizontal" novalidate
+<form class="form-horizontal" novalidate [formGroup]="formGroup"
       (ngSubmit)="save()">
   <fieldset>
     <div class="example-form">
@@ -6,15 +6,45 @@
         <mat-label>Tarea</mat-label>
         <input matInput
                aria-label="tarea"
-               [matAutocomplete]="tarea">
-
+               [matAutocomplete]="tarea"
+               [formControl]="stateCtrl">
+        <mat-autocomplete #tarea="matAutocomplete">
+          <mat-option *ngFor="let tarea of listaTareas" [value]="tarea.nombre" (onSelectionChange)="setTarea(tarea, $event)">
+            <span>{{tarea.nombre}}</span>
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="fill" align="right">
         <mat-label>Horas Hombre</mat-label>
         <input matInput
-               aria-label="horas" />
+               aria-label="horas"
+               formControlName="hora"/>
       </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill" align="right">
+        <mat-label>Cantidad</mat-label>
+        <input matInput
+               aria-label="cantidad"
+               formControlName="cantidad" />
+      </mat-form-field>
+
+
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-4 col-md-offset-2">
+        <span>
+          <button class="btn btn-primary"
+                  type="submit"
+                  [disabled]="!formGroup.valid">
+            Salvar
+          </button>
+          <button class="btn" [routerLink]='["/principal/cotizaciones-editar/" + idCotizacion + "/detalleTareasC/" + idCotizacion]'>
+            Cancelar
+          </button>
+        </span>
+      </div>
     </div>
   </fieldset>
 </form>

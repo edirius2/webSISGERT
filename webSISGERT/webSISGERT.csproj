@@ -29,24 +29,57 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20220220000156_Inicial.cs" />
+    <Compile Remove="Migrations\20220220000156_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20220221034313_codigoOT.cs" />
+    <Compile Remove="Migrations\20220221034313_codigoOT.Designer.cs" />
+    <Compile Remove="Migrations\20220226234522_cambioDetalleTarea.cs" />
+    <Compile Remove="Migrations\20220226234522_cambioDetalleTarea.Designer.cs" />
+    <Compile Remove="Migrations\20220228045511_agregarOrden.cs" />
+    <Compile Remove="Migrations\20220228045511_agregarOrden.Designer.cs" />
+    <Compile Remove="Migrations\20220308042147_ActualizacionBD.cs" />
+    <Compile Remove="Migrations\20220308042147_ActualizacionBD.Designer.cs" />
     <Compile Remove="Migrations\20220322162405_actualizacionImagenes.cs" />
     <Compile Remove="Migrations\20220322162405_actualizacionImagenes.Designer.cs" />
+    <Compile Remove="Migrations\20220322162544_actualizacionImagenes.cs" />
+    <Compile Remove="Migrations\20220322162544_actualizacionImagenes.Designer.cs" />
+    <Compile Remove="Migrations\20220606234058_agregaMaquinaria.cs" />
+    <Compile Remove="Migrations\20220606234058_agregaMaquinaria.Designer.cs" />
+    <Compile Remove="Migrations\20220711174703_autenticacionUsuarios.cs" />
+    <Compile Remove="Migrations\20220711174703_autenticacionUsuarios.Designer.cs" />
     <Compile Remove="Migrations\20221109134715_cambiosVarios.cs" />
     <Compile Remove="Migrations\20221109134715_cambiosVarios.Designer.cs" />
+    <Compile Remove="Migrations\20221109141839_cambiosVarios.cs" />
+    <Compile Remove="Migrations\20221109141839_cambiosVarios.Designer.cs" />
+    <Compile Remove="Migrations\20221112021656_correcciones01.cs" />
+    <Compile Remove="Migrations\20221112021656_correcciones01.Designer.cs" />
+    <Compile Remove="Migrations\20221112022019_correciones001.cs" />
+    <Compile Remove="Migrations\20221112022019_correciones001.Designer.cs" />
+    <Compile Remove="Migrations\20221112023119_Inicial.cs" />
+    <Compile Remove="Migrations\20221112023119_Inicial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\account\user-info.ts" />
     <None Remove="ClientApp\src\app\clientes\cliente.ts" />
+    <None Remove="ClientApp\src\app\costos\costo.ts" />
+    <None Remove="ClientApp\src\app\cotizaciones\cotizacion.ts" />
+    <None Remove="ClientApp\src\app\cotizaciones\Cotizacion_OT.ts" />
+    <None Remove="ClientApp\src\app\cotizaciones\detalle-gasto-c\detalleCostoCotizacion.ts" />
+    <None Remove="ClientApp\src\app\cotizaciones\detalle-repuesto-c\detalleRepuestoCotizacion.ts" />
+    <None Remove="ClientApp\src\app\cotizaciones\detalle-tarea-c\detalle-costo-tarea-cotizacion\detalleCostoTareaCotizacion.ts" />
+    <None Remove="ClientApp\src\app\cotizaciones\detalle-tarea-c\detalleTareaCotizacion.ts" />
     <None Remove="ClientApp\src\app\detalle-ordenes-trabajo\detalleOrdenTrabajo.ts" />
     <None Remove="ClientApp\src\app\empleados\empleado.ts" />
     <None Remove="ClientApp\src\app\maquinarias\estado-maquinarias\estadoMaquinaria.ts" />
     <None Remove="ClientApp\src\app\maquinarias\maquinaria.ts" />
     <None Remove="ClientApp\src\app\maquinarias\marca-maquinaria\marcaMaquinaria.ts" />
     <None Remove="ClientApp\src\app\maquinarias\tipo-maquinaria\tipoMaquinaria.ts" />
+    <None Remove="ClientApp\src\app\ordenes-trabajo\detalle-costo\detalleCosto.ts" />
     <None Remove="ClientApp\src\app\ordenes-trabajo\detalle-empleado\detalleEmpleado.ts" />
     <None Remove="ClientApp\src\app\ordenes-trabajo\detalle-pago\detallePago.ts" />
     <None Remove="ClientApp\src\app\ordenes-trabajo\detalle-repuesto\detalleRepuesto.ts" />
+    <None Remove="ClientApp\src\app\ordenes-trabajo\detalle-tarea\detalle-costo-tarea\detalleCostoTarea.ts" />
     <None Remove="ClientApp\src\app\ordenes-trabajo\detalle-tarea\detalleTarea.ts" />
     <None Remove="ClientApp\src\app\ordenes-trabajo\ordenTrabajo.ts" />
     <None Remove="ClientApp\src\app\repuestos\repuesto.ts" />
@@ -56,15 +89,24 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\account\user-info.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\clientes\cliente.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\costos\costo.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\cotizaciones\cotizacion.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\cotizaciones\Cotizacion_OT.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\cotizaciones\detalle-gasto-c\detalleCostoCotizacion.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\cotizaciones\detalle-repuesto-c\detalleRepuestoCotizacion.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\cotizaciones\detalle-tarea-c\detalle-costo-tarea-cotizacion\detalleCostoTareaCotizacion.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\cotizaciones\detalle-tarea-c\detalleTareaCotizacion.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\detalle-ordenes-trabajo\detalleOrdenTrabajo.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\empleados\empleado.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\maquinarias\estado-maquinarias\estadoMaquinaria.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\maquinarias\maquinaria.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\maquinarias\marca-maquinaria\marcaMaquinaria.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\maquinarias\tipo-maquinaria\tipoMaquinaria.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ordenes-trabajo\detalle-costo\detalleCosto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ordenes-trabajo\detalle-empleado\detalleEmpleado.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ordenes-trabajo\detalle-pago\detallePago.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ordenes-trabajo\detalle-repuesto\detalleRepuesto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ordenes-trabajo\detalle-tarea\detalle-costo-tarea\detalleCostoTarea.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ordenes-trabajo\detalle-tarea\detalleTarea.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ordenes-trabajo\ordenTrabajo.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\repuestos\repuesto.ts" />

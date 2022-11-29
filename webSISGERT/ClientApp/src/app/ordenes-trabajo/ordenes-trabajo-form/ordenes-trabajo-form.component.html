@@ -22,6 +22,9 @@
                    [formControl]="stateCtrl"
                    formControlName="nombre">
             <mat-autocomplete #auto="matAutocomplete">
+              <mat-option>
+                <span>No hay clientes creados</span>
+              </mat-option>
               <mat-option *ngFor="let cliente of listaClientes" [value]="cliente.nombre" (onSelectionChange)='getPosts(cliente)'>
                 <span>{{cliente.nombre}}</span> |
                 <small>Contacto: {{cliente.contacto}}</small>

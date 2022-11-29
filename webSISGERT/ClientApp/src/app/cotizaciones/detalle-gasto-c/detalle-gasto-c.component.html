@@ -1,5 +1,5 @@
 <h5>Lista de gastos</h5>
-<button [routerLink]="['/principal/cotizaciones-agregar/detalleGastoC-agregar']">Agregar Gasto</button>
+<button [routerLink]="['/principal/cotizaciones-editar/' + cotizacionId + '/detalleGastoC-agregar/' + cotizacionId]">Agregar Gasto</button>
 <table class="table">
   <thead>
     <tr>
@@ -8,11 +8,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>{{Nombre}}</td>
-      <td>{{Monto}}</td>
+    <tr *ngFor="let gasto of detallesCostosC">
+      <td>{{gasto.costo.descripcion}}</td>
+      <td>{{gasto.precio}}</td>
       <td>
-        <button class="btn btn-primary" [routerLink]='["/tareas-editar/" ]'>Editar</button>
+        <button class="btn btn-primary" [routerLink]='["/principal/cotizaciones-editar/" + cotizacionId + "/detalleGastoC-editar/" + gasto.id ]'>Editar</button>
         <button class="btn btn-danger">Eliminar</button>
       </td>
     </tr>

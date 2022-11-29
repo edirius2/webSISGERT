@@ -22,17 +22,17 @@ namespace webSISGERT.Controllers
         }
 
         // GET: api/DetalleRepuestosCotizaciones
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DetalleRepuestosCotizacion>>> GetDetallesRepuestosCotizacion()
+        [HttpGet("{idC}")]
+        public async Task<ActionResult<IEnumerable<DetalleRepuestosCotizacion>>> GetDetallesRepuestosCotizacion(int idC)
         {
-            return await _context.DetallesRepuestosCotizacion.ToListAsync();
+            return await _context.DetallesRepuestosCotizacion.Include(c=>c.repuesto).Where(r=> r.CotizacionId == idC).ToListAsync();
         }
 
         // GET: api/DetalleRepuestosCotizaciones/5
-        [HttpGet("{id}")]
+        [HttpGet("[action]/{id}")]
         public async Task<ActionResult<DetalleRepuestosCotizacion>> GetDetalleRepuestosCotizacion(int id)
         {
-            var detalleRepuestosCotizacion = await _context.DetallesRepuestosCotizacion.FindAsync(id);
+            var detalleRepuestosCotizacion = await _context.DetallesRepuestosCotizacion.Include(r=>r.repuesto).Where(r=> r.Id== id).FirstAsync();
 
             if (detalleRepuestosCotizacion == null)
             {
@@ -76,6 +76,7 @@ namespace webSISGERT.Controllers
         [HttpPost]
         public async Task<ActionResult<DetalleRepuestosCotizacion>> PostDetalleRepuestosCotizacion(DetalleRepuestosCotizacion detalleRepuestosCotizacion)
         {
+            _context.Repuestos.Attach(detalleRepuestosCotizacion.repuesto);
             _context.DetallesRepuestosCotizacion.Add(detalleRepuestosCotizacion);
             await _context.SaveChangesAsync();
 

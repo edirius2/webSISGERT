@@ -64,6 +64,6 @@ export class TareasFormComponent implements OnInit {
   }
 
   onSaveSucess() {
-    this.router.navigate(["/tareas"]);
+    this.router.navigate(["/principal/tareas"]);
   }
 }

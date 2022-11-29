@@ -63,6 +63,6 @@ export class EstadoMaquinariasFormComponent implements OnInit {
   }
 
   onSaveSucess() {
-    this.router.navigate(["/estado-maquinarias"]);
+    this.router.navigate(["/principal/estado-maquinarias"]);
   }
 }

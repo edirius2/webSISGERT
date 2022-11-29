@@ -14,7 +14,8 @@ namespace webSISGERT.Models.Cotizaciones
         public int Cantidad { get; set; }
         public double Precio { get; set; }
         public double Hora { get; set; }
-        public virtual Cotizacion cotizacion { get; set; }
+        public double CotizacionId { get; set; }
+        public virtual Cotizacion Cotizacion { get; set; }
         public virtual ICollection<DetalleCostoTareaCotizacion> DetallesCostos { get; set; }
     }
 }

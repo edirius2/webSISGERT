@@ -184,6 +184,8 @@ namespace webSISGERT.Migrations
                     b.Property<string>("Codigo")
                         .HasMaxLength(15);
 
+                    b.Property<string>("Descripcion");
+
                     b.Property<bool>("Enlazado");
 
                     b.Property<int>("Estado");
@@ -225,9 +227,13 @@ namespace webSISGERT.Migrations
 
                     b.Property<double>("Precio");
 
+                    b.Property<int>("cotizacionId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CostoId");
+
+                    b.HasIndex("cotizacionId");
 
                     b.ToTable("DetallesCostoCotizacion");
                 });
@@ -257,17 +263,19 @@ namespace webSISGERT.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("Cantidad");
+
                     b.Property<double>("CostoRepuesto");
+
+                    b.Property<int>("CotizacionId");
 
                     b.Property<int>("RepuestoId");
 
-                    b.Property<int?>("cotizacionId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RepuestoId");
+                    b.HasIndex("CotizacionId");
 
-                    b.HasIndex("cotizacionId");
+                    b.HasIndex("RepuestoId");
 
                     b.ToTable("DetallesRepuestosCotizacion");
                 });
@@ -279,19 +287,21 @@ namespace webSISGERT.Migrations
 
                     b.Property<int>("Cantidad");
 
+                    b.Property<double>("CotizacionId");
+
+                    b.Property<int?>("CotizacionId1");
+
                     b.Property<double>("Hora");
 
                     b.Property<double>("Precio");
 
                     b.Property<int>("TareaId");
 
-                    b.Property<int?>("cotizacionId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("TareaId");
+                    b.HasIndex("CotizacionId1");
 
-                    b.HasIndex("cotizacionId");
+                    b.HasIndex("TareaId");
 
                     b.ToTable("DetallesTareaCotizacion");
                 });
@@ -695,6 +705,11 @@ namespace webSISGERT.Migrations
                         .WithMany()
                         .HasForeignKey("CostoId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.Cotizaciones.Cotizacion", "cotizacion")
+                        .WithMany("DetallesCostos")
+                        .HasForeignKey("cotizacionId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("webSISGERT.Models.Cotizaciones.DetalleCostoTareaCotizacion", b =>
@@ -712,26 +727,27 @@ namespace webSISGERT.Migrations
 
             modelBuilder.Entity("webSISGERT.Models.Cotizaciones.DetalleRepuestosCotizacion", b =>
                 {
+                    b.HasOne("webSISGERT.Models.Cotizaciones.Cotizacion", "cotizacion")
+                        .WithMany("DetallesRepuestos")
+                        .HasForeignKey("CotizacionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("webSISGERT.Models.OT.Repuesto", "repuesto")
                         .WithMany()
                         .HasForeignKey("RepuestoId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("webSISGERT.Models.Cotizaciones.Cotizacion", "cotizacion")
-                        .WithMany("DetallesRepuestos")
-                        .HasForeignKey("cotizacionId");
                 });
 
             modelBuilder.Entity("webSISGERT.Models.Cotizaciones.DetalleTareaCotizacion", b =>
                 {
+                    b.HasOne("webSISGERT.Models.Cotizaciones.Cotizacion", "Cotizacion")
+                        .WithMany("DetallesTareas")
+                        .HasForeignKey("CotizacionId1");
+
                     b.HasOne("webSISGERT.Models.OT.Tarea", "tarea")
                         .WithMany()
                         .HasForeignKey("TareaId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("webSISGERT.Models.Cotizaciones.Cotizacion", "cotizacion")
-                        .WithMany("DetallesTareas")
-                        .HasForeignKey("cotizacionId");
                 });
 
             modelBuilder.Entity("webSISGERT.Models.OT.DetalleCosto", b =>

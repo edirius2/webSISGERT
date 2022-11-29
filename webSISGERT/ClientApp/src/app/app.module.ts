@@ -25,7 +25,7 @@ import { DetalleTareaComponent } from './ordenes-trabajo/detalle-tarea/detalle-t
 import { ContenedorOrdenTrabajoComponent } from './ordenes-trabajo/contenedor-orden-trabajo/contenedor-orden-trabajo.component';
 import { DetalleTareaService } from './ordenes-trabajo/detalle-tarea/detalle-tarea.service';
 import { DetalleTareaFormComponent } from './ordenes-trabajo/detalle-tarea/detalle-tarea-form/detalle-tarea-form.component';
-import { MatFormField, MatInput, MatOption, MatAutocomplete, MatCheckboxModule, MatLabel, MatAutocompleteModule, MatOptionModule, MatPaginatorModule, MatFormFieldModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule, MatTooltipModule, MatExpansionModule, MatDialogModule, MatSliderModule, MatCardModule, MatTableModule } from '@angular/material';
+import { MatFormField, MatInput, MatOption, MatAutocomplete, MatCheckboxModule, MatLabel, MatAutocompleteModule, MatOptionModule, MatPaginatorModule, MatFormFieldModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule, MatTooltipModule, MatExpansionModule, MatDialogModule, MatSliderModule, MatCardModule, MatTableModule, MatSelectModule } from '@angular/material';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpleadosService } from './empleados/empleados.service';
 import { EmpleadosFormComponent } from './empleados/empleados-form/empleados-form.component';
@@ -60,6 +60,17 @@ import { DetalleTareaCComponent } from './cotizaciones/detalle-tarea-c/detalle-t
 import { DetalleTareaCFormComponent } from './cotizaciones/detalle-tarea-c/detalle-tarea-cform/detalle-tarea-cform.component';
 import { DetalleGastoCComponent } from './cotizaciones/detalle-gasto-c/detalle-gasto-c.component';
 import { DetalleGastoCFormComponent } from './cotizaciones/detalle-gasto-c/detalle-gasto-cform/detalle-gasto-cform.component';
+import { CotizacionesService } from './cotizaciones/cotizaciones.service';
+import { DetalleTareaCService } from './cotizaciones/detalle-tarea-c/detalle-tarea-c.service';
+import { DetalleRepuestoCService } from './cotizaciones/detalle-repuesto-c/detalle-repuesto-c.service';
+import { DetalleGastoCService } from './cotizaciones/detalle-gasto-c/detalle-gasto-c.service';
+import { DetalleRepuestoCComponent } from './cotizaciones/detalle-repuesto-c/detalle-repuesto-c.component';
+import { DetalleRepuestoCformComponent } from './cotizaciones/detalle-repuesto-c/detalle-repuesto-cform/detalle-repuesto-cform.component';
+import { DetalleCostoTareaCotizacionComponent } from './cotizaciones/detalle-tarea-c/detalle-costo-tarea-cotizacion/detalle-costo-tarea-cotizacion.component';
+import { DetalleCostoTareaCotizacionService } from './cotizaciones/detalle-tarea-c/detalle-costo-tarea-cotizacion/detalle-costo-tarea-cotizacion.service';
+import { CostosComponent } from './costos/costos.component';
+import { CostosFormComponent } from './costos/costos-form/costos-form.component';
+import { CostosService } from './costos/costos.service';
 
 
 @NgModule({
@@ -108,6 +119,11 @@ import { DetalleGastoCFormComponent } from './cotizaciones/detalle-gasto-c/detal
     DetalleTareaCFormComponent,
     DetalleGastoCComponent,
     DetalleGastoCFormComponent,
+    DetalleRepuestoCComponent,
+    DetalleRepuestoCformComponent,
+    DetalleCostoTareaCotizacionComponent,
+    CostosComponent,
+    CostosFormComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -132,7 +148,7 @@ import { DetalleGastoCFormComponent } from './cotizaciones/detalle-gasto-c/detal
     MatSliderModule,
     MatCardModule,
     MatTableModule,
-    
+    MatSelectModule,
     
     BrowserAnimationsModule,
     
@@ -155,21 +171,34 @@ import { DetalleGastoCFormComponent } from './cotizaciones/detalle-gasto-c/detal
           {
             path: 'cotizaciones-agregar', component: CotizacionesFormComponent,
             children: [
-              { path: 'detallesTareasC', component: DetalleTareaCComponent },
-              { path: 'detallesGastosC', component: DetalleGastoCComponent },
-              { path: 'detalleGastoC-agregar', component: DetalleGastoCFormComponent },
-              { path: 'detalleTareaC-agregar', component: DetalleTareaCFormComponent },
+              { path: 'detallesTareasC/:idC', component: DetalleTareaCComponent },
+              { path: 'detallesGastosC/:idC', component: DetalleGastoCComponent },
+              { path: 'detallesRepuestosC/:idC', component: DetalleRepuestoCComponent },
+              { path: 'detalleGastoC-agregar/:idC', component: DetalleGastoCFormComponent },
+              { path: 'detallesGastoC-editar/:id', component: DetalleGastoCComponent },
+              { path: 'detalleTareaC-agregar/:idC', component: DetalleTareaCFormComponent },
+              { path: 'detalleTareaC-editar/:id', component: DetalleTareaCComponent },
+              { path: 'detalleRepuestoC-agregar/:idC', component: DetalleRepuestoCformComponent },
+              { path: 'detalleRepuestoC-editar/:id', component: DetalleRepuestoCformComponent },
             ]
           },
           {
-            path: 'cotizaciones-editar/:id', component: CotizacionesComponent,
+            path: 'cotizaciones-editar/:id', component: CotizacionesFormComponent,
             children: [
               { path: 'detallesTareasC/:idC', component: DetalleTareaCComponent },
-              { path: 'detallesGastosC', component: DetalleGastoCComponent },
-              { path: 'detalleGastoC-agregar', component: DetalleGastoCFormComponent },
-              { path: 'detalleTareaC-agregar', component: DetalleTareaCFormComponent },
+              { path: 'detallesGastosC/:idC', component: DetalleGastoCComponent },
+              { path: 'detallesRepuestosC/:idC', component: DetalleRepuestoCComponent },
+              { path: 'detalleGastoC-agregar/:idC', component: DetalleGastoCFormComponent },
+              { path: 'detalleGastoC-editar/:id', component: DetalleGastoCFormComponent },
+              { path: 'detalleTareaC-agregar/:idC', component: DetalleTareaCFormComponent },
+              { path: 'detalleTareaC-editar/:id', component: DetalleTareaCComponent },
+              { path: 'detalleRepuestoC-agregar/:idC', component: DetalleRepuestoCformComponent },
+              { path: 'detalleRepuestoC-editar/:id', component: DetalleRepuestoCformComponent },
             ]
           },
+          { path: 'costos', component: CostosComponent },
+          { path: 'costos-agregar', component: CostosFormComponent },
+          { path: 'costos-editar/:id', component: CostosFormComponent },
           { path: 'clientes', component: ClientesComponent },
           { path: 'clientes-agregar', component: ClientesFormComponent },
           { path: 'clientes-editar/:id', component: ClientesFormComponent },
@@ -223,6 +252,7 @@ import { DetalleGastoCFormComponent } from './cotizaciones/detalle-gasto-c/detal
           },
           { path: 'repuestos', component: RepuestosComponent },
           { path: 'repuesto-agregar', component: RepuestosFormComponent },
+          { path: 'repuesto-editar/:id', component: RepuestosFormComponent },
 
         ]
       },
@@ -231,8 +261,14 @@ import { DetalleGastoCFormComponent } from './cotizaciones/detalle-gasto-c/detal
   ],
   providers: [ClientesService, TareasService, DetalleTareaService, MatDatepickerModule, EmpleadosService, DetalleEmpleadoService, DetallePagoService, RepuestosService,
     contenedorOrdenTrabajoService,
+    CostosService,
     AccountService,
     AuthGuardService,
+    CotizacionesService,
+    DetalleTareaCService,
+    DetalleRepuestoCService,
+    DetalleGastoCService,
+    DetalleCostoTareaCotizacionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LogInterceptorService,

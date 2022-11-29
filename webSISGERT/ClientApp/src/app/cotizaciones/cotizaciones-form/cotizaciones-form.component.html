@@ -1,64 +1,112 @@
+
+<div class="row justify-content-start">
+  <div class="formGroup cajacodigo">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Pre</mat-label>
+      <input matInput placeholder="Ex:OC" [(ngModel)]="codigo1" (input)="actualizarCodigo1($event.target.value)"
+             required />
+    </mat-form-field>
+
+  </div>
+  <div class="formGroup">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Codigo</mat-label>
+      <input matInput placeholder="Ex:0001" [(ngModel)]="codigo2" (input)="actualizarCodigo2($event.target.value)"
+             required />
+    </mat-form-field>
+  </div>
+</div>
+
 <form class="form-horizontal" novalidate
       (ngSubmit)="save()" [formGroup]="formGroup" style="margin-bottom:25px">
   <fieldset>
-    <div class="row justify-content-start">
-      <div class="formGroup cajacodigo">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Pre</mat-label>
-          <input matInput placeholder="Ex:OC"
-                 required
-                 formControlName="Codigo1" />
-        </mat-form-field>
-        
-      </div>
-      <div class="formGroup">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Codigo</mat-label>
-          <input matInput placeholder="Ex:0001"
-                 required
-                 formControlName="Codigo3" />
-        </mat-form-field>
-      </div>
-    </div>
+
     <div class="formGroup">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Descripcion:</mat-label>
-        <input matInput />
+        <input matInput
+               formControlName="descripcion" />
       </mat-form-field>
     </div>
 
     <div class="formGroup">
       <mat-form-field appearance="fill">
         <mat-label>Fecha:</mat-label>
-        <input matInput [matDatepicker]="dtpFecha" formControlName="Fecha" />
+        <input matInput [matDatepicker]="dtpFecha" formControlName="fecha" />
         <mat-datepicker-toggle matSuffix [for]="dtpFecha"></mat-datepicker-toggle>
         <mat-datepicker #dtpFecha></mat-datepicker>
       </mat-form-field>
     </div>
 
-    <div class="formGroup">
+    <div formGroupName="cliente">
       <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Cliente:</mat-label>
-        <input matInput />
+        <mat-label>Cliente</mat-label>
+        <input matInput
+               aria-label="Cliente"
+               [matAutocomplete]="auto1"
+               [formControl]="stateCtrl"
+               formControlName="nombre">
+        <mat-autocomplete #auto1="matAutocomplete">
+          <mat-option *ngIf="!(listaClientes && listaClientes.length)">
+            <span>No hay clientes creados</span>
+          </mat-option>
+          <mat-option *ngFor="let cliente of listaClientes" [value]="cliente.nombre" (onSelectionChange)='getPosts(cliente)'>
+            <span>{{cliente.nombre}}</span> |
+            <small>Contacto: {{cliente.contacto}}</small>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div formGroupName="maquinaria">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Maquinaria</mat-label>
+        <input matInput
+               aria-label="Maquinaria"
+               [matAutocomplete]="auto2"
+               [formControl]="maquinariasCtrl"
+               formControlName="placa" />
+        <mat-autocomplete #auto2="matAutocomplete">
+          <mat-option *ngIf="!(listaMaquinarias && listaMaquinarias.length)">
+            <span>No hay maquinarias del cliente</span>
+          </mat-option>
+          <mat-option *ngFor="let maquinaria of listaMaquinarias" [value]="maquinaria.placa" (onSelectionChange)='getPostMaquinaria(maquinaria)'>
+            <span>{{maquinaria.placa}}</span>
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
     </div>
 
     <div class="formGroup">
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Maquinaria</mat-label>
-        <input matInput />
+      <mat-form-field appearance="fill">
+        <mat-label>Estado:</mat-label>
+        <mat-select required
+                    formControlName="estado">
+          <mat-option value="Activo">Activo</mat-option>
+          <mat-option value="Cancelado">Cancelado</mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
+
+    <div class="formGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Observaciones:</mat-label>
+        <input matInput
+               formControlName="observaciones" />
+      </mat-form-field>
+    </div>
+
+    <button class="btn btn-primary" click="save()">Guardar</button>
   </fieldset>
 </form>
 
 <nav mat-tab-nav-bar ngClass="tabs">
   <a mat-tab-link
-     [routerLink]="['/principal/cotizaciones-agregar/detallesTareasC']"
+     [routerLink]="['/principal/cotizaciones-editar/' + CotizacionId + '/detallesTareasC/' + CotizacionId]"
      routerLinkActive="active-link">Lista de Tareas</a>
   <a mat-tab-link
-     [routerLink]="['/principal/cotizaciones-agregar/detallesGastosC']"
-
-     >Gastos varios</a>
+     [routerLink]="['/principal/cotizaciones-editar/' + CotizacionId + '/detallesGastosC/' + CotizacionId]">Gastos varios</a>
+  <a mat-tab-link
+     [routerLink]="['/principal/cotizaciones-editar/' + CotizacionId + '/detallesRepuestosC/' + CotizacionId]">Repuestos</a>
 </nav>
 <router-outlet></router-outlet>

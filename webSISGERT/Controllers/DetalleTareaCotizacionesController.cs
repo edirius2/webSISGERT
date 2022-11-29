@@ -28,8 +28,14 @@ namespace webSISGERT.Controllers
             return await _context.DetallesTareaCotizacion.ToListAsync();
         }
 
+        [HttpGet("{idC}")]
+        public async Task<ActionResult<IEnumerable<DetalleTareaCotizacion>>> GetDetallesTareaCotizacion(int idC)
+        {
+            return await _context.DetallesTareaCotizacion.Include(t => t.tarea).Where(c=> c.CotizacionId == idC).ToListAsync();
+        }
+
         // GET: api/DetalleTareaCotizaciones/5
-        [HttpGet("{id}")]
+        [HttpGet("[action]/{id}")]
         public async Task<ActionResult<DetalleTareaCotizacion>> GetDetalleTareaCotizacion(int id)
         {
             var detalleTareaCotizacion = await _context.DetallesTareaCotizacion.FindAsync(id);
@@ -76,6 +82,7 @@ namespace webSISGERT.Controllers
         [HttpPost]
         public async Task<ActionResult<DetalleTareaCotizacion>> PostDetalleTareaCotizacion(DetalleTareaCotizacion detalleTareaCotizacion)
         {
+            _context.Tarea.Attach(detalleTareaCotizacion.tarea);
             _context.DetallesTareaCotizacion.Add(detalleTareaCotizacion);
             await _context.SaveChangesAsync();
 

@@ -12,5 +12,7 @@ namespace webSISGERT.Models.Cotizaciones
         public int CostoId { get; set; }
         public virtual Costo costo { get; set; }
         public double Precio { get; set; }
+        public int cotizacionId { get; set; }
+        public virtual Cotizacion cotizacion { get; set; }
     }
 }

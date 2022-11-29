@@ -61,6 +61,6 @@ export class MarcaMaquinariaFormComponent implements OnInit {
   }
 
   onSaveSucess() {
-    this.router.navigate(["/marca-maquinarias"]);
+    this.router.navigate(["/principal/marca-maquinarias"]);
   }
 }

@@ -62,7 +62,7 @@ export class TipoMaquinariaFormComponent implements OnInit {
   }
 
   onSaveSucess() {
-    this.router.navigate(["/tipo-maquinarias"]);
+    this.router.navigate(["/principal/tipo-maquinarias"]);
   }
 
 }
