@@ -71,6 +71,14 @@ import { DetalleCostoTareaCotizacionService } from './cotizaciones/detalle-tarea
 import { CostosComponent } from './costos/costos.component';
 import { CostosFormComponent } from './costos/costos-form/costos-form.component';
 import { CostosService } from './costos/costos.service';
+import { ClientesPrintComponent } from './clientes/clientes-print/clientes-print.component';
+import { DetalleCostoService } from './ordenes-trabajo/detalle-costo/detalle-costo.service';
+import { DetalleCostoComponent } from './ordenes-trabajo/detalle-costo/detalle-costo.component';
+import { DetalleCostoFormComponent } from './ordenes-trabajo/detalle-costo/detalle-costo-form/detalle-costo-form.component';
+import { DetalleRepuestoComponent } from './ordenes-trabajo/detalle-repuesto/detalle-repuesto.component';
+import { DetalleRepuestoFormComponent } from './ordenes-trabajo/detalle-repuesto/detalle-repuesto-form/detalle-repuesto-form.component';
+import { DetalleRepuestoService } from './ordenes-trabajo/detalle-repuesto/detalle-repuesto.service';
+import { ListaCotizacionesComponent } from './ordenes-trabajo/lista-cotizaciones/lista-cotizaciones.component';
 
 
 @NgModule({
@@ -84,6 +92,7 @@ import { CostosService } from './costos/costos.service';
     FetchDataComponent,
     ClientesComponent,
     ClientesFormComponent,
+    ClientesPrintComponent,
     TareasComponent,
     TareasFormComponent,
     OrdenesTrabajoComponent,
@@ -95,11 +104,16 @@ import { CostosService } from './costos/costos.service';
     DetalleTareaFormComponent,
     DetalleEmpleadoComponent,
     DetalleEmpleadoFormComponent,
+    DetalleCostoComponent,
+    DetalleCostoFormComponent,
+    DetalleRepuestoComponent,
+    DetalleRepuestoFormComponent,
     EmpleadosComponent,
     EmpleadosFormComponent,
     RepuestosComponent,
     RepuestosFormComponent,
     MatInput,
+    ListaCotizacionesComponent,
    
     ContenedorImagenComponent,
     TipoMaquinariaComponent,
@@ -149,7 +163,7 @@ import { CostosService } from './costos/costos.service';
     MatCardModule,
     MatTableModule,
     MatSelectModule,
-    
+    MatCheckboxModule,
     BrowserAnimationsModule,
     
    
@@ -202,6 +216,7 @@ import { CostosService } from './costos/costos.service';
           { path: 'clientes', component: ClientesComponent },
           { path: 'clientes-agregar', component: ClientesFormComponent },
           { path: 'clientes-editar/:id', component: ClientesFormComponent },
+          { path: 'clientes-print', component: ClientesPrintComponent },
           { path: 'tareas', component: TareasComponent },
           { path: 'tareas-agregar', component: TareasFormComponent },
           { path: 'tareas-editar/:id', component: TareasFormComponent },
@@ -247,6 +262,12 @@ import { CostosService } from './costos/costos.service';
               { path: 'detallesPagos/:idOT', component: DetallePagoComponent },
               { path: 'detallesPago-agregar/:idOT', component: DetallePagoFormComponent },
               { path: 'detallesPago-editar/:id', component: DetallePagoFormComponent },
+              { path: 'detallesCostos/:idOT', component: DetalleCostoComponent },
+              { path: 'detalleCosto-agregar/:idOT', component: DetalleCostoFormComponent },
+              { path: 'detalleCosto-editar/:id', component: DetalleCostoFormComponent },
+              { path: 'detallesRepuesto/:idOT', component: DetalleRepuestoComponent },
+              { path: 'detalleRepuesto-agregar/:idOT', component: DetalleRepuestoFormComponent },
+              { path: 'detalleRepuesto-editar/:id', component: DetalleRepuestoFormComponent },
             ]
 
           },
@@ -259,9 +280,10 @@ import { CostosService } from './costos/costos.service';
       
     ])
   ],
-  providers: [ClientesService, TareasService, DetalleTareaService, MatDatepickerModule, EmpleadosService, DetalleEmpleadoService, DetallePagoService, RepuestosService,
+  providers: [ClientesService, TareasService, DetalleCostoService, DetalleRepuestoService, DetalleTareaService, MatDatepickerModule, EmpleadosService, DetalleEmpleadoService, DetallePagoService, RepuestosService,
     contenedorOrdenTrabajoService,
     CostosService,
+    DetalleCostoService,
     AccountService,
     AuthGuardService,
     CotizacionesService,
@@ -276,6 +298,6 @@ import { CostosService } from './costos/costos.service';
     }
     ],
   bootstrap: [AppComponent],
-  entryComponents: [ContenedorImagenComponent],
+  entryComponents: [ContenedorImagenComponent, ListaCotizacionesComponent],
 })
 export class AppModule { }

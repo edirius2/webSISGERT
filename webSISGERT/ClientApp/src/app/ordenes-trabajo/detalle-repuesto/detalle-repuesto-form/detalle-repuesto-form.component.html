@@ -1,3 +1,51 @@
-<p>
-  detalle-repuesto-form works!
-</p>
+<form class="form-horizontal" novalidate
+      (ngSubmit)="save()" [formGroup]="formGroup">
+  <fieldset>
+    <div class="example-form" formGroupName="repuesto">
+      <mat-form-field class="example-full-width" appearance="fill" align="right">
+        <mat-label>Repuesto</mat-label>
+        <input matInput
+               aria-label="Repuesto"
+               [matAutocomplete]="auto"
+               [formControl]="stateCtrl"
+               formControlName="nombre" />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let repuesto of listaRepuestos" [value]="repuesto.nombre" (onSelectionChange)="setRepuesto(repuesto, $event)">
+            <span>{{repuesto.nombre}}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+      <mat-form-field class="example-full-width" appearance="fill" align="right">
+        <mat-label>Precio</mat-label>
+        <input matInput
+               aria-label="Precio"
+               formControlName="precio" />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill" align="right">
+        <mat-label>Cantidad</mat-label>
+        <input matInput
+               aria-label="cantidad"
+               formControlName="cantidad" />
+      </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+      <div class="col-md-4 col-md-offset-2">
+        <span>
+          <button class="btn btnPrimary"
+                  type="submit">
+            Salvar
+          </button>
+          <button class="btn btnDanger"
+                  [routerLink]='["/Principal/ordenesTrabajo-editar/" + ordenTrabajoId + "/detallesRepuesto/" + ordenTrabajoId]'>
+            Cancelar
+          </button>
+        </span>
+      </div>
+    </div>
+  </fieldset>
+</form>

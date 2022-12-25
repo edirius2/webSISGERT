@@ -28,6 +28,27 @@ namespace webSISGERT.Controllers
             return await _context.Clientes.ToListAsync();
         }
 
+        [HttpGet("[action]/{filtroNombre}/{filtroDocumento}/{filtroTipo}")]
+        public async Task<ActionResult<IEnumerable<Cliente>>> GetClientesXFiltro(string filtroNombre, string filtroDocumento, string filtroTipo)
+        {
+            if (filtroNombre=="vacio")
+            {
+                filtroNombre = "";
+            }
+
+            if (filtroDocumento == "vacio")
+            {
+                filtroDocumento = "";
+            }
+
+            if (filtroTipo == "vacio")
+            {
+                filtroTipo = "";
+            }
+
+            return await _context.Clientes.Where(c => c.Nombre.Contains(filtroNombre, StringComparison.InvariantCultureIgnoreCase)).Where(d => d.NumeroDocumento.Contains(filtroDocumento)).Where(e => e.TipoDocumento.ToString().Contains(filtroTipo)).ToListAsync();
+        }
+
         // GET: api/Clientes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Cliente>> GetCliente(int id)

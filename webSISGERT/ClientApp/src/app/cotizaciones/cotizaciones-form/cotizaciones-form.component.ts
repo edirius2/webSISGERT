@@ -118,7 +118,9 @@ export class CotizacionesFormComponent implements OnInit {
   save() {
     let cotizacion: iCotizacion = Object.assign({}, this.formGroup.value);
     if (this.modoEdicion) {
-
+      this.cotizacionesService.modificarCotizacion(cotizacion)
+        .subscribe(cotizacionDesdeWS => this.onSaveSucess(),
+          error => console.error(error));
     }
     else {
       cotizacion.id = 0;
@@ -133,7 +135,7 @@ export class CotizacionesFormComponent implements OnInit {
   }
 
   onSaveSucess() {
-
+    alert("Datos Guardados");
   }
 
 

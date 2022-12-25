@@ -78,10 +78,10 @@ export class DetallePagoFormComponent implements OnInit {
 
   onSaveSucess() {
     if (this.modoEdicion) {
-      this.router.navigate(["/detallePagos/" + this.ordenID]);
+      this.router.navigate(["/principal/ordenesTrabajo-editar/" + this.ordenID +"/detallesPagos/ " + this.ordenID]);
     }
     else {
-      this.router.navigate(["/detallepagos/" + this.ordenID]);
+      this.router.navigate(["/principal/ordenesTrabajo-editar/" + this.ordenID + "/detallesPagos/" + this.ordenID]);
     }
   }
   

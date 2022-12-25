@@ -22,7 +22,7 @@ namespace webSISGERT.Controllers
         }
 
         // GET: api/DetalleRepuestes
-        [HttpGet("idOT")]
+        [HttpGet("{idOT}")]
         public async Task<ActionResult<IEnumerable<DetalleRepuesto>>> GetDetalleRepuestos(int idOT)
         {
             return await _context.DetalleRepuestos.Include(rep=> rep.repuesto).Where(rep=> rep.OrdenTrabajoId == idOT).ToListAsync();
@@ -76,6 +76,7 @@ namespace webSISGERT.Controllers
         [HttpPost]
         public async Task<ActionResult<DetalleRepuesto>> PostDetalleRepuesto(DetalleRepuesto detalleRepuesto)
         {
+            _context.Repuestos.Attach(detalleRepuesto.repuesto);
             _context.DetalleRepuestos.Add(detalleRepuesto);
             await _context.SaveChangesAsync();
 

@@ -7,8 +7,12 @@
     <div class="form-group">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Tipo Documento</mat-label>
-        <input type="text" matInput formControlName="tipoDocumento" [errorStateMatcher]="matcher"
-               placeholder="0" required />
+        <mat-select formControlName="tipoDocumento"
+                    [errorStateMatcher]="matcher"
+                    required>
+          <mat-option value="0" >DNI</mat-option>
+          <mat-option value="1" >RUC</mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-error *ngIf="(formGroup.get('tipoDocumento').touched || formGroup.get('tipoDocumento').dirty) &&  formGroup.get('tipoDocumento').errors">
         Por favor ingrese un Tipo Documento valido.

@@ -18,3 +18,8 @@ td {
   background: none;
   outline: none;
 }
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  color: darkblue;
+  background-color: blue;
+}

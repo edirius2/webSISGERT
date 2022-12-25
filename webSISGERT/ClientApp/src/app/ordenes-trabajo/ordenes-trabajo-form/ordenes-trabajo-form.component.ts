@@ -11,6 +11,10 @@ import { Console } from '@angular/core/src/console';
 import { map, startWith } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ContenedorImagenComponent } from '../contenedor-imagen/contenedor-imagen.component';
+import { iMaquinaria } from 'src/app/maquinarias/maquinaria';
+import { MaquinariasService } from 'src/app/maquinarias/maquinarias.service';
+import { ListaCotizacionesComponent } from '../lista-cotizaciones/lista-cotizaciones.component';
+import { iCotizacion } from 'src/app/cotizaciones/cotizacion';
 
 export interface DialogData {
   ruta: string;
@@ -23,6 +27,7 @@ export interface DialogData {
 })
 export class OrdenesTrabajoFormComponent implements OnInit {
   stateCtrl = new FormControl();
+  maquinariaCtrl = new FormControl();
 
   formatLabel(value: number) {
     if (value == 0) {
@@ -39,8 +44,9 @@ export class OrdenesTrabajoFormComponent implements OnInit {
     return value;
   }
 
-  constructor(private fb: FormBuilder, private ordenesTrabajoService: OrdenesTrabajoService, private clientesService: ClientesService, private router: Router,
-    private activatedRouter: ActivatedRoute, public dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private ordenesTrabajoService: OrdenesTrabajoService, private clientesService: ClientesService, private maquinariasService: MaquinariasService,
+    private router: Router, public dialog: MatDialog,
+    private activatedRouter: ActivatedRoute ) {
     this.filtroClientes = this.stateCtrl.valueChanges.pipe(
       startWith(''),
       map(state => (state ? this._filterClientes(state) : this.listaClientes.slice())),
@@ -52,8 +58,11 @@ export class OrdenesTrabajoFormComponent implements OnInit {
   formGroup: FormGroup;
   modoEdicion: boolean = false;
   OrdenTrabajoId: number;
+  listaMaquinas: iMaquinaria[];
   listaClientes: ICliente[];
   filtroClientes: Observable<ICliente[]>;
+  filtroMaquinarias: Observable<iMaquinaria[]>;
+  maquinariaSeleccionada: iMaquinaria;
   clienteSeleccionado: ICliente;
   modoSeleccion: boolean = false;
 
@@ -61,10 +70,13 @@ export class OrdenesTrabajoFormComponent implements OnInit {
   rutaActaRecepcionEquipos: string = "";
   rutaActaConformidad: string = "";
 
+  cotizacionEnlazada: iCotizacion;
+
   ngOnInit() {
     this.formGroup = this.fb.group({
       id: '',
       codigo: '',
+      clienteId: '',
       cliente: this.fb.group({
         id: '',
         tipoDocumento: '',
@@ -72,8 +84,25 @@ export class OrdenesTrabajoFormComponent implements OnInit {
         nombre: '',
         contacto: '',
         telefono: '',
-        correoElectronico: ''}),
-      fecha:''
+        correoElectronico: ''
+      }),
+      favorito: '',
+      maquinariaId: '',
+      maquinaria: this.fb.group({
+        id: '',
+        placa: '',
+        marcaMaquinariaId: '',
+        marca: '',
+        tipoMaquinariaId: '',
+        tipo: '',
+        estadoMaquinariaId: '',
+        estado: '',
+        clienteId: '',
+        cliente: ''
+      }),
+      fecha: '',
+      descripcion: '',
+      observaciones:''
     });
 
     this.clientesService.getClientes().
@@ -113,12 +142,36 @@ export class OrdenesTrabajoFormComponent implements OnInit {
       correoElectronico: this.clienteSeleccionado.correoElectronico
     });
 
+    this.maquinariasService.getMaquinariasXCliente(this.clienteSeleccionado.id.toString()).
+      subscribe(maquinasDesdeWS => this.listaMaquinas = maquinasDesdeWS,
+        error => console.error(error));
+    
   }
+
+  getMaquinarias(maquina: iMaquinaria, event: any) {
+    if (event.isUserInput) {
+      this.maquinariaSeleccionada = maquina;
+      
+      this.formGroup.get('maquinaria').patchValue({
+        id: this.maquinariaSeleccionada.id,
+        placa: this.maquinariaSeleccionada.placa,
+        marcaMaquinariaId: this.maquinariaSeleccionada.marcaMaquinariaId,
+        marca: this.maquinariaSeleccionada.marca,
+        tipoMaquinariaId: this.maquinariaSeleccionada.tipoMaquinariaId,
+        tipo: this.maquinariaSeleccionada.tipo,
+        estadoMaquinariaId: this.maquinariaSeleccionada.estadoMaquinariaId,
+        estado: this.maquinariaSeleccionada.estado,
+        clienteId: this.maquinariaSeleccionada.clienteId,
+        cliente: ''
+      });
+    }
+  }
+
   //asignarValoresCliente()
   save() {
     let ordenTrabajo: iOrdenTrabajo = Object.assign({}, this.formGroup.value);
     ordenTrabajo.clienteId = ordenTrabajo.cliente.id;
-    
+    ordenTrabajo.maquinariaId = ordenTrabajo.maquinaria.id;
     if (this.modoEdicion) {
       ordenTrabajo.informePreliminar = this.rutaInformePreliminar;
       ordenTrabajo.actaConformidad = this.rutaActaConformidad;
@@ -133,25 +186,43 @@ export class OrdenesTrabajoFormComponent implements OnInit {
       ordenTrabajo.actaConformidad = this.rutaActaConformidad;
       ordenTrabajo.formatoRecepcionEquipos = this.rutaActaRecepcionEquipos;
       this.ordenesTrabajoService.createOrdenTrabajo(ordenTrabajo).
-        subscribe(ordenTrabajo => this.onSaveSucess(),
+        subscribe(ordenTrabajoDesdeWS => this.onSaveSucessCreate(ordenTrabajoDesdeWS.id.toString()),
           error => console.error(error));
     }
     console.log(ordenTrabajo);
   }
 
   onSaveSucess() {
+    alert("Datos Guardados");
+  }
 
+  onSaveSucessCreate(idOT: string) {
+    alert("Datos guardados: " + idOT);
+    this.formGroup.patchValue({
+      id: idOT
+    });
+    this.OrdenTrabajoId = Number(idOT);
+    this.modoEdicion = true;
   }
 
   cargarFormulario(ordenTrabajo: iOrdenTrabajo) {
     console.log(ordenTrabajo);
     this.clienteSeleccionado = ordenTrabajo.cliente;
+    this.maquinariaSeleccionada = ordenTrabajo.maquinaria;
+
     this.formGroup.patchValue({
       id: ordenTrabajo.id,
       codigo: ordenTrabajo.codigo,
-      cliente: this.clienteSeleccionado,
-      fecha: ordenTrabajo.fecha
+      clienteId: ordenTrabajo.clienteId,
+      cliente: ordenTrabajo.cliente,
+      maquinariaId: ordenTrabajo.maquinariaId,
+      maquinaria: ordenTrabajo.maquinaria,
+      favorito: ordenTrabajo.favorito,
+      fecha: ordenTrabajo.fecha,
+      descripcion: ordenTrabajo.descripcion,
+      observaciones: ordenTrabajo.observaciones
     });
+    
     this.rutaInformePreliminar = ordenTrabajo.informePreliminar;
     this.rutaActaConformidad = ordenTrabajo.actaConformidad;
     this.rutaActaRecepcionEquipos = ordenTrabajo.formatoRecepcionEquipos;
@@ -199,6 +270,35 @@ export class OrdenesTrabajoFormComponent implements OnInit {
 
   getSliderTickInterval() {
 
+  }
+
+  traerCotizacion(): void {
+    const dialogRef = this.dialog.open(ListaCotizacionesComponent, {
+      width: '700px',
+      data: '',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+      this.cotizacionEnlazada = result;
+      console.log('The dialog was closed: La cotizacion es:' + this.cotizacionEnlazada.id.toString());
+      this.enlazarCotizacion(this.cotizacionEnlazada);
+    });
+  }
+
+  enlazarCotizacion(cotizacion: iCotizacion) {
+    this.formGroup.patchValue({
+      id: '',
+      codigo: cotizacion.codigo,
+      clienteId: cotizacion.cliente,
+      cliente: cotizacion.cliente,
+      favorito: '',
+      maquinariaId: cotizacion.maquinariaId,
+      maquinaria: cotizacion.maquinaria,
+      fecha: cotizacion.fecha,
+      descripcion: cotizacion.descripcion,
+      observaciones: cotizacion.observaciones
+    });
   }
 }
 

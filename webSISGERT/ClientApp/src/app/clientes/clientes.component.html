@@ -1,35 +1,69 @@
 <h1>Lista Clientes</h1>
 
 <button [routerLink]='["/principal/clientes-agregar"]' class="btn btn-primary" >Agregar Cliente</button>
+<button class="btn btn-primary" [routerLink]='["/principal/clientes-print"]'>Imprimir Lista</button>
+
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filtros:
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput
+           aria-label="Nombre"
+           (input)="filtroNombre($event.target.value)" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Documento</mat-label>
+    <input matInput
+           aria-label="Documento"
+           (input)="filtroDocumento($event.target.value)" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Tipo Documento</mat-label>
+    <mat-select>
+      <mat-option value="RUC" (onSelectionChange)='filtroTipo("RUC", $event)'>RUC</mat-option>
+      <mat-option value="DNI" (onSelectionChange)='filtroTipo("DNI", $event)'>DNI</mat-option>
+      <mat-option value="Todos" (onSelectionChange)='filtroTipo("", $event)'>Todos</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-expansion-panel>
 
 <p *ngIf="!(clientes && clientes.Length )">No hay registros que mostrar</p>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Tipo Documento</th>
-      <th>Numero</th>
-      <th>Nombres</th>
-      <th>Contacto</th>
-      <th>Telefono</th>
-      <th>Correo Electronico</th>
-      <th>Accioness</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let cliente of clientes" >
-      <td>{{cliente.Id}}</td>
-      <td>{{cliente.tipoDocumento}}</td>
-      <td>{{cliente.numeroDocumento}}</td>
-      <td>{{cliente.nombre}}</td>
-      <td>{{cliente.contacto}}</td>
-      <td>{{cliente.telefono}}</td>
-      <td>{{cliente.correoElectronico}}</td>
-      <td>
-        <button class="btn btn-primary" [routerLink]='["/clientes-editar/" + cliente.id]'>Editar</button>
-        <button class="btn btn-danger">Eliminar</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="container" id="content" #content>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tipo </th>
+        <th>Numero</th>
+        <th>Nombres</th>
+        <th>Contacto</th>
+        <th>Telefono</th>
+        <th>Correo Electronico</th>
+        <th>Accioness</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientes">
+        <td>{{cliente.id}}</td>
+        <td>{{cliente.tipoDocumento}}</td>
+        <td>{{cliente.numeroDocumento}}</td>
+        <td>{{cliente.nombre}}</td>
+        <td>{{cliente.contacto}}</td>
+        <td>{{cliente.telefono}}</td>
+        <td>{{cliente.correoElectronico}}</td>
+        <td>
+          <button class="btn btn-primary" [routerLink]='["/clientes-editar/" + cliente.id]'>Editar</button>
+          <button class="btn btn-danger" (click)="prueba(cliente)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

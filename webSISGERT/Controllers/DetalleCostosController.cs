@@ -22,17 +22,17 @@ namespace webSISGERT.Controllers
         }
 
         // GET: api/DetalleCostos
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DetalleCosto>>> GetDetallesCosto()
+        [HttpGet("[action]/{idOT}")]
+        public async Task<ActionResult<IEnumerable<DetalleCosto>>> GetDetallesCostos(int idOT)
         {
-            return await _context.DetallesCosto.ToListAsync();
+            return await _context.DetallesCosto.Where(det => det.OrdenTrabajoId == idOT).Include(det=>det.costo).ToListAsync();
         }
 
         // GET: api/DetalleCostos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DetalleCosto>> GetDetalleCosto(int id)
         {
-            var detalleCosto = await _context.DetallesCosto.FindAsync(id);
+            var detalleCosto = await _context.DetallesCosto.Include(det=> det.costo).Where(det=> det.Id == id).FirstAsync();
 
             if (detalleCosto == null)
             {
@@ -76,6 +76,8 @@ namespace webSISGERT.Controllers
         [HttpPost]
         public async Task<ActionResult<DetalleCosto>> PostDetalleCosto(DetalleCosto detalleCosto)
         {
+            _context.Costo.Attach(detalleCosto.costo);
+           
             _context.DetallesCosto.Add(detalleCosto);
             await _context.SaveChangesAsync();
 

@@ -50,7 +50,7 @@ namespace webSISGERT.Controllers
         {
             //var ordenTrabajo = await _context.OrdenesTrabajo.FindAsync(id);
 
-            var ordenTrabajo = await _context.OrdenesTrabajo.Include(cliente =>cliente.cliente).Include(dt => dt.DetallesTareas).ThenInclude(t => t.tarea).Include(dp => dp.DetallesPagos).Include(de => de.DetallesEmpleados).ThenInclude(ee=> ee.empleado) .Where(ot=>ot.Id == id ).FirstAsync();
+            var ordenTrabajo = await _context.OrdenesTrabajo.Include(cliente =>cliente.cliente).Include(maquinaria => maquinaria.maquinaria).Include(dt => dt.DetallesTareas).ThenInclude(t => t.tarea).Include(dp => dp.DetallesPagos).Include(de => de.DetallesEmpleados).ThenInclude(ee=> ee.empleado) .Where(ot=>ot.Id == id ).FirstAsync();
 
             if (ordenTrabajo == null)
             {
@@ -100,6 +100,7 @@ namespace webSISGERT.Controllers
             {
                 
                 _context.Clientes.Attach(ordenTrabajo.cliente);
+                _context.Maquinarias.Attach(ordenTrabajo.maquinaria);
 
                 _context.OrdenesTrabajo.Add(ordenTrabajo);
                 await _context.SaveChangesAsync();

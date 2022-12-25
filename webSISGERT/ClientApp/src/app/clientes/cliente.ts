@@ -1,6 +1,11 @@
+export enum enumTipoDocumento {
+  DNI=0,
+  RUC=1
+}
+
 export interface ICliente {
   id: number;
-  tipoDocumento: string;
+  tipoDocumento: enumTipoDocumento;
   numeroDocumento: string;
   nombre: string;
   contacto: string;

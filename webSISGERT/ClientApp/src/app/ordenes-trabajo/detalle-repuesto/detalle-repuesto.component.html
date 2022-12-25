@@ -1,3 +1,23 @@
-<p>
-  detalle-repuesto works!
-</p>
+<h3>Lsita de detalles de repuestos</h3>
+<button class="btn btn-primary" [routerLink]='["/principal/ordenesTrabajo-editar/" + ordenTrabajoId + "/detalleRepuesto-agregar/" + ordenTrabajoId]'>Agregar Detalle</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Repuesto</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let detalle of listaDetallesRepuesto">
+      <td>{{detalle.repuesto.nombre}}</td>
+      <td>{{detalle.cantidad}}</td>
+      <td>{{detalle.precio}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/principal/ordenTrabajo-editar" + ordenTrabajoId + "/detalleRepuesto-editar/" + detalle.id]'>Editar</button>
+        <button class="btn btn-danger">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

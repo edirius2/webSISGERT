@@ -1,3 +1,20 @@
-<p>
-  detalle-costo works!
-</p>
+<button [routerLink]="['/principal/ordenesTrabajo-editar/' + ordenTrabajoId + '/detalleCosto-agregar/'+ ordenTrabajoId]" class="btn btn-primary">Agregar Detalle Costo</button>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Precio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let costo of detallesCostos">
+      <td>{{costo.costo.descripcion}}</td>
+      <td>{{costo.precio}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/principal/ordenesTrabajo-editar/" + ordenTrabajoId + "/detalleCosto-editar/" + costo.id]' >Editar</button>
+        <button class="btn btn-danger"  >Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,75 @@
+
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filtrar:
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Cliente</mat-label>
+    <input matInput
+           aria-label="Cliente"
+           [matAutocomplete]="auto"
+           [formControl]="stateCtrl">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let cliente of listaClientes" [value]="cliente.nombre" (onSelectionChange)='getClientes(cliente.id, $event)'>
+        <span>{{cliente.nombre}}</span> |
+        <small>Contacto: {{cliente.contacto}}</small>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Maquinaria</mat-label>
+    <input matInput
+           aria-label="Maquinaria"
+           [matAutocomplete]="auto2"
+           [formControl]="maquinariaCtrl">
+    <mat-autocomplete #auto2="matAutocomplete">
+      <mat-option *ngFor="let maquina of listaMaquinarias" [value]="maquina.placa" (onSelectionChange)='getMaquinarias(maquina.id, $event)'>
+        <span>{{maquina.placa}}</span> |
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Estado</mat-label>
+    <mat-select>
+      <mat-option value="Todos" (onSelectionChange)='getEstados("", $event)'>Todos</mat-option>
+      <mat-option value="Activos" (onSelectionChange)='getEstados("Activo", $event)'>Activos</mat-option>
+      <mat-option value="Cancelados" (onSelectionChange)='getEstados("Cancelado", $event)'>Cancelados</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-expansion-panel>
+<h3>
+  Lista de Cotizaciones
+</h3>
+
+<p *ngIf="!(cotizaciones && cotizaciones.length)">
+  No existe cotizaciones.
+</p>
+
+<table *ngIf="(cotizaciones && cotizaciones.length)">
+  <thead>
+    <tr>
+      <th>Codigo</th>
+      <th>Cliente</th>
+      <th>Maquinaria</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cotizacion of cotizaciones">
+      <td>{{cotizacion.codigo}}</td>
+      <td>{{cotizacion.cliente.nombre}}</td>
+      <td>{{cotizacion.maquinaria.placa}}</td>
+      <td>{{cotizacion.estado}}</td>
+      <td>
+        <button mat-button class="btn btn-primary" [mat-dialog-close]="cotizacion" >Escoger</button>
+        <button class="btn btn-danger">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
