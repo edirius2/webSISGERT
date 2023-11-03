@@ -1,5 +1,8 @@
 
-<button [routerLink]="['/principal/ordenesTrabajo-editar/' + ordenTrabajoId + '/detalleTarea-agregar/'+ ordenTrabajoId]" class="btn btn-primary">Agregar Detalle</button>
+<div class="row justify-content-end">
+  <button [routerLink]="['/principal/menuOrdenes-editar/' + ordenTrabajoId + '/detalleTarea-agregar/'+ ordenTrabajoId]" class="btn btn-primary">Agregar Detalle</button>
+</div>
+
 
 <table class="table">
   <thead>
@@ -12,14 +15,22 @@
   <tbody>
     <tr *ngFor="let detalleTarea of detalleTareas">
       <td>{{detalleTarea.tarea.nombre}}</td>
-      <td>{{detalleTarea.cantidad}}</td>
-      <td>{{detalleTarea.precio}}</td>
+      <td class="alig_derecha">{{detalleTarea.cantidad}}</td>
+      <td class="alig_derecha">{{detalleTarea.precio|currency: 'PEN': 'symbol': '': 'es-PE'}}</td>
       <td>
         <button class="btn btn-primary" [routerLink]='["/tareas-editar/" ]'>Editar</button>
         <button class="btn btn-danger">Eliminar</button>
       </td>
     </tr>
   </tbody>
+  <tfoot>
+    <tr>
+      <th>TOTAL</th>
+      <th class="alig_derecha">{{totatNumerotareas}}</th>
+      <th class="alig_derecha">{{totalPreciotareas| currency: 'PEN': 'symbol': '': 'es-PE'}}</th>
+    </tr>
+  </tfoot>
 </table>
+
 
 

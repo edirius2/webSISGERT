@@ -482,6 +482,10 @@ namespace webSISGERT.Migrations
                     b.Property<string>("CorreoElectronico")
                         .HasMaxLength(50);
 
+                    b.Property<double>("CostoHora");
+
+                    b.Property<int>("EspecialidadId");
+
                     b.Property<string>("Nombre");
 
                     b.Property<string>("NumeroDocumento")
@@ -495,6 +499,8 @@ namespace webSISGERT.Migrations
                     b.Property<int>("TipoDocumento");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EspecialidadId");
 
                     b.ToTable("Empleados");
                 });
@@ -579,11 +585,15 @@ namespace webSISGERT.Migrations
 
                     b.Property<string>("Observaciones");
 
+                    b.Property<int>("TipoOTId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
 
                     b.HasIndex("MaquinariaId");
+
+                    b.HasIndex("TipoOTId");
 
                     b.ToTable("OrdenesTrabajo");
                 });
@@ -626,6 +636,35 @@ namespace webSISGERT.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TiposMaquinaria");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.OT.TipoOT", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Codigo")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(15);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TiposOT");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.cEmpleado.Especialidad", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Especialidades");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -823,6 +862,14 @@ namespace webSISGERT.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("webSISGERT.Models.OT.Empleado", b =>
+                {
+                    b.HasOne("webSISGERT.Models.cEmpleado.Especialidad", "Especialidad")
+                        .WithMany()
+                        .HasForeignKey("EspecialidadId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("webSISGERT.Models.OT.Maquinaria", b =>
                 {
                     b.HasOne("webSISGERT.Models.OT.Cliente", "cliente")
@@ -856,6 +903,11 @@ namespace webSISGERT.Migrations
                     b.HasOne("webSISGERT.Models.OT.Maquinaria", "maquinaria")
                         .WithMany()
                         .HasForeignKey("MaquinariaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.OT.TipoOT", "tipoOT")
+                        .WithMany()
+                        .HasForeignKey("TipoOTId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

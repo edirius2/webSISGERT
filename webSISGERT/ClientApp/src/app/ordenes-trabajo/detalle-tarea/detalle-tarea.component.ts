@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { iDetalleTarea } from './detalleTarea';
 import { DetalleTareaService } from './detalle-tarea.service';
 import { observable } from 'rxjs';
 import { iOrdenTrabajo } from '../ordenTrabajo';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { switchMap, mergeMap } from 'rxjs/operators';
+//import { getCurrencySymbol } from "@angular/common";
 
 @Component({
   selector: 'app-detalle-tarea',
@@ -14,28 +15,18 @@ import { switchMap, mergeMap } from 'rxjs/operators';
 export class DetalleTareaComponent implements OnInit {
 
   detalleTareas: iDetalleTarea[];
-
+  //cheatSymbol = getCurrencySymbol("es-PE", "wide");
   //@Input() ordenTrabajoEntrante: iOrdenTrabajo;
   ordenTrabajoEntrante: iOrdenTrabajo;
   ordenTrabajoId: string = '0';
+
+  totalPreciotareas: number = 0;
+  totatNumerotareas: number = 0;
+
   constructor(private detalleTareasService: DetalleTareaService, private router: Router, private activatedRouter: ActivatedRoute) {
   }
 
   ngOnInit() {
-
-    //  this.detalleTareasService.getDetallesTarea(this.ordenTrabajoId)
-    //    .subscribe(detalleTareaDesdeWS => this.detalleTareas = detalleTareaDesdeWS,
-    //    error => console.error(error));
-    //console.log(this.detalleTareas);
-    //this.activatedRouter.params.subscribe(params => this.cargarFormulario(params['idOT']),
-    //  error => console.error(error));
-    //this.activatedRouter.paramMap.pipe(
-    //  switchMap((params: Params) => {
-    //    return this.detalleTareasService.getDetallesTarea(params.get('idOT'))
-    //  })
-    //).subscribe(detalleTareaDesdeWS => this.detalletareas = detalleTareaDesdeWS,
-    //  error => console.error(error));
-
 
     this.activatedRouter.params.subscribe(params => {
       if (params['idOT'] == undefined) {
@@ -43,18 +34,21 @@ export class DetalleTareaComponent implements OnInit {
       }
       this.ordenTrabajoId = params['idOT'];
       this.detalleTareasService.getDetallesTarea(this.ordenTrabajoId)
-        .subscribe(detalleTareaDesdeWS => this.detalleTareas = detalleTareaDesdeWS,
+        .subscribe(detalleTareaDesdeWS => this.cargarTabla(detalleTareaDesdeWS),
           error => console.error(error));
 
     });
 
+  }
 
+  cargarTabla(detalles: iDetalleTarea[]) {
+    this.detalleTareas = detalles;
+    this.totalPreciotareas = 0;
+    this.totatNumerotareas = 0;
 
-    //cargarFormulario(idOT:string) {
-    //    this.detalleTareasService.getDetallesTarea(idOT)
-    //      .subscribe(detalleTareaDesdeWS => this.detalleTareas = detalleTareaDesdeWS,
-    //    error => console.error(error));
-    //  console.log(this.detalleTareas);
-    //}
+    this.detalleTareas.forEach(det => {
+      this.totalPreciotareas += det.precio;
+      this.totatNumerotareas += det.cantidad;
+    });
   }
 }

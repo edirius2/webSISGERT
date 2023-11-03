@@ -103,3 +103,14 @@ mat-slider {
 tr:nth-child(even) {
   background-color: #b0ced3;
 }
+
+.caja{
+  margin-left:2px;
+  margin-bottom:5px;
+  padding-bottom:2px;
+}
+
+
+small {
+  color: cadetblue;
+}

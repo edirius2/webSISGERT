@@ -89,7 +89,7 @@ export class DetalleCostoFormComponent implements OnInit {
 
   saveSucess() {
     alert("Datos Guardados");
-    this.router.navigate(["/principal/ordenesTrabajo-editar/" + this.ordenTrabajoId + "/detallesCostos/" + this.ordenTrabajoId]);
+    this.router.navigate(["/principal/menuOrdenes-editar/" + this.ordenTrabajoId + "/detallesCostos/" + this.ordenTrabajoId]);
   }
 
   setCosto(costo: iCosto, event: any) {

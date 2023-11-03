@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DetalleTareaService } from '../detalle-tarea.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { iDetalleTarea } from '../detalleTarea';
@@ -24,6 +24,9 @@ export class DetalleTareaFormComponent implements OnInit {
   detalleOTId: string;
   listaTareas: ITarea[];
   filtroTareas: Observable<ITarea[]>;
+
+  precioSugerido: string;
+  
 
 
   constructor(private fb: FormBuilder, private detalleTareaService: DetalleTareaService, private tareasService: TareasService, private router: Router,
@@ -101,10 +104,10 @@ export class DetalleTareaFormComponent implements OnInit {
 
   onSaveSucess() {
     if (this.modoEdicion) {
-      this.router.navigate(["/detalleTareas/" + this.detalleOTId]);
+      this.router.navigate(["/principal/menuOrdenes-editar/" + this.detalleOTId + "/detallesTareas/ " + this.detalleOTId]);
     }
     else {
-      this.router.navigate(["/detalleTareas/" + this.detalleOTId]);
+      this.router.navigate(["/principal/menuOrdenes-editar/" + this.detalleOTId + "/detallesTareas/ " + this.detalleOTId]);
     }
     
   }
@@ -116,14 +119,24 @@ export class DetalleTareaFormComponent implements OnInit {
   }
 
 
-  setTarea(option: any) {
-    this.tareaSeleccionada = option;
+  setTarea(event:any , option: any) {
+    if (event.isUserInput) {
+      this.tareaSeleccionada = option;
 
-    this.formGroup.get('tarea').patchValue({
-      id: this.tareaSeleccionada.id,
-      nombre: this.tareaSeleccionada.nombre,
-      precioReferencial: this.tareaSeleccionada.precioReferencial
-    });
+      this.formGroup.get('tarea').patchValue({
+        id: this.tareaSeleccionada.id,
+        nombre: this.tareaSeleccionada.nombre,
+        precioReferencial: this.tareaSeleccionada.precioReferencial
+      });
 
+      if (Number(this.formGroup.get('cantidad').value) == 0) {
+        this.precioSugerido = this.tareaSeleccionada.precioReferencial.toString()
+      }
+      else {
+        this.precioSugerido = (this.tareaSeleccionada.precioReferencial * Number(this.formGroup.get('cantidad').value)).toString();
+      }
+    }
+    
+    
   }
 }

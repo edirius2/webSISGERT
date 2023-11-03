@@ -1,0 +1,9 @@
+tr:nth-child(even) {
+  background-color: #b0ced3;
+}
+
+.alig_derecha {
+  text-align: right;
+}
+
+

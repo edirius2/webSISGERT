@@ -35,13 +35,32 @@ namespace webSISGERT.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrdenTrabajo>>> GetOrdenesTrabajo()
         {
-            return await _context.OrdenesTrabajo.Include(clientes=>clientes.cliente).Include(dt=>dt.DetallesTareas).ThenInclude(t=> t.tarea).Include(dp=>dp.DetallesPagos).Include(de=>de.DetallesEmpleados).ToListAsync();
+            return await _context.OrdenesTrabajo.Include(clientes=>clientes.cliente).Include(dt=>dt.DetallesTareas).ThenInclude(t=> t.tarea).Include(dp=>dp.DetallesPagos)
+                .Include(ti => ti.tipoOT).Include(de=>de.DetallesEmpleados).Include(ma => ma.maquinaria).ThenInclude(ti => ti.Tipo).ToListAsync();
         }
+
+        // GET: api/OrdenesTrabajo
+        [HttpGet("[action]/{tamano}/{posicion}")]
+        public async Task<ActionResult<IEnumerable<OrdenTrabajo>>> GetOrdenesTrabajoXPaginacion(int tamano, int posicion)
+        {
+            return await _context.OrdenesTrabajo.Include(clientes => clientes.cliente).Include(dt => dt.DetallesTareas).ThenInclude(t => t.tarea).Include(dp => dp.DetallesPagos)
+                .Include(ti => ti.tipoOT).Include(de => de.DetallesEmpleados).Include(ma=> ma.maquinaria).ThenInclude(ti=> ti.Tipo).Skip(posicion).Take(tamano) .ToListAsync();
+        }
+
 
         [HttpGet("[action]/{filtroClienteId}")]
         public async Task<ActionResult<IEnumerable<OrdenTrabajo>>> GetFiltroOrdenesTrabajo(int filtroClienteId)
         {
-            return await _context.OrdenesTrabajo.Include(clientes => clientes.cliente).Include(dt => dt.DetallesTareas).Include(dp => dp.DetallesPagos).Include(de => de.DetallesEmpleados).Where(ot=> ot.ClienteId == filtroClienteId) .ToListAsync();
+            return await _context.OrdenesTrabajo.Include(clientes => clientes.cliente).Include(dt => dt.DetallesTareas).Include(dp => dp.DetallesPagos).Include(de => de.DetallesEmpleados).Where(ot=> ot.ClienteId == filtroClienteId)
+                .Include(ma => ma.maquinaria).ThenInclude(ti => ti.Tipo).ToListAsync();
+        }
+
+
+        [HttpGet("[action]")]
+        public async Task<int> GetNumeroOrdenesTrabajo()
+        {
+            int contador2 = await  Task.FromResult(_context.OrdenesTrabajo.Count());
+            return contador2;
         }
 
         // GET: api/OrdenesTrabajo/5
@@ -50,7 +69,10 @@ namespace webSISGERT.Controllers
         {
             //var ordenTrabajo = await _context.OrdenesTrabajo.FindAsync(id);
 
-            var ordenTrabajo = await _context.OrdenesTrabajo.Include(cliente =>cliente.cliente).Include(maquinaria => maquinaria.maquinaria).Include(dt => dt.DetallesTareas).ThenInclude(t => t.tarea).Include(dp => dp.DetallesPagos).Include(de => de.DetallesEmpleados).ThenInclude(ee=> ee.empleado) .Where(ot=>ot.Id == id ).FirstAsync();
+            var ordenTrabajo = await _context.OrdenesTrabajo.Include(cliente =>cliente.cliente).Include(maquinaria => maquinaria.maquinaria).Include(ti=>ti.tipoOT)
+                .Include(dt => dt.DetallesTareas).ThenInclude(t => t.tarea).Include(dp => dp.DetallesPagos)
+                .Include(co=> co.DetallesCosto).ThenInclude(c=> c.costo).Include(re=>re.DetallesRepuestos).ThenInclude(r=>r.repuesto).Include(de => de.DetallesEmpleados)
+                .ThenInclude(ee=> ee.empleado) .Where(ot=>ot.Id == id ).FirstAsync();
 
             if (ordenTrabajo == null)
             {
@@ -101,7 +123,7 @@ namespace webSISGERT.Controllers
                 
                 _context.Clientes.Attach(ordenTrabajo.cliente);
                 _context.Maquinarias.Attach(ordenTrabajo.maquinaria);
-
+                _context.TiposOT.Attach(ordenTrabajo.tipoOT);
                 _context.OrdenesTrabajo.Add(ordenTrabajo);
                 await _context.SaveChangesAsync();
 

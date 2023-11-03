@@ -41,7 +41,8 @@ export class DetalleEmpleadoFormComponent implements OnInit {
         nombre: '',
         telefono: '',
         correoElectronico: ''
-      })
+      }),
+      horas:''
     });
 
         this.filtroEmpleados = this .formGroup.get('empleado').get('nombre').valueChanges.pipe(
@@ -87,7 +88,8 @@ export class DetalleEmpleadoFormComponent implements OnInit {
         nombre: detalle.empleado.nombre,
         telefono: detalle.empleado.telefono,
         correoElectronico: detalle.empleado.correoElectronico,
-      })
+      }),
+      horas: detalle.horas
     });
   }
 
@@ -127,10 +129,10 @@ export class DetalleEmpleadoFormComponent implements OnInit {
 
   onSaveSucess() {
     if (this.modoEdicion) {
-      this.router.navigate(["/detalleEmpleado/" + this.detalleOTId]);
+      this.router.navigate(['/principal/menuOrdenes-editar/' + this.detalleOTId + '/detallesEmpleados/' + this.detalleOTId]);
     }
     else {
-      this.router.navigate(["/detalleEmpleado/" + this.detalleOTId]);
+      this.router.navigate(['/principal/menuOrdenes-editar/' + this.detalleOTId + '/detallesEmpleados/' + this.detalleOTId]);
     }
   }
 }

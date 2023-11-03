@@ -1,0 +1,13 @@
+<nav mat-tab-nav-bar ngClass="tabs">
+  <a mat-tab-link
+     [routerLink]="['/principal/menuCotizaciones-editar/' + CotizacionId + '/cotizaciones-editar/' + CotizacionId]"
+     routerLinkActive="active-link">Principal</a>
+  <a mat-tab-link
+     [routerLink]="['/principal/menuCotizaciones-editar/' + CotizacionId + '/detallesTareasC/' + CotizacionId]"
+     routerLinkActive="active-link">Lista de Tareas</a>
+  <a mat-tab-link
+     [routerLink]="['/principal/menuCotizaciones-editar/' + CotizacionId + '/detallesGastosC/' + CotizacionId]">Gastos varios</a>
+  <a mat-tab-link
+     [routerLink]="['/principal/menuCotizaciones-editar/' + CotizacionId + '/detallesRepuestosC/' + CotizacionId]">Repuestos</a>
+</nav>
+<router-outlet></router-outlet>

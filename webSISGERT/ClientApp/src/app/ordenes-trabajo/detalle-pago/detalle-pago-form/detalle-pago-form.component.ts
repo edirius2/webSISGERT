@@ -27,7 +27,7 @@ export class DetallePagoFormComponent implements OnInit {
     });
 
     this.activatedRouter.paramMap.subscribe(params => {
-      if (params['id'] == undefined) {
+      if (params.get('id') == undefined) {
         this.modoEdicion = false;
         this.ordenID = params.get('idOT');
         return;
@@ -78,10 +78,10 @@ export class DetallePagoFormComponent implements OnInit {
 
   onSaveSucess() {
     if (this.modoEdicion) {
-      this.router.navigate(["/principal/ordenesTrabajo-editar/" + this.ordenID +"/detallesPagos/ " + this.ordenID]);
+      this.router.navigate(["principal/menuOrdenes-editar/" + this.ordenID +"/detallesPagos/ " + this.ordenID]);
     }
     else {
-      this.router.navigate(["/principal/ordenesTrabajo-editar/" + this.ordenID + "/detallesPagos/" + this.ordenID]);
+      this.router.navigate(["principal/menuOrdenes-editar/" + this.ordenID + "/detallesPagos/ " + this.ordenID]);
     }
   }
   

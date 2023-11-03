@@ -1,11 +1,11 @@
-<h1>Agregar Repuesto</h1>
+<h2>Agregar Repuesto</h2>
 
-<form class="form-horizontal" novalidate
+<form class="form-horizontal example-form" novalidate
       (ngSubmit)="save()" [formGroup]="formGroup">
   <fieldset>
-    <div class="form-group"
+    <div class="form-group example-form"
          [ngClass]="{'has-error': (formGroup.get('nombre').touched || formGroup.get('nombre').dirty) &&  !formGroup.get('nombre').valid}">
-      <mat-form-field class="example-full-width" appearance="fill">
+      <mat-form-field class="example-form" appearance="fill">
         <mat-label>Nombre</mat-label>
         <input matInput
                id="nombreId"
@@ -33,9 +33,8 @@
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group row example-form">
       <div class="col-md-4 col-md-offset-2">
-        <span>
           <button class="btn btn-primary"
                   type="submit"
                   [disabled]="!formGroup.valid">
@@ -45,7 +44,7 @@
                   [routerLink]='["/principal/repuestos"]'>
             Cancelar
           </button>
-        </span>
+
       </div>
     </div>
   </fieldset>

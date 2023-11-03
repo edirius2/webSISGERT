@@ -1,0 +1,38 @@
+<form class="form-horizontal" [formGroup]="formGroup" novalidate (ngSubmit)="save()">
+  <fieldset>
+    <div class="formGroup">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Codigo</mat-label>
+        <input matInput
+               id="codigo"
+               type="text"
+               required
+               formControlName="codigo" />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Descripcion</mat-label>
+        <input matInput
+               id="descripcion"
+               type="text"
+               required
+               formControlName="descripcion" />
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <div class="col-md-4 col-md-offset-2">
+        <span>
+          <button class="btn btn-primary"
+                  type="submit"
+                  [disabled]="!formGroup.valid">
+            Salvar
+          </button>
+          <button class="btn"
+                  [routerLink]='["/principal/tiposOT"]'>
+            Cancelar
+          </button>
+        </span>
+      </div>
+    </div>
+  </fieldset>
+</form>

@@ -1,6 +1,6 @@
 
 <h5>Lista de tareas</h5>
-<button [routerLink]="['/principal/cotizaciones-editar/' + cotizacionId + '/detalleTareaC-agregar/' + cotizacionId]">Agregar Tarea</button>
+<button [routerLink]="['/principal/menuCotizaciones-editar/' + cotizacionId + '/detalleTareaC-agregar/' + cotizacionId]">Agregar Tarea</button>
 
 <table class="table">
   <thead>
@@ -16,7 +16,7 @@
       <td>{{detalle.cantidad}}</td>
       <td>{{detalle.hora}}</td>
       <td>
-        <button class="btn btn-primary" [routerLink]='["/principal/cotizaciones-editar/" + cotizacionId + "/tareas-editar/" + id ]'>Editar</button>
+        <button class="btn btn-primary" [routerLink]='["/principal/menuCotizaciones-editar/" + cotizacionId + "/tareas-editar/" + id ]'>Editar</button>
         <button class="btn btn-danger">Eliminar</button>
       </td>
     </tr>

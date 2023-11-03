@@ -11,6 +11,7 @@
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let gasto of listaCostos" [value]="gasto.descripcion" (onSelectionChange)="setCosto(gasto, $event)">
             <span>{{gasto.descripcion}}</span>
+            <small>{{gasto}}</small>
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>

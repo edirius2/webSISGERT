@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using webSISGERT.Models;
 
+
 namespace webSISGERT.Controllers
 {
     [Route("api/[controller]")]
@@ -58,27 +59,36 @@ namespace webSISGERT.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<List<ApplicationUser>> GetUsuarios()
+        {
+            return await Task.Run(() =>
+            {
+                return _userManager.Users.ToList();
+            });
+        }
+
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] UserInfo userInfo)
         {
-            if (ModelState.IsValid)
-            {
-                var result = await _signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password, isPersistent: false, lockoutOnFailure: false);
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    return BuildToken(userInfo);
+                    var result = await _signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password, isPersistent: false, lockoutOnFailure: false);
+                    if (result.Succeeded)
+                    {
+                        return BuildToken(userInfo);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalido login.");
+                        return BadRequest(ModelState);
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalido login.");
                     return BadRequest(ModelState);
                 }
-            }
-            else
-            {
-                return BadRequest(ModelState);
-            }
         }
 
         private IActionResult BuildToken(UserInfo userInfo)

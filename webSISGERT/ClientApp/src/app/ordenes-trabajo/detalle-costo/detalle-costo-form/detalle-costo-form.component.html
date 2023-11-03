@@ -2,18 +2,23 @@
       (ngSubmit)="save()" [formGroup]="formGroup">
   <fieldset>
     <div class="example-form" formGroupName="costo">
-      <mat-form-field class="example-full-width" appearance="fill" align="right">
-        <mat-label >Costo</mat-label>
+      <mat-form-field class="example-form" appearance="fill" align="right">
+        <mat-label>Costo</mat-label>
         <input matInput
                aria-label="Costo"
                [matAutocomplete]="auto"
                [formControl]="stateCtrl"
-               formControlName="descripcion"/>
+               formControlName="descripcion"
+               required />
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let costo of listaCostos" [value]="costo.descripcion" (onSelectionChange)='setCosto(costo, $event)' >
-            <span>{{costo.descripcion}}</span> 
+          <mat-option *ngFor="let costo of listaCostos" [value]="costo.descripcion" (onSelectionChange)='setCosto(costo, $event)'>
+            <span>{{costo.descripcion}}</span> | Codigo:
+            <small>{{costo.codigo}}</small>
           </mat-option>
-        </mat-autocomplete> 
+        </mat-autocomplete>
+        <mat-error *ngIf="(formGroup.get('costo').touched || formGroup.get('costo').dirty) &&  formGroup.get('costo').errors">
+          Campo Costo no valido.
+        </mat-error>
       </mat-form-field>
     </div>
 
@@ -23,19 +28,30 @@
         <input matInput
                aria-label="Precio"
                type="number"
-               formControlName="precio" />
+               formControlName="precio"
+               required
+               pattern="^\d+(\.\d+)?$"/>
+        <mat-error *ngIf="(formGroup.get('precio').touched || formGroup.get('precio').dirty) &&  formGroup.get('precio').errors">
+          Campo Precio no valido.
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('precio').errors && formGroup.get('precio').errors.required">
+          El campo precio es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('precio').errors && formGroup.get('precio').errors.pattern">
+          El campo precio solo admites numeros y punto ej: <strong>2000.00</strong>
+        </mat-error>
       </mat-form-field>
     </div>
 
-    <div class="formGroup">
+    <div class="formGroup" style="margin-top:25px;">
       <div class="col-md-4 col-md-offset-2">
         <span>
-          <button class="btn btnPrimary"
+          <button class="btn btn-primary"
                   type="submit"
                   >Salvar
           </button>
           <button class="btn btnDanger"
-                  [routerLink]='["/Principal/ordenesTrabajo-editar/" + ordenTrabajoId + "/detallesCostos/" + ordenTrabajoId]' >
+                  [routerLink]='["/principal/menuOrdenesTrabajo-editar/" + ordenTrabajoId + "/detallesCostos/" + ordenTrabajoId]' >
             Cancelar
           </button>
         </span>

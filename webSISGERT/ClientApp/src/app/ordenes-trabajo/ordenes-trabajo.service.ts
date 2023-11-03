@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { iOrdenTrabajo } from './ordenTrabajo';
 import { RequestOptions } from '@angular/http';
+import { retry } from 'rxjs/operators';
 
 
 
@@ -25,13 +26,17 @@ export class OrdenesTrabajoService {
   constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   getOrdenesTrabajo(): Observable<iOrdenTrabajo[]> {
-    console.log("ojo con esto: " + this.apiURL)
     return this.httpClient.get<iOrdenTrabajo[]>(this.apiURL);
   }
 
   getOrdenesTrabajoConFiltro(filtroIdCliente: string): Observable<iOrdenTrabajo[]> {
     
     return this.httpClient.get<iOrdenTrabajo[]>(this.apiURL + "/GetFiltroOrdenesTrabajo/" + filtroIdCliente);
+  }
+
+  getOrdenesTrabajoXPaginacion(tamano: string, posicion: string): Observable<iOrdenTrabajo[]> {
+
+    return this.httpClient.get<iOrdenTrabajo[]>(this.apiURL + "/GetOrdenesTrabajoXPaginacion/" + tamano + "/" + posicion);
   }
 
   getOrdenTrabajo(idOrdenTrabajo: string): Observable<iOrdenTrabajo> {
@@ -65,5 +70,9 @@ export class OrdenesTrabajoService {
     formData.append("archivo", archivo, archivo.name)
     var lol = this.httpClient.post(this.apiURL + "/CrearImagenActaConformidad", formData, { headers: headers, responseType: 'text' });
     return lol;
+  }
+
+  getNumeroOrdenes(): Observable<number> {
+    return this.httpClient.get<number>(this.apiURL + "/GetNumeroOrdenesTrabajo");
   }
 }

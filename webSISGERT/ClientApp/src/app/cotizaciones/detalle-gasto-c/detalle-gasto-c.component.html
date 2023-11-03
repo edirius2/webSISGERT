@@ -1,5 +1,5 @@
 <h5>Lista de gastos</h5>
-<button [routerLink]="['/principal/cotizaciones-editar/' + cotizacionId + '/detalleGastoC-agregar/' + cotizacionId]">Agregar Gasto</button>
+<button [routerLink]="['/principal/menuCotizaciones-editar/' + cotizacionId + '/detalleGastoC-agregar/' + cotizacionId]">Agregar Gasto</button>
 <table class="table">
   <thead>
     <tr>
@@ -12,7 +12,7 @@
       <td>{{gasto.costo.descripcion}}</td>
       <td>{{gasto.precio}}</td>
       <td>
-        <button class="btn btn-primary" [routerLink]='["/principal/cotizaciones-editar/" + cotizacionId + "/detalleGastoC-editar/" + gasto.id ]'>Editar</button>
+        <button class="btn btn-primary" [routerLink]='["/principal/menuCotizaciones-editar/" + cotizacionId + "/detalleGastoC-editar/" + gasto.id ]'>Editar</button>
         <button class="btn btn-danger">Eliminar</button>
       </td>
     </tr>

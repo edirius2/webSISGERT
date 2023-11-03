@@ -1,19 +1,22 @@
-<button [routerLink]="['/principal/ordenesTrabajo-editar/' + ordenTrabajoId + '/detalleEmpleado-agregar/'+ ordenTrabajoId]" class="btn btn-primary">Agregar Detalle</button>
+<div class="justify-content-end">
+  <button [routerLink]="['/principal/menuOrdenes-editar/' + ordenTrabajoId + '/detallesEmpleados-agregar/'+ ordenTrabajoId]" class="btn btn-primary">Agregar Detalle</button>
+</div>
+
 <table class="table">
   <thead>
     <tr>
       <th>Id</th>
       <th>Nombre</th>
-      <th>Telefono</th>
+      <th>Horas Hombre</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let detalleEmpleado of detalleEmpleados">
       <td>{{detalleEmpleado.empleado.id}}</td>
       <td>{{detalleEmpleado.empleado.nombre}}</td>
-      <td>{{detalleEmpleado.empleado.telefono}}</td>
+      <td>{{detalleEmpleado.horas}}</td>
       <td>
-        <button class="btn btn-primary" [routerLink]='["/detalleEmpleado-editar/" ]'>Editar</button>
+        <button class="btn btn-primary" [routerLink]='["/principal/menuOrdenes-editar/" + ordenTrabajoId +"/detallesEmpleados-editar/" + detalleEmpleado.id ]'>Editar</button>
         <button class="btn btn-danger">Eliminar</button>
       </td>
     </tr>

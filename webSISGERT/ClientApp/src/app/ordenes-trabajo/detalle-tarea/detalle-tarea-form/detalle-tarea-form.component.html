@@ -1,16 +1,17 @@
 <form class="form-horizontal" novalidate
-      (ngSubmit)="save()" [formGroup]="formGroup">
+      (ngSubmit)="save()" [formGroup]="formGroup" style="width:100%;">
   <fieldset>
 
-    <div class="example-form">
-      <mat-form-field class="example-full-width" appearance="fill" align="right">
+    <div class="example-form" style="width:100%;">
+      <mat-form-field class="example-full-width" appearance="fill" align="right" style="width:100%;">
         <mat-label>Tarea</mat-label>
         <input matInput
                aria-label="Tarea"
                [matAutocomplete]="auto"
-               [formControl]="stateCtrl">
+               [formControl]="stateCtrl"
+               style="width:100%;">
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let tarea of listaTareas" [value]="tarea.nombre" (onSelectionChange)='setTarea(tarea)'>
+          <mat-option *ngFor="let tarea of listaTareas" [value]="tarea.nombre" (onSelectionChange)='setTarea($event,tarea)'>
             <span>{{tarea.nombre}}</span> |
             <small>Precio Ref: {{tarea.precioReferencial}}</small>
           </mat-option>
@@ -18,42 +19,56 @@
       </mat-form-field>
 
     </div>
-
-    <div class="form-group"
-         [ngClass]="{'has-error': (formGroup.get('cantidad').touched || formGroup.get('cantidad').dirty) && !formGroup.get('cantidad').valid}">
-      <label class="col-md-2 control-label"
-             for="cantidadId">Cantidad</label>
-      <div class="col-md-8">
-        <input class="form-control"
-               id="cantidadId"
-               type="text"
-               required
-               formControlName="cantidad" />
-        <span class="help-block" *ngIf="(formGroup.get('cantidad').touched || formGroup.get('cantidad').dirty) && formGroup.get('cantidad').errors">
-          <span *ngIf="formGroup.get('cantidad').errors.required">
-            El Campo cantidad es requerido.
+    <div class="row align-items-end">
+      <div class="form-group"
+           [ngClass]="{'has-error': (formGroup.get('cantidad').touched || formGroup.get('cantidad').dirty) && !formGroup.get('cantidad').valid}">
+        <label class="col-md-2 control-label"
+               for="cantidadId">Cantidad</label>
+        <div class="col-md-8">
+          <input class="form-control alinear_derecha"
+                 id="cantidadId"
+                 type="text"
+                 pattern="^\d+$"
+                 required
+                 formControlName="cantidad" />
+          <span class="help-block" *ngIf="(formGroup.get('cantidad').touched || formGroup.get('cantidad').dirty) && formGroup.get('cantidad').errors">
+            <span *ngIf="formGroup.get('cantidad').errors.required">
+              El Campo cantidad es requerido.
+            </span>
+            <span *ngIf="formGroup.get('cantidad').errors.pattern">
+              El Campo cantidad admite solo numeros enteros.
+            </span>
           </span>
-        </span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group"
-         [ngClass]="{'has-error': (formGroup.get('precio').touched || formGroup.get('precio').dirty) &&  !formGroup.get('precio').valid}">
-      <label class="col-md-2 control-label"
-             for="precioId">Precio</label>
-      <div class="col-md-8">
-        <input class="form-control"
-               id="precioId"
-               type="text"
-               required
-               formControlName="precio" />
-        <span class="help-block" *ngIf="(formGroup.get('precio').touched || formGroup.get('precio').dirty) &&  formGroup.get('precio').errors">
-          <span *ngIf="formGroup.get('precio').errors.required">
-            El campo Precio es requerido
+      <div class="form-group"
+           [ngClass]="{'has-error': (formGroup.get('precio').touched || formGroup.get('precio').dirty) &&  !formGroup.get('precio').valid}">
+        <label class="col-md-2 control-label"
+               for="precioId">
+          <span>Precio </span>
+          <br />
+          <small>Precio Sugerido: {{precioSugerido|currency: 'PEN': 'symbol': '': 'es-PE'}}</small>
+        </label>
+        <div class="col-md-8">
+          <input class="form-control alinear_derecha"
+                 id="precioId"
+                 type="text"
+                 pattern="^\d+(\.\d+)?$"
+                 required
+                 formControlName="precio" />
+          <span class="help-block" *ngIf="(formGroup.get('precio').touched || formGroup.get('precio').dirty) &&  formGroup.get('precio').errors">
+            <span *ngIf="formGroup.get('precio').errors.required">
+              El campo Precio es requerido
+            </span>
+            <span *ngIf="formGroup.get('precio').errors.pattern">
+              El campo Precio no es numero
+            </span>
           </span>
-        </span>
+        </div>
       </div>
-    </div>
+    </div> 
+    
 
     <div class="form-group">
       <div class="col-md-4 col-md-offset-2">

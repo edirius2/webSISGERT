@@ -1,0 +1,27 @@
+
+<nav mat-tab-nav-bar ngClass="tabs">
+  <mat-tab label="Orden">
+    <button class="btn btn-primary">Probando</button>
+  </mat-tab>
+  <a mat-tab-link
+     [routerLink]="['/principal/menuOrdenes-editar/' + OrdenTrabajoId + '/ordenesTrabajo-editar/' + OrdenTrabajoId]"
+     routerLinkActive="active-link">Principal</a>
+  <a mat-tab-link
+     [routerLink]="['/principal/menuOrdenes-editar/' + OrdenTrabajoId + '/detallesTareas/' + OrdenTrabajoId]"
+     [disabled]="menusActivos">Lista Tareas</a>
+     <!--routerLinkActive="active-link"-->
+     
+  <a mat-tab-link
+     [routerLink]="['/principal/menuOrdenes-editar/' + OrdenTrabajoId + '/detallesEmpleados/' + OrdenTrabajoId]"
+     [disabled]="menusActivos">Lista de Empleados</a>
+  <a mat-tab-link
+     [routerLink]="['/principal/menuOrdenes-editar/' + OrdenTrabajoId + '/detallesPagos/' + OrdenTrabajoId]"
+     [disabled]="menusActivos">Lista de Pagos</a>
+  <a mat-tab-link
+     [routerLink]="['/principal/menuOrdenes-editar/' + OrdenTrabajoId + '/detallesRepuestos/' + OrdenTrabajoId]"
+     [disabled]="menusActivos">Lista de Repuestos</a>
+  <a mat-tab-link
+     [routerLink]="['/principal/menuOrdenes-editar/' + OrdenTrabajoId + '/detallesCostos/' + OrdenTrabajoId]"
+     [disabled]="menusActivos">Lista de Costos</a>
+</nav>
+<router-outlet></router-outlet>

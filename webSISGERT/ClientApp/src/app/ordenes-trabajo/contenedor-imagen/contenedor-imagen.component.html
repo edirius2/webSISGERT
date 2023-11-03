@@ -1,9 +1,15 @@
-<h1 mat-dialog-title>Informe Preliminar</h1>
+<h1 mat-dialog-title>{{data.titulo}}</h1>
 <div mat-dialog-content>
   <img src="{{data.ruta}}" />
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Salir</button>
-  <button mat-button [mat-dialog-close]="data.ruta" cdkFocusInitial>Ok</button>
+  <button mat-flat-button color="primary" (click)="onNoClick()">Salir</button>
+  <button mat-flat-button color="warn" [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  <button mat-flat-button color="accent" (click)="csvInput.click()">Cambiar Imagen</button>
+  <input #csvInput
+         onclick="this.value=null" (change)="InputChange($event)"
+         id="dlgFile"
+         hidden="hidden"
+         type="file">
 </div>
 

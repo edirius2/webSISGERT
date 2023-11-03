@@ -32,7 +32,7 @@ namespace webSISGERT.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Empleado>> GetEmpleado(int id)
         {
-            var empleado = await _context.Empleados.FindAsync(id);
+            var empleado = await _context.Empleados.Include(es => es.Especialidad).Where(em => em.Id == id).FirstAsync();
 
             if (empleado == null)
             {
@@ -76,6 +76,7 @@ namespace webSISGERT.Controllers
         [HttpPost]
         public async Task<ActionResult<Empleado>> PostEmpleado(Empleado empleado)
         {
+            _context.Especialidades.Attach(empleado.Especialidad);
             _context.Empleados.Add(empleado);
             await _context.SaveChangesAsync();
 

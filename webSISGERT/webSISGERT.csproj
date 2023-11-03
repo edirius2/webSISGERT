@@ -19,6 +19,7 @@
     <PackageReference Include="MySql.Data" Version="6.10.9" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.9" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.6" />
+    <PackageReference Include="SpreadsheetLight" Version="3.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +58,14 @@
     <Compile Remove="Migrations\20221112022019_correciones001.Designer.cs" />
     <Compile Remove="Migrations\20221112023119_Inicial.cs" />
     <Compile Remove="Migrations\20221112023119_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20221112023408_Inicial.cs" />
+    <Compile Remove="Migrations\20221112023408_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20221116135653_detalleCostoC.cs" />
+    <Compile Remove="Migrations\20221116135653_detalleCostoC.Designer.cs" />
+    <Compile Remove="Migrations\20221119131147_descripcion.cs" />
+    <Compile Remove="Migrations\20221119131147_descripcion.Designer.cs" />
+    <Compile Remove="Migrations\20221225172723_tipoOT.cs" />
+    <Compile Remove="Migrations\20221225172723_tipoOT.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +80,7 @@
     <None Remove="ClientApp\src\app\cotizaciones\detalle-tarea-c\detalleTareaCotizacion.ts" />
     <None Remove="ClientApp\src\app\detalle-ordenes-trabajo\detalleOrdenTrabajo.ts" />
     <None Remove="ClientApp\src\app\empleados\empleado.ts" />
+    <None Remove="ClientApp\src\app\empleados\especialidades\especialidad.ts" />
     <None Remove="ClientApp\src\app\maquinarias\estado-maquinarias\estadoMaquinaria.ts" />
     <None Remove="ClientApp\src\app\maquinarias\maquinaria.ts" />
     <None Remove="ClientApp\src\app\maquinarias\marca-maquinaria\marcaMaquinaria.ts" />
@@ -84,6 +94,7 @@
     <None Remove="ClientApp\src\app\ordenes-trabajo\ordenTrabajo.ts" />
     <None Remove="ClientApp\src\app\repuestos\repuesto.ts" />
     <None Remove="ClientApp\src\app\tareas\tarea.ts" />
+    <None Remove="ClientApp\src\app\tipos-ot\tipoOT.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -98,6 +109,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\cotizaciones\detalle-tarea-c\detalleTareaCotizacion.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\detalle-ordenes-trabajo\detalleOrdenTrabajo.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\empleados\empleado.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\empleados\especialidades\especialidad.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\maquinarias\estado-maquinarias\estadoMaquinaria.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\maquinarias\maquinaria.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\maquinarias\marca-maquinaria\marcaMaquinaria.ts" />
@@ -111,6 +123,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\ordenes-trabajo\ordenTrabajo.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\repuestos\repuesto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\tareas\tarea.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\tipos-ot\tipoOT.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

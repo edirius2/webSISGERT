@@ -27,14 +27,14 @@ export class CostosFormComponent implements OnInit {
       comentario: ''
     });
 
-    this.activatedRoute.params.subscribe(params => {
-      if (params['id'] == undefined) {
+    this.activatedRoute.paramMap.subscribe(params => {
+      if (params.get('id') == undefined) {
         this.modoEdicion = false;
         return;
       }
 
       this.modoEdicion = true;
-      this.costoId == params['id'];
+      this.costoId = params.get('id');
       this.costosService.getCosto(this.costoId).
         subscribe(costoDesdeWS => this.cargarFormulario(costoDesdeWS),
           error => console.error(error));

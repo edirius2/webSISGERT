@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace webSISGERT.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace webSISGERT.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(maxLength: 256, nullable: true),
+                    Name = table.Column<string>(maxLength: 255, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 255, nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true)
                 },
@@ -27,7 +27,7 @@ namespace webSISGERT.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    UserName = table.Column<string>(maxLength: 255, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 255, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 255, nullable: true),
@@ -164,6 +164,20 @@ namespace webSISGERT.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TiposMaquinaria", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TiposOT",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Codigo = table.Column<string>(maxLength: 3, nullable: true),
+                    Descripcion = table.Column<string>(maxLength: 15, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TiposOT", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -320,6 +334,7 @@ namespace webSISGERT.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Codigo = table.Column<string>(maxLength: 15, nullable: true),
+                    Descripcion = table.Column<string>(nullable: true),
                     ClienteId = table.Column<int>(nullable: false),
                     Fecha = table.Column<DateTime>(nullable: false),
                     MaquinariaId = table.Column<int>(nullable: false),
@@ -351,6 +366,7 @@ namespace webSISGERT.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Codigo = table.Column<string>(maxLength: 15, nullable: true),
+                    TipoOTId = table.Column<int>(nullable: false),
                     Favorito = table.Column<bool>(nullable: false),
                     ClienteId = table.Column<int>(nullable: false),
                     MaquinariaId = table.Column<int>(nullable: false),
@@ -375,6 +391,12 @@ namespace webSISGERT.Migrations
                         name: "FK_OrdenesTrabajo_Maquinarias_MaquinariaId",
                         column: x => x.MaquinariaId,
                         principalTable: "Maquinarias",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrdenesTrabajo_TiposOT_TipoOTId",
+                        column: x => x.TipoOTId,
+                        principalTable: "TiposOT",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -850,6 +872,11 @@ namespace webSISGERT.Migrations
                 name: "IX_OrdenesTrabajo_MaquinariaId",
                 table: "OrdenesTrabajo",
                 column: "MaquinariaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdenesTrabajo_TipoOTId",
+                table: "OrdenesTrabajo",
+                column: "TipoOTId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -928,6 +955,9 @@ namespace webSISGERT.Migrations
 
             migrationBuilder.DropTable(
                 name: "Maquinarias");
+
+            migrationBuilder.DropTable(
+                name: "TiposOT");
 
             migrationBuilder.DropTable(
                 name: "Clientes");

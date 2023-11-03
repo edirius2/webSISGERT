@@ -1,6 +1,6 @@
 
 
-<button class="btn btn-primary" [routerLink]='["/principal/cotizaciones-agregar"]'>Agregar Cotizacion</button>
+<button class="btn btn-primary" [routerLink]='["/principal/menuCotizaciones/cotizaciones-agregar"]'>Agregar Cotizacion</button>
 <mat-expansion-panel hideToggle>
   <mat-expansion-panel-header>
     <mat-panel-title>
@@ -68,7 +68,7 @@
         <td>{{cotizacion.maquinaria.placa}}</td>
         <td>{{cotizacion.estado}}</td>
         <td>
-          <button class="btn btn-primary" [routerLink]='["/principal/cotizaciones-editar/" + cotizacion.id]'>Editar</button>
+          <button class="btn btn-primary" [routerLink]='["/principal/menuCotizaciones-editar/" + cotizacion.id + "/cotizaciones-editar/" + cotizacion.id]'>Editar</button>
           <button class="btn btn-danger">Eliminar</button>
         </td>
       </tr>

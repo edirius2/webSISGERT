@@ -31,23 +31,36 @@ namespace webSISGERT
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AplicationDBContext>(options => options.UseMySql(Configuration.GetConnectionString("SISGERTContext")));
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireUppercase = false;
+            })
                 .AddEntityFrameworkStores<AplicationDBContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddErrorDescriber<ErroresCastellano>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = "yourdomain.com",
-                    ValidAudience = "yourdomain.com",
-                    IssuerSigningKey = new SymmetricSecurityKey(
+                .AddJwtBearer(options => 
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = "yourdomain.com",
+                        ValidAudience = "yourdomain.com",
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                        //Encoding.UTF8.GetBytes("asjkahdfksaghdiyee678rere")),
                         Encoding.UTF8.GetBytes(Configuration["Llave_super_secreta"])),
                         ClockSkew = TimeSpan.Zero
-                });
+                    }
+                );
+
+            //services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+            //    options.Password.RequireUppercase = false;
+            //});
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //Codigo para evitar la repeticion de los objetos

@@ -1,0 +1,21 @@
+<button class="btn btn-primary" [routerLink]='["/principal/tipoOT-agregar"]'>Agregar Tipo OT</button>
+<h5 *ngIf="!(tiposOT && tiposOT.length)">No existe tipos de Orden de Trabajo</h5>
+<table class="table" *ngIf="(tiposOT && tiposOT.length)">
+  <thead>
+    <tr>
+      <th>Codigo</th>
+      <th>Descripcion</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tipoOT of tiposOT">
+      <td>{{tipoOT.codigo}}</td>
+      <td>{{tipoOT.descripcion}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/principal/tipoOT-editar/" + tipoOT.id]'>Editar</button>
+        <button class="btn btn-danger" >Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

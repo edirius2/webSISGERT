@@ -2,7 +2,7 @@
       (ngSubmit)="save()" [formGroup]="formGroup">
   <fieldset>
     <div formGroupName="empleado" class="example-form">
-      <mat-form-field class="example-full-width" appearance="fill" align="right">
+      <mat-form-field class="example-form" appearance="fill" align="right">
         <mat-label>Empleado</mat-label>
         <input matInput
                aria-label="Empleado"
@@ -11,14 +11,27 @@
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let empleado of listaEmpleados" [value]="empleado.nombre" (onSelectionChange)='setEmpleado(empleado)'>
             <span>{{empleado.nombre}}</span> |
+            <small>{{empleado.numeroDocumento}}</small>
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
 
     </div>
-
     <div class="form-group">
-      <div class="col-md-4 col-md-offset-2">
+      <mat-form-field appearance="fill">
+        <mat-label>Horas Hombre</mat-label>
+        <input matInput
+               aria-label="HorasHombre"
+               formControlName="horas"
+               required/>
+      </mat-form-field>
+      <mat-error *ngIf="formGroup.get('horas').errors && formGroup.get('horas').errors.required">
+        Debe escribir las horas hombre.
+      </mat-error>
+    </div>
+
+    <div class="form-group example-form" >
+      <div class="col-md-4 col-md-offset-2 example-form" >
         <span>
           <button class="btn btn-primary"
                   type="submit"

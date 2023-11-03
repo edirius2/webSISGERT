@@ -1,4 +1,5 @@
-<h1>Agregar Empleado </h1>
+<h2 *ngIf="!modoEdicion">Agregar Empleado </h2>
+<h2 *ngIf="!modoEdicion">Editar Empleado </h2>
 <form class="form-horizontal" novalidate
       (ngSubmit)="save()" [formGroup]="formGroup">
   <fieldset>
@@ -6,7 +7,7 @@
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Numero Documento</mat-label>
         <input type="text" matInput formControlName="numeroDocumento" [errorStateMatcher]="matcher"
-               placeholder="12345678" required>
+               placeholder="12345678" required pattern="^\d+$">
 
         <mat-error *ngIf="(formGroup.get('numeroDocumento').touched || formGroup.get('numeroDocumento').dirty) &&  formGroup.get('numeroDocumento').errors">
           Por favor ingrese un Numero Documento valido.
@@ -16,6 +17,9 @@
         </mat-error>
         <mat-error *ngIf="formGroup.get('numeroDocumento').errors && formGroup.get('numeroDocumento').errors.maxlength">
           El numero de documento solo puede tener maximo 12 caracteres
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('numeroDocumento').errors && formGroup.get('numeroDocumento').errors.pattern">
+          El numero de documento solo puede contener numeros
         </mat-error>
       </mat-form-field>
     </div>
@@ -75,6 +79,33 @@
     </div>
 
     <div class="form-group">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Costo Hora</mat-label>
+        <input type="text" matInput formControlName="costoHora" [errorStateMatcher]="matcher"
+               placeholder="Ej: 80.00" >
+        <mat-error *ngIf="formGroup.get('costoHora').errors && formGroup.get('costoHora').errors.required">
+          Costo Hora es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div formGroupName="especialidad">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Especialidad</mat-label>
+        <mat-select required
+                    formControlName="descripcion">
+          <mat-option *ngIf="!(especialidades && especialidades.length)">No hay especialidades. Ingrese al menu especialidades para crear.</mat-option>
+          <mat-option *ngFor="let espe of especialidades" [value]="espe.descripcion" (onSelectionChange)="getEspecialidades($event,espe)">
+            {{espe.descripcion}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formGroup.get('especialidad').get('descripcion').errors && formGroup.get('especialidad').get('descripcion').errors.required">
+          Debe seleccionar una <strong>Especialidad</strong> de la lista.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
       <div class="col-md-4 col-md-offset-2">
         <span>
           <button class="btn btn-primary"
@@ -83,7 +114,7 @@
             Salvar
           </button>
           <button class="btn"
-                  [routerLink]='["/empleados"]'>
+                  [routerLink]='["/principal/empleados"]'>
             Cancelar
           </button>
         </span>

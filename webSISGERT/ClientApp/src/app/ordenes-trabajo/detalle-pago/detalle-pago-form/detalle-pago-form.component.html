@@ -5,13 +5,16 @@
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Monto</mat-label>
         <input type="text" matInput formControlName="pago" [errorStateMatcher]="matcher"
-               placeholder="100.00" required>
+               placeholder="100.00" required pattern="^\d+(\.\d+)?$">
 
         <mat-error *ngIf="(formGroup.get('pago').touched || formGroup.get('pago').dirty) &&  formGroup.get('pago').errors">
           Por favor ingrese un Monto valido.
         </mat-error>
         <mat-error *ngIf="formGroup.get('pago').errors && formGroup.get('pago').errors.required">
           Monto es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('pago').errors && formGroup.get('pago').errors.pattern">
+          El monto ingresado no tiene el formato correcto. <strong>Solo numeros  y punto decimal ej: 200.00</strong>
         </mat-error>
       </mat-form-field>
     </div>
@@ -30,17 +33,15 @@
 
     <div class="form-group">
       <div class="col-md-4 col-md-offset-2">
-        <span>
           <button class="btn btn-primary"
                   type="submit"
                   [disabled]="!formGroup.valid">
             Salvar
           </button>
           <button class="btn"
-                  [routerLink]='["/"]'>
+                  [routerLink]='["/principal/menuOrdenes-editar/" + this.ordenID +"/detallesPagos/ " + this.ordenID]'>
             Cancelar
           </button>
-        </span>
       </div>
     </div>
   </fieldset>

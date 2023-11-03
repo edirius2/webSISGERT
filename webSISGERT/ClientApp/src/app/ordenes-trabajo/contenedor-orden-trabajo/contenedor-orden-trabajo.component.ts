@@ -55,6 +55,23 @@ export class ContenedorOrdenTrabajoComponent implements OnInit {
     });
     this.ordenTrabajo.sumaTareas = this.sumaPagos;
     this.sumaPagos = 0;
+
+    this.ordenTrabajo.detallesCosto.forEach(item4 => {
+      this.sumaPagos += item4.precio;
+    });
+    this.ordenTrabajo.sumaCostos = this.sumaPagos;
+    this.sumaPagos = 0;
+
+    this.ordenTrabajo.detallesRepuestos.forEach(item5 => {
+      this.sumaPagos += item5.precio;
+    });
+    this.ordenTrabajo.sumaRepuesto = this.sumaPagos;
+    this.sumaPagos = 0;
+
+    if (!this.ordenTrabajo.TotalCosto == undefined) {
+      this.ordenTrabajo.TotalCosto = this.ordenTrabajo.sumaTareas + this.ordenTrabajo.sumaCostos + this.ordenTrabajo.sumaRepuesto;
+    }
+    
   }
   navegarDetalleTareas() {
     //this.router.navigate(["/contenedorTrabajo", { outlets: { 'detallesTareas': ["1"] }}]);

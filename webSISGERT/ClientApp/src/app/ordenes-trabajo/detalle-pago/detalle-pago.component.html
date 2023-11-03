@@ -1,4 +1,7 @@
-<button [routerLink]="['/principal/ordenesTrabajo-editar/' + idOT + '/detallesPago-agregar/'+ idOT]" class="btn btn-primary">Agregar Detalle</button>
+<div class="row justify-content-end">
+  <button [routerLink]="['/principal/menuOrdenes-editar/' + idOT + '/detallesPago-agregar/'+ idOT]" class="btn btn-primary">Agregar Detalle Pago</button>
+</div>
+
 <table class="table">
   <thead>
     <tr>
@@ -10,7 +13,7 @@
     <tr *ngFor="let pago of detallesPago">
       <td>{{pago.fecha}}</td>
       <td>{{pago.pago}}</td>
-      <td><button class="btn btn-primary" [routerLink]='["/detallePago-editar/" ]'>Editar</button></td>
+      <td><button class="btn btn-primary" [routerLink]='["/principal/menuOrdenes-editar/" + idOT +  "/detallesPago-editar/" + pago.id ]'>Editar</button></td>
       <td><button class="btn btn-danger">Eliminar</button></td>
     </tr>
   </tbody>

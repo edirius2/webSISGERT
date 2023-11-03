@@ -8,8 +8,6 @@
           fact_check
         </span>
         Tareas
-
-
       </mat-list-item>
       <ng-container>
         <mat-list *ngIf="ordenTrabajo">
@@ -28,6 +26,73 @@
         </div>
       </ng-container>
 
+
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <mat-icon aria-hidden="false" aria-label="Example home icon">face</mat-icon>
+        Empleados Asignados
+      </mat-list-item>
+      <ng-container>
+        <mat-list *ngIf="ordenTrabajo">
+          <div *ngFor="let detEmpleado of ordenTrabajo.detallesEmpleados">
+            <mat-list-item>
+              <h6 class="detalleLista">
+                {{detEmpleado.empleado.nombre}}
+              </h6>
+            </mat-list-item>
+          </div>
+        </mat-list>
+      </ng-container>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <mat-icon aria-hidden="false" aria-label="Example home icon">payments</mat-icon>
+        Costos
+      </mat-list-item>
+      <ng-container>
+        <mat-list *ngIf="ordenTrabajo">
+          <div *ngFor="let detCosto of ordenTrabajo.detallesCosto">
+            <mat-list-item>
+              <h6 class="detalleLista">
+                {{detCosto.costo.descripcion}} {{detCosto.precio|currency: 'PEN': 'symbol': '': 'es-PE'}}
+              </h6>
+            </mat-list-item>
+          </div>
+        </mat-list>
+        <div *ngIf="ordenTrabajo && ordenTrabajo.detallesCosto">
+          <h6 class="row justify-content-end">
+            Total: S/. {{ordenTrabajo.sumaCostos| number:'1.2-2'}}
+          </h6>
+        </div>
+      </ng-container>
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <span class="material-icons">
+          car_repair
+        </span>
+        Repuestos Usados
+      </mat-list-item>
+      <ng-container>
+        <mat-list *ngIf="ordenTrabajo">
+          <div *ngFor="let detRepuesto of ordenTrabajo.detallesRepuestos">
+            <mat-list-item>
+              <h6 class="detalleLista">
+                {{detRepuesto.repuesto.nombre}} {{detRepuesto.cantidad}} {{detRepuesto.precio |currency: 'PEN': 'symbol': '': 'es-PE'}}
+              </h6>
+            </mat-list-item>
+          </div>
+        </mat-list>
+        <div *ngIf="ordenTrabajo && ordenTrabajo.detallesRepuestos">
+          <h6 class="row justify-content-end">
+            Total: S/. {{ordenTrabajo.sumaRepuesto| number:'1.2-2'}}
+          </h6>
+        </div>
+        <div *ngIf="ordenTrabajo && ordenTrabajo.TotalCosto">
+          <h6 class="row justify-content-end">
+            Total Costos: S/. {{ordenTrabajo.TotalCosto| number:'1.2-2'}}
+          </h6>
+        </div>
+      </ng-container>
       <mat-divider></mat-divider>
       <mat-list-item>
         <span class="material-icons">
@@ -51,29 +116,6 @@
           </h6>
         </div>
       </ng-container>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <mat-icon aria-hidden="false" aria-label="Example home icon">face</mat-icon>
-        Empleados Asignados
-      </mat-list-item>
-      <ng-container>
-        <mat-list *ngIf="ordenTrabajo">
-          <div *ngFor="let detEmpleado of ordenTrabajo.detallesEmpleados">
-            <mat-list-item>
-              <h6 class="detalleLista">
-                {{detEmpleado.empleado.nombre}} 
-              </h6>
-            </mat-list-item>
-          </div>
-        </mat-list>
-      </ng-container>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <span class="material-icons">
-          car_repair
-        </span>
-        Repuestos Usados
-      </mat-list-item>
     </ng-container>
   </mat-list>
   

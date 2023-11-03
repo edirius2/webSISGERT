@@ -6,7 +6,7 @@ import { MatTab } from '@angular/material';
 import { ICliente } from 'src/app/clientes/cliente';
 import { ClientesService } from 'src/app/clientes/clientes.service';
 import { Observable } from 'rxjs';
-import { iOrdenTrabajo } from '../ordenTrabajo';
+import { iOrdenTrabajo, EstadoOT } from '../ordenTrabajo';
 import { Console } from '@angular/core/src/console';
 import { map, startWith } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -15,9 +15,13 @@ import { iMaquinaria } from 'src/app/maquinarias/maquinaria';
 import { MaquinariasService } from 'src/app/maquinarias/maquinarias.service';
 import { ListaCotizacionesComponent } from '../lista-cotizaciones/lista-cotizaciones.component';
 import { iCotizacion } from 'src/app/cotizaciones/cotizacion';
+import { ITipoOT } from 'src/app/tipos-ot/tipoOT';
+import { TiposOTService } from 'src/app/tipos-ot/tipos-ot.service';
 
 export interface DialogData {
-  ruta: string;
+  ruta: string,
+  resultado: boolean,
+  titulo:string
 }
 
 @Component({
@@ -44,7 +48,8 @@ export class OrdenesTrabajoFormComponent implements OnInit {
     return value;
   }
 
-  constructor(private fb: FormBuilder, private ordenesTrabajoService: OrdenesTrabajoService, private clientesService: ClientesService, private maquinariasService: MaquinariasService,
+  constructor(private fb: FormBuilder, private ordenesTrabajoService: OrdenesTrabajoService, private clientesService: ClientesService, private tiposOTService: TiposOTService,
+    private maquinariasService: MaquinariasService,
     private router: Router, public dialog: MatDialog,
     private activatedRouter: ActivatedRoute ) {
     this.filtroClientes = this.stateCtrl.valueChanges.pipe(
@@ -60,11 +65,14 @@ export class OrdenesTrabajoFormComponent implements OnInit {
   OrdenTrabajoId: number;
   listaMaquinas: iMaquinaria[];
   listaClientes: ICliente[];
+  tiposOT: ITipoOT[];
   filtroClientes: Observable<ICliente[]>;
   filtroMaquinarias: Observable<iMaquinaria[]>;
   maquinariaSeleccionada: iMaquinaria;
   clienteSeleccionado: ICliente;
+  tipoOTSeleccionado: ITipoOT;
   modoSeleccion: boolean = false;
+  numeroOrdenes: number;
 
   rutaInformePreliminar: string = "";
   rutaActaRecepcionEquipos: string = "";
@@ -75,6 +83,12 @@ export class OrdenesTrabajoFormComponent implements OnInit {
   ngOnInit() {
     this.formGroup = this.fb.group({
       id: '',
+      tipoOTId: '',
+      tipoOT: this.fb.group({
+        id: '',
+        codigo: '',
+        descripcion: ''
+      }),
       codigo: '',
       clienteId: '',
       cliente: this.fb.group({
@@ -86,7 +100,7 @@ export class OrdenesTrabajoFormComponent implements OnInit {
         telefono: '',
         correoElectronico: ''
       }),
-      favorito: '',
+      favorito: false,
       maquinariaId: '',
       maquinaria: this.fb.group({
         id: '',
@@ -109,8 +123,17 @@ export class OrdenesTrabajoFormComponent implements OnInit {
       subscribe(clientesDesdeWS => this.listaClientes = clientesDesdeWS,
       error => console.error(error));
 
+    this.tiposOTService.getTiposOT().
+      subscribe(tiposDesdeWS => this.tiposOT = tiposDesdeWS,
+      error => console.error(error));
+
+    
+
     this.activatedRouter.params.subscribe(params => {
       if (params['id'] == undefined) {
+        this.ordenesTrabajoService.getNumeroOrdenes().
+          subscribe(numeroDesdeWS => this.setNumero(numeroDesdeWS),
+            error => console.error(error));
         return;
       }
       this.modoEdicion = true;
@@ -127,7 +150,16 @@ export class OrdenesTrabajoFormComponent implements OnInit {
     return this.listaClientes.filter(cliente => cliente.nombre.toLowerCase().includes(filterValue));
   }
 
-
+  setNumero(numero: number) {
+    this.numeroOrdenes = numero;
+    let aux = (numero + 1).toString();
+    while (aux.length <7) {
+      aux = "0" + aux;
+    }
+    this.formGroup.patchValue({
+      codigo:  aux
+    });
+  }
 
   getPosts(option: any) {
     this.clienteSeleccionado = option;
@@ -146,6 +178,18 @@ export class OrdenesTrabajoFormComponent implements OnInit {
       subscribe(maquinasDesdeWS => this.listaMaquinas = maquinasDesdeWS,
         error => console.error(error));
     
+  }
+
+  getTiposOT(tipoOT: ITipoOT, event: any) {
+    if (event.isUserInput) {
+      this.tipoOTSeleccionado = tipoOT;
+      this.formGroup.get('tipoOT').patchValue({
+        id: this.tipoOTSeleccionado.id,
+        codigo: this.tipoOTSeleccionado.codigo,
+        descripcion: this.tipoOTSeleccionado.descripcion
+      });
+      console.log(this.formGroup.get('tipoOT').value);
+    }
   }
 
   getMaquinarias(maquina: iMaquinaria, event: any) {
@@ -169,9 +213,11 @@ export class OrdenesTrabajoFormComponent implements OnInit {
 
   //asignarValoresCliente()
   save() {
+    console.log(this.formGroup.get('tipoOT').value);
     let ordenTrabajo: iOrdenTrabajo = Object.assign({}, this.formGroup.value);
     ordenTrabajo.clienteId = ordenTrabajo.cliente.id;
     ordenTrabajo.maquinariaId = ordenTrabajo.maquinaria.id;
+    ordenTrabajo.tipoOTId = ordenTrabajo.tipoOT.id.toString();
     if (this.modoEdicion) {
       ordenTrabajo.informePreliminar = this.rutaInformePreliminar;
       ordenTrabajo.actaConformidad = this.rutaActaConformidad;
@@ -189,7 +235,7 @@ export class OrdenesTrabajoFormComponent implements OnInit {
         subscribe(ordenTrabajoDesdeWS => this.onSaveSucessCreate(ordenTrabajoDesdeWS.id.toString()),
           error => console.error(error));
     }
-    console.log(ordenTrabajo);
+    //console.log(ordenTrabajo);
   }
 
   onSaveSucess() {
@@ -212,6 +258,8 @@ export class OrdenesTrabajoFormComponent implements OnInit {
 
     this.formGroup.patchValue({
       id: ordenTrabajo.id,
+      tipoOTId: ordenTrabajo.tipoOTId,
+      tipoOT: ordenTrabajo.tipoOT,
       codigo: ordenTrabajo.codigo,
       clienteId: ordenTrabajo.clienteId,
       cliente: ordenTrabajo.cliente,
@@ -259,13 +307,55 @@ export class OrdenesTrabajoFormComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(ContenedorImagenComponent, {
       width: '700px',
-      data: { ruta: this.rutaInformePreliminar},
+      data: {
+        ruta: this.rutaInformePreliminar,
+        titulo:"Informe Preliminar"},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.rutaInformePreliminar = result;
+    dialogRef.afterClosed().subscribe(result => this.putRutaInformePreliminar(result)
+    );
+  }
+
+  putRutaInformePreliminar(data1: DialogData) {
+    if (data1.resultado = true) {
+      this.rutaInformePreliminar = data1.ruta;
+    }
+  }
+
+  openDialog2(): void {
+    const dialogRef = this.dialog.open(ContenedorImagenComponent, {
+      width: '700px',
+      data: {
+        ruta: this.rutaActaRecepcionEquipos,
+        titulo: "Acta Recepcion Equipos"},
     });
+
+    dialogRef.afterClosed().subscribe(result => this.putRutaActaRecepcionEquipos(result)
+    );
+  }
+
+  putRutaActaRecepcionEquipos(data2: DialogData) {
+    if (data2.resultado = true) {
+      this.rutaActaRecepcionEquipos = data2.ruta;
+    }
+  }
+
+  
+  openDialog3(): void {
+    const dialogRef = this.dialog.open(ContenedorImagenComponent, {
+      width: '700px',
+      data: {
+        ruta: this.rutaActaConformidad,
+        titulo: "Acta de Conformidad"},
+    });
+
+    dialogRef.afterClosed().subscribe(result => this.putRutaActaConformidad(result));
+  }
+
+  putRutaActaConformidad(data3: DialogData) {
+    if (data3.resultado = true) {
+      this.rutaActaConformidad = data3.ruta;
+    }
   }
 
   getSliderTickInterval() {
@@ -273,32 +363,46 @@ export class OrdenesTrabajoFormComponent implements OnInit {
   }
 
   traerCotizacion(): void {
-    const dialogRef = this.dialog.open(ListaCotizacionesComponent, {
-      width: '700px',
-      data: '',
-    });
+    if (this.tipoOTSeleccionado == undefined) {
+      alert("Debe seleccionar el tipo de OT primero para traer una cotizacion");
+    }
+    else {
+      const dialogRef = this.dialog.open(ListaCotizacionesComponent, {
+        width: '700px',
+        data: '',
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      
-      this.cotizacionEnlazada = result;
-      console.log('The dialog was closed: La cotizacion es:' + this.cotizacionEnlazada.id.toString());
-      this.enlazarCotizacion(this.cotizacionEnlazada);
-    });
+      dialogRef.afterClosed().subscribe(result => {
+
+        this.cotizacionEnlazada = result;
+        console.log('The dialog was closed: La cotizacion es:' + this.cotizacionEnlazada.id.toString());
+        this.enlazarCotizacion(this.cotizacionEnlazada);
+      });
+    }
+    
   }
 
   enlazarCotizacion(cotizacion: iCotizacion) {
-    this.formGroup.patchValue({
-      id: '',
-      codigo: cotizacion.codigo,
-      clienteId: cotizacion.cliente,
-      cliente: cotizacion.cliente,
-      favorito: '',
-      maquinariaId: cotizacion.maquinariaId,
-      maquinaria: cotizacion.maquinaria,
-      fecha: cotizacion.fecha,
-      descripcion: cotizacion.descripcion,
-      observaciones: cotizacion.observaciones
-    });
+    let ordenTrabajoEnlazado: iOrdenTrabajo;
+
+    ordenTrabajoEnlazado.tipoOT = this.tipoOTSeleccionado;
+    ordenTrabajoEnlazado.tipoOTId = this.tipoOTSeleccionado.id.toString();
+    ordenTrabajoEnlazado.cliente = cotizacion.cliente;
+    ordenTrabajoEnlazado.clienteId = cotizacion.clienteId;
+    ordenTrabajoEnlazado.descripcion = cotizacion.descripcion;
+    ordenTrabajoEnlazado.fecha = cotizacion.fecha;
+    ordenTrabajoEnlazado.maquinaria = cotizacion.maquinaria;
+    ordenTrabajoEnlazado.maquinariaId = cotizacion.maquinariaId;
+    ordenTrabajoEnlazado.observaciones = cotizacion.observaciones;
+    ordenTrabajoEnlazado.estadoOT = EstadoOT.Activo;
+
+    this.ordenesTrabajoService.createOrdenTrabajo(ordenTrabajoEnlazado).
+      subscribe(ordenTrabajoDesdeWS => {
+        ordenTrabajoEnlazado = ordenTrabajoDesdeWS;
+        this.router.navigate(["/principal/ordenTrabajo-Editar/" + ordenTrabajoEnlazado.id.toString()]);
+      },
+        error => console.error(error));
+
   }
 }
 

@@ -1,8 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Component } from '@angular/core';
+import { NgModule, Component, LOCALE_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import LocaleEsPe from "@angular/common/locales/es-PE";
+import { registerLocaleData } from '@angular/common';
+
 
 
 
@@ -25,7 +28,7 @@ import { DetalleTareaComponent } from './ordenes-trabajo/detalle-tarea/detalle-t
 import { ContenedorOrdenTrabajoComponent } from './ordenes-trabajo/contenedor-orden-trabajo/contenedor-orden-trabajo.component';
 import { DetalleTareaService } from './ordenes-trabajo/detalle-tarea/detalle-tarea.service';
 import { DetalleTareaFormComponent } from './ordenes-trabajo/detalle-tarea/detalle-tarea-form/detalle-tarea-form.component';
-import { MatFormField, MatInput, MatOption, MatAutocomplete, MatCheckboxModule, MatLabel, MatAutocompleteModule, MatOptionModule, MatPaginatorModule, MatFormFieldModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule, MatTooltipModule, MatExpansionModule, MatDialogModule, MatSliderModule, MatCardModule, MatTableModule, MatSelectModule } from '@angular/material';
+import { MatFormField, MatInput, MatOption, MatAutocomplete, MatCheckboxModule, MatLabel, MatAutocompleteModule, MatOptionModule, MatPaginatorModule, MatFormFieldModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule, MatTooltipModule, MatExpansionModule, MatDialogModule, MatSliderModule, MatCardModule, MatTableModule, MatSelectModule, MatSlideToggleModule, MAT_DATE_LOCALE } from '@angular/material';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpleadosService } from './empleados/empleados.service';
 import { EmpleadosFormComponent } from './empleados/empleados-form/empleados-form.component';
@@ -79,7 +82,16 @@ import { DetalleRepuestoComponent } from './ordenes-trabajo/detalle-repuesto/det
 import { DetalleRepuestoFormComponent } from './ordenes-trabajo/detalle-repuesto/detalle-repuesto-form/detalle-repuesto-form.component';
 import { DetalleRepuestoService } from './ordenes-trabajo/detalle-repuesto/detalle-repuesto.service';
 import { ListaCotizacionesComponent } from './ordenes-trabajo/lista-cotizaciones/lista-cotizaciones.component';
+import { TiposOTComponent } from './tipos-ot/tipos-ot.component';
+import { TiposOTFormComponent } from './tipos-ot/tipos-otform/tipos-otform.component';
+import { MenuOrdenesComponent } from './ordenes-trabajo/menu-ordenes/menu-ordenes.component';
+import { MenuCotizacionComponent } from './cotizaciones/menu-cotizacion/menu-cotizacion.component';
+import { EspecialidadesComponent } from './empleados/especialidades/especialidades.component';
+import { EspecialidadesFormComponent } from './empleados/especialidades/especialidades-form/especialidades-form.component';
+import { EspecialidadesService } from './empleados/especialidades/especialidades.service';
+import { UsuariosComponent } from './account/usuarios/usuarios.component';
 
+registerLocaleData(LocaleEsPe);
 
 @NgModule({
 
@@ -138,6 +150,13 @@ import { ListaCotizacionesComponent } from './ordenes-trabajo/lista-cotizaciones
     DetalleCostoTareaCotizacionComponent,
     CostosComponent,
     CostosFormComponent,
+    TiposOTComponent,
+    TiposOTFormComponent,
+    MenuOrdenesComponent,
+    MenuCotizacionComponent,
+    EspecialidadesComponent,
+    EspecialidadesFormComponent,
+    UsuariosComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -163,7 +182,7 @@ import { ListaCotizacionesComponent } from './ordenes-trabajo/lista-cotizaciones
     MatCardModule,
     MatTableModule,
     MatSelectModule,
-    MatCheckboxModule,
+    MatSlideToggleModule,
     BrowserAnimationsModule,
     
    
@@ -178,13 +197,15 @@ import { ListaCotizacionesComponent } from './ordenes-trabajo/lista-cotizaciones
       { path: 'register', component: RegisterComponent },
       {
         path: 'principal', component: PrincipalComponent, children: [
-
+          { path: 'nuevoUsuario', component: RegisterComponent },
           { path: 'detalleTareasC', component: DetalleTareaCComponent },
           { path: 'maquinarias', component: MaquinariasComponent, canActivate: [AuthGuardService] },
           { path: 'cotizaciones', component: CotizacionesComponent },
+          { path: 'usuarios', component: UsuariosComponent },
           {
-            path: 'cotizaciones-agregar', component: CotizacionesFormComponent,
+            path: 'menuCotizaciones', component: MenuCotizacionComponent,
             children: [
+              { path: 'cotizaciones-agregar', component: CotizacionesFormComponent},
               { path: 'detallesTareasC/:idC', component: DetalleTareaCComponent },
               { path: 'detallesGastosC/:idC', component: DetalleGastoCComponent },
               { path: 'detallesRepuestosC/:idC', component: DetalleRepuestoCComponent },
@@ -197,8 +218,9 @@ import { ListaCotizacionesComponent } from './ordenes-trabajo/lista-cotizaciones
             ]
           },
           {
-            path: 'cotizaciones-editar/:id', component: CotizacionesFormComponent,
+            path: 'menuCotizaciones-editar/:id', component: MenuCotizacionComponent,
             children: [
+              { path: 'cotizaciones-editar/:id', component: CotizacionesFormComponent},
               { path: 'detallesTareasC/:idC', component: DetalleTareaCComponent },
               { path: 'detallesGastosC/:idC', component: DetalleGastoCComponent },
               { path: 'detallesRepuestosC/:idC', component: DetalleRepuestoCComponent },
@@ -233,11 +255,30 @@ import { ListaCotizacionesComponent } from './ordenes-trabajo/lista-cotizaciones
           { path: 'estado-maquinarias', component: EstadoMaquinariasComponent },
           { path: 'estadoMaquinaria-agregar', component: EstadoMaquinariasFormComponent },
           { path: 'estadoMaquinaria-editar/:id', component: EstadoMaquinariasFormComponent },
+          { path: 'especialidades', component: EspecialidadesComponent },
+          { path: 'especialidad-agregar', component: EspecialidadesFormComponent },
+          { path: 'especialidad-editar/:id', component: EspecialidadesFormComponent },
           { path: 'maquinaria-agregar', component: MaquinariaFormComponent },
           { path: 'maquinaria-editar/:id', component: MaquinariaFormComponent },
           {
-            path: 'ordenesTrabajo-agregar', component: OrdenesTrabajoFormComponent,
+            path: 'menuOrdenes', component: MenuOrdenesComponent,
+              children: [
+                { path: 'ordenesTrabajo-agregar', component: OrdenesTrabajoFormComponent },
+                { path: 'detallesTareas/:idOT', component: DetalleTareaComponent },
+                { path: 'detalleTarea-agregar/:idOT', component: DetalleTareaFormComponent },
+                { path: 'detalleTarea-editar/:id', component: DetalleTareaFormComponent },
+                { path: 'detallesEmpleados/:idOT', component: DetalleEmpleadoComponent },
+                { path: 'detallesEmpleados-agregar/:idOT', component: DetalleEmpleadoFormComponent },
+                { path: 'detallesEmpleados-editar/:id', component: DetalleEmpleadoFormComponent },
+                { path: 'detallesPagos/:idOT', component: DetallePagoComponent },
+                { path: 'detallesPago-agregar/:idOT', component: DetallePagoFormComponent },
+                { path: 'detallesPago-editar/:id', component: DetallePagoFormComponent },
+              ]
+          },
+          {
+            path: 'menuOrdenes-editar/:id', component: MenuOrdenesComponent,
             children: [
+              { path: 'ordenesTrabajo-editar/:id', component: OrdenesTrabajoFormComponent },
               { path: 'detallesTareas/:idOT', component: DetalleTareaComponent },
               { path: 'detalleTarea-agregar/:idOT', component: DetalleTareaFormComponent },
               { path: 'detalleTarea-editar/:id', component: DetalleTareaFormComponent },
@@ -247,33 +288,20 @@ import { ListaCotizacionesComponent } from './ordenes-trabajo/lista-cotizaciones
               { path: 'detallesPagos/:idOT', component: DetallePagoComponent },
               { path: 'detallesPago-agregar/:idOT', component: DetallePagoFormComponent },
               { path: 'detallesPago-editar/:id', component: DetallePagoFormComponent },
-            ]
-
-          },
-          {
-            path: 'ordenesTrabajo-editar/:id', component: OrdenesTrabajoFormComponent,
-            children: [
-              { path: 'detallesTareas/:idOT', component: DetalleTareaComponent },
-              { path: 'detalleTarea-agregar/:idOT', component: DetalleTareaFormComponent },
-              { path: 'detalleTarea-editar/:id', component: DetalleTareaFormComponent },
-              { path: 'detallesEmpleados/:idOT', component: DetalleEmpleadoComponent },
-              { path: 'detalleEmpleado-agregar/:idOT', component: DetalleEmpleadoFormComponent },
-              { path: 'detalleEmpleado-editar/:id', component: DetalleEmpleadoFormComponent },
-              { path: 'detallesPagos/:idOT', component: DetallePagoComponent },
-              { path: 'detallesPago-agregar/:idOT', component: DetallePagoFormComponent },
-              { path: 'detallesPago-editar/:id', component: DetallePagoFormComponent },
+              { path: 'detallesRepuestos/:idOT', component: DetalleRepuestoComponent},
+              { path: 'detallesRepuesto-agregar/:idOT', component: DetalleRepuestoFormComponent},
+              { path: 'detallesRepuesto-editar/:id', component: DetalleRepuestoFormComponent },
               { path: 'detallesCostos/:idOT', component: DetalleCostoComponent },
-              { path: 'detalleCosto-agregar/:idOT', component: DetalleCostoFormComponent },
-              { path: 'detalleCosto-editar/:id', component: DetalleCostoFormComponent },
-              { path: 'detallesRepuesto/:idOT', component: DetalleRepuestoComponent },
-              { path: 'detalleRepuesto-agregar/:idOT', component: DetalleRepuestoFormComponent },
-              { path: 'detalleRepuesto-editar/:id', component: DetalleRepuestoFormComponent },
+              { path: 'detallesCosto-agregar/:idOT', component: DetalleCostoFormComponent },
+              { path: 'detallesCosto-editar/:id', component: DetalleCostoFormComponent},
             ]
-
           },
           { path: 'repuestos', component: RepuestosComponent },
           { path: 'repuesto-agregar', component: RepuestosFormComponent },
           { path: 'repuesto-editar/:id', component: RepuestosFormComponent },
+          { path: 'tiposOT', component: TiposOTComponent },
+          { path: 'tipoOT-agregar', component: TiposOTFormComponent },
+          { path: 'tipoOT-editar/:id', component: TiposOTFormComponent }
 
         ]
       },
@@ -291,13 +319,18 @@ import { ListaCotizacionesComponent } from './ordenes-trabajo/lista-cotizaciones
     DetalleRepuestoCService,
     DetalleGastoCService,
     DetalleCostoTareaCotizacionService,
+    EspecialidadesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LogInterceptorService,
       multi: true
-    }
+    },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-PE' },
+    { provide: LOCALE_ID, useValue: "es-PE" },
     ],
   bootstrap: [AppComponent],
   entryComponents: [ContenedorImagenComponent, ListaCotizacionesComponent],
 })
-export class AppModule { }
+export class AppModule {
+ 
+}

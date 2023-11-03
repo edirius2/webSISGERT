@@ -1,0 +1,17 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Usuario</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let u of usuarios">
+      <td>{{u.email}}</td>
+      <td>
+        <button class="btn btn-primary">Editar</button>
+        <button class="btn btn-danger">Desactivar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

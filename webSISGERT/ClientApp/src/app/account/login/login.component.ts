@@ -10,12 +10,14 @@ import { IUserInfo } from '../user-info';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+ 
 
   constructor(private fb: FormBuilder,
     private accountService: AccountService,
-    private router: Router) { }
+    private router: Router) {}
 
   formGroup: FormGroup;
+  hide = true;
 
   ngOnInit() {
     this.formGroup = this.fb.group({
@@ -25,7 +27,9 @@ export class LoginComponent implements OnInit {
   }
 
   loguearse() {
+    
     let userInfo: IUserInfo = Object.assign({}, this.formGroup.value);
+    
     this.accountService.login(userInfo).subscribe(token => this.recibirToken(token),
       error => this.manejarError(error));
   }
@@ -47,3 +51,4 @@ export class LoginComponent implements OnInit {
   }
 
 }
+

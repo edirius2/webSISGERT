@@ -1,4 +1,8 @@
-<button [routerLink]="['/principal/ordenesTrabajo-editar/' + ordenTrabajoId + '/detalleCosto-agregar/'+ ordenTrabajoId]" class="btn btn-primary">Agregar Detalle Costo</button>
+<h2>Detalles de costo</h2>
+<div class="row justify-content-end">
+  <button [routerLink]="['/principal/menuOrdenes-editar/' + ordenTrabajoId + '/detallesCosto-agregar/'+ ordenTrabajoId]" class="btn btn-primary">Agregar Detalle Costo</button>
+</div>
+
 
 <table class="table">
   <thead>
@@ -10,9 +14,9 @@
   <tbody>
     <tr *ngFor="let costo of detallesCostos">
       <td>{{costo.costo.descripcion}}</td>
-      <td>{{costo.precio}}</td>
+      <td>{{costo.precio|currency: 'PEN': 'symbol': '': 'es-PE'}}</td>
       <td>
-        <button class="btn btn-primary" [routerLink]='["/principal/ordenesTrabajo-editar/" + ordenTrabajoId + "/detalleCosto-editar/" + costo.id]' >Editar</button>
+        <button class="btn btn-primary" [routerLink]='["/principal/menuOrdenes-editar/" + ordenTrabajoId + "/detallesCosto-editar/" + costo.id]' >Editar</button>
         <button class="btn btn-danger"  >Eliminar</button>
       </td>
     </tr>

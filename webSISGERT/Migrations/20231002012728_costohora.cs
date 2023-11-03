@@ -2,21 +2,22 @@
 
 namespace webSISGERT.Migrations
 {
-    public partial class descripcion : Migration
+    public partial class costohora : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Descripcion",
-                table: "Cotizaciones",
-                nullable: true);
+            migrationBuilder.AddColumn<double>(
+                name: "CostoHora",
+                table: "Empleados",
+                nullable: false,
+                defaultValue: 0.0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Descripcion",
-                table: "Cotizaciones");
+                name: "CostoHora",
+                table: "Empleados");
         }
     }
 }

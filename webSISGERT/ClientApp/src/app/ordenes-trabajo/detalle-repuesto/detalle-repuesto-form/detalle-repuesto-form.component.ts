@@ -106,6 +106,6 @@ export class DetalleRepuestoFormComponent implements OnInit {
 
   onSaveSucess() {
     alert("Datos guardados");
-    this.router.navigate(["/principal/ordenesTrabajo-editar/" + this.ordenTrabajoId + "/detallesRepuesto/" + this.ordenTrabajoId]);
+    this.router.navigate(["/principal/menuOrdenes-editar/" + this.ordenTrabajoId + "/detallesRepuestos/" + this.ordenTrabajoId]);
   }
 }

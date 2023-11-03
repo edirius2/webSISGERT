@@ -9,8 +9,8 @@ using webSISGERT.Models;
 namespace webSISGERT.Migrations
 {
     [DbContext(typeof(AplicationDBContext))]
-    [Migration("20221119131147_descripcion")]
-    partial class descripcion
+    [Migration("20221225195713_inicial")]
+    partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -581,11 +581,15 @@ namespace webSISGERT.Migrations
 
                     b.Property<string>("Observaciones");
 
+                    b.Property<int>("TipoOTId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
 
                     b.HasIndex("MaquinariaId");
+
+                    b.HasIndex("TipoOTId");
 
                     b.ToTable("OrdenesTrabajo");
                 });
@@ -628,6 +632,22 @@ namespace webSISGERT.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TiposMaquinaria");
+                });
+
+            modelBuilder.Entity("webSISGERT.Models.OT.TipoOT", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Codigo")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(15);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TiposOT");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -858,6 +878,11 @@ namespace webSISGERT.Migrations
                     b.HasOne("webSISGERT.Models.OT.Maquinaria", "maquinaria")
                         .WithMany()
                         .HasForeignKey("MaquinariaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("webSISGERT.Models.OT.TipoOT", "tipoOT")
+                        .WithMany()
+                        .HasForeignKey("TipoOTId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

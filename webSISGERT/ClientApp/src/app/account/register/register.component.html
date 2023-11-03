@@ -1,27 +1,42 @@
-<h1>Inngrese sus datos</h1>
+<h1>Registre sus datos</h1>
 <form class="form-horizontal" novalidate
       [formGroup]="formGroup">
   <fieldset>
-    <div class="form-group"
-         [ngClass]="{'has-error': (formGroup.get('email').touched || formGroup.get('email').dirty)&&  !formGroup.get('email').valid}">
-      <mat-form-field class="example-full-width" appearance="fill">
+    <div class="form-group caja" 
+         >
+      <mat-form-field class="example-full-width caja" appearance="fill">
         <mat-label>Correo</mat-label>
         <input matInput
                id="correoId"
                type="text"
                required
                formControlName="email" />
+        <mat-error *ngIf="formGroup.get('email').errors?.required">Debe Ingresar un Correo</mat-error>
       </mat-form-field>
+      
     </div>
-    <div class="form-group"
-         [ngClass]="{'has-error': (formGroup.get('password').touched || formGroup.get('password').dirty) &&  !formGroup.get('password').valid}">
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Nombre</mat-label>
+    <div class="form-group">
+      <mat-form-field class="example-full-width caja" appearance="fill">
+        <mat-label>Password</mat-label>
         <input matInput
-               id="nombreId"
+               id="passwordId"
                type="password"
                required
                formControlName="password" />
+        <mat-error *ngIf="formGroup.get('password').errors?.required">Debe Ingresar un password</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="example-full-width caja" appearance="fill">
+        <mat-label>Repetir Password</mat-label>
+        <input matInput
+               id="password2Id"
+               type="password"
+               [errorStateMatcher]="matcher"
+               required
+               formControlName="password2" />
+        <mat-error *ngIf="formGroup.hasError('notSame')">Los password no coinciden</mat-error>
       </mat-form-field>
     </div>
 

@@ -1,12 +1,20 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+<div class="row justify-content-end">
+  <mat-slide-toggle class="example-margin"
+                    [(ngModel)]="modoTabla">
+    Modo lista
+  </mat-slide-toggle>
+</div>
+
+
 <mat-expansion-panel hideToggle>
   <mat-expansion-panel-header>
     <mat-panel-title>
       Filtrar:
     </mat-panel-title>
     <mat-panel-description>
-      
+
     </mat-panel-description>
   </mat-expansion-panel-header>
   <mat-form-field appearance="fill">
@@ -14,29 +22,113 @@
     <input matInput
            aria-label="Cliente"
            [matAutocomplete]="auto"
-           [formControl]="stateCtrl"
-           >
+           [formControl]="stateCtrl">
     <mat-autocomplete #auto="matAutocomplete">
+      <mat-option [value]="Todos">
+        <span>Todos</span>
+      </mat-option>
       <mat-option *ngFor="let cliente of listaClientes" [value]="cliente.nombre" (onSelectionChange)='getPosts(cliente)'>
         <span>{{cliente.nombre}}</span> |
         <small>Contacto: {{cliente.contacto}}</small>
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Tipo</mat-label>
+    <mat-select>
+      <mat-option [value]="0">Todos </mat-option>
+      <mat-option *ngFor="let tipo of tiposOT" [value]="tipo.Id">
+        {{tipo.codigo}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </mat-expansion-panel>
 
 <hr />
-<button mat-raised-button [routerLink]='["/principal/ordenesTrabajo-agregar"]'>Agregar Orden Trabajo</button>
+<div class="row caja">
+  <button class="btn btn-primary" [routerLink]='["/principal/menuOrdenes/ordenesTrabajo-agregar"]'>Agregar Orden Trabajo</button>
+</div>
 
 <div></div>
-<mat-grid-list cols="2">
+<div class="container">
+
+
+</div>
+
+<div *ngIf="modoTabla" class="mat-elevation-z8">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Codigo</th>
+        <th>Cliente</th>
+        <th>Maquinaria</th>
+        <th>Ver Detalle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ot of ordenesTrabajo">
+        <td>{{ot.tipoOT.codigo}}-{{ot.codigo}}</td>
+        <td>{{ot.cliente.nombre}}</td>
+        <td>
+          <span>
+            {{ot.maquinaria.placa}}
+          </span>
+          <small>
+            {{ot.maquinaria.tipo.descripcion}}
+          </small>
+        </td>
+        <td>
+          <button mat-button class="icono" matTooltip="Ver detalle">
+            <span class="material-icons" (click)="llenarDetalle(ot.id)">
+              visibility
+            </span>
+          </button>
+        </td>
+        <td>
+          <button mat-button class="icono" matTooltip="Editar">
+            <span class="material-icons" [routerLink]= "['/principal/menuOrdenes-editar/' + ot.id + '/ordenesTrabajo-editar/' + ot.id]">
+              edit
+            </span>
+          </button>
+        </td>
+        <td>
+          <button mat-button class="icono" matTooltip="Informe Preliminar" (click)="openDialog(ot.informePreliminar)">
+            <span class="material-icons">
+              receipt
+            </span>
+          </button>
+        </td>
+        <td>
+          <button mat-button class="icono" matTooltip="Formato de Recepcion Equipos" (click)="openDialog(ot.formatoRecepcionEquipos)">
+            <span class="material-icons">
+              assignment
+            </span>
+          </button>
+        </td>
+        <td>
+          <button mat-button class="icono" matTooltip="Acta de Conformidad" (click)="openDialog(ot.actaConformidad)">
+            <span class="material-icons">
+              fact_check
+            </span>
+          </button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<mat-grid-list *ngIf="!modoTabla" cols="2">
   <mat-grid-tile *ngFor="let OT of ordenesTrabajo" style="margin-top:5px">
     <div class="card" style="width:18rem;">
       <!--<img src="tigre.jpg" alt="" class="card-img-top">-->
       <div class="card-body cajaOT">
         <h5 class="card-title">
-          <small>Cod:</small> 
-           {{OT.codigo}}
+          <small>Cod:</small>
+          {{OT.codigo}}
           <button mat-button class="icono" matTooltip="Ver detalle">
             <span class="material-icons" (click)="llenarDetalle(OT.id)">
               visibility
@@ -79,71 +171,11 @@
     </div>
   </mat-grid-tile>
 </mat-grid-list>
-
-<div class="container" >
-  
-  
-</div>
-
-<div class="mat-elevation-z8">
- <table class="table">
-   <thead>
-     <tr>
-       <th>Codigo</th>
-       <th>Nombre</th>
-       <th>Descripcion</th>
-     </tr>
-   </thead>
-   <tbody>
-     <tr *ngFor="let ot of ordenesTrabajo">
-       <td>{{ot.codigo}}</td>
-       <td>{{ot.cliente.nombre}}</td>
-
-       <td>
-         <button mat-button class="icono" matTooltip="Ver detalle">
-           <span class="material-icons" (click)="llenarDetalle(ot.id)">
-             visibility
-           </span>
-         </button>
-       </td>
-       <td>
-         <button mat-button class="icono" matTooltip="Editar">
-           <span class="material-icons" [routerLink]='["/principal/ordenesTrabajo-editar/" + ot.id]'>
-             edit
-           </span>
-         </button>
-       </td>
-       <td>
-         <button mat-button class="icono" matTooltip="Informe Preliminar" (click)="openDialog(ot.informePreliminar)">
-           <span class="material-icons">
-             receipt
-           </span>
-         </button>
-       </td>
-       <td>
-         <button mat-button class="icono" matTooltip="Formato de Recepcion Equipos" (click)="openDialog(ot.formatoRecepcionEquipos)">
-           <span class="material-icons">
-             assignment
-           </span>
-         </button>
-       </td>
-       <td>
-         <button mat-button class="icono" matTooltip="Acta de Conformidad" (click)="openDialog(ot.actaConformidad)">
-           <span class="material-icons">
-             fact_check
-           </span>
-         </button>
-       </td>
-     </tr>
-     
-   </tbody>
- </table>
-</div>
-<mat-paginator [length]="100"
-               [pageSize]="10"
+<mat-paginator [length]="numeroOrdenes"
+               [pageSize]="tamano"
                [pageSizeOptions]="[5, 10, 25, 100]"
-               aria-label="Seleccionar pagina">
+               aria-label="Seleccionar pagina"
+               (page)="pageEvent = getServerData($event)">
 </mat-paginator>
-
 
 

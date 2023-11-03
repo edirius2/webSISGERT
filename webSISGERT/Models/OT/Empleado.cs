@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using webSISGERT.Models.cEmpleado;
 
 namespace webSISGERT.Models.OT
 {
@@ -24,5 +26,9 @@ namespace webSISGERT.Models.OT
         [MaxLength(50, ErrorMessage = "El campo correo electronico debe tener maximo 50 caracteres")]
         public string CorreoElectronico { get; set; }
         public string Observaciones { get; set; }
+        [ForeignKey("Especialidad")]
+        public int EspecialidadId { get; set; }
+        public virtual Especialidad Especialidad { get; set; }
+        public double CostoHora { get; set; }
     }
 }

@@ -8,39 +8,57 @@
       </button>
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>
         <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/principal/clientes"]'>Clientes</a>
+
+          <!--<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Tablas Parametricas
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <li><a class="dropdown-item" [routerLink]='["/principal/tipo-maquinarias"]'>Tipos Maquinaria</a> </li>
+    </ul>
+  </li>-->
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="mnuOrdenes" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ordenes Trabajo</a>
+            <div class="dropdown-menu" aria-labelledby="mnuOrdenes">
+              <a class="nav-link text-dark" [routerLink]='["/principal/ordenesTrabajo"]'>Ordenes Trabajo</a>
+              <a class="nav-link text-dark" [routerLink]='["/principal/cotizaciones"]'>Cotizaciones</a>
+              <a class="nav-link text-dark" [routerLink]='["/principal/maquinarias"]'>Maquinarias</a>
+              <a class="nav-link text-dark" [routerLink]='["/principal/clientes"]'>Clientes</a>
+              <a class="nav-link text-dark" [routerLink]='["/principal/tareas"]'>Tareas</a>
+            </div>
           </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/principal/tareas"]'>Tareas</a>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="mnuDatos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Datos Generales</a>
+            <div class="dropdown-menu" aria-labelledby="mnuDatos">
+              <a class="nav-link text-dark" [routerLink]='["/principal/costos"]'>Costos</a>
+              <a class="nav-link text-dark" [routerLink]='["/principal/repuestos"]'>Repuestos</a>
+              <a class="nav-link text-dark" [routerLink]='["/principal/empleados"]'>Empleados</a>
+            </div>
           </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/principal/ordenesTrabajo"]'>Ordenes Trabajo</a>
+
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="datosLaborales" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tablas</a>
+            <div class="dropdown-menu" aria-labelledby="datosLaborales">
+              <a class="nav-link text-dark" [routerLink]='["/principal/estado-maquinarias"]'>Estados Maquinaria</a>
+              <a class="nav-link text-dark" [routerLink]='["/principal/especialidades"]'>Especialidades</a>
+              <a class="nav-link text-dark" [routerLink]='["/principal/tipo-maquinarias"]'>Tipos Maquinaria</a>
+              <a class="nav-link text-dark" [routerLink]='["/principal/marca-maquinarias"]'>Marcas Maquinaria</a>
+              <a class="nav-link text-dark" [routerLink]='["/principal/tiposOT"]'>Tipos OT</a>
+            </div>
           </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/principal/cotizaciones"]'>Cotizaciones</a>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="mnuUsuarios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuarios</a>
+            <div class="dropdown-menu" aria-labelledby="mnuUsuarios">
+              <a class="nav-link text-dark" [routerLink]='["/principal/nuevoUsuario"]'>Crear Usuario</a>
+              <a class="nav-link text-dark" [routerLink]='["/principal/usuarios"]'>Lista Usuarios</a>
+            </div>
           </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/principal/empleados"]'>Empleados</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/principal/repuestos"]'>Repuestos</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/principal/tipo-maquinarias"]'>Tipos Maquinaria</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/principal/marca-maquinarias"]'>Marcas Maquinaria</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/principal/estado-maquinarias"]'>Estados Maquinaria</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/principal/maquinarias"]'>Maquinarias</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/principal/costos"]'>Costos</a>
-          </li>
+
+
           <li *ngIf="!estaLogueado()" [routerLinkActive]='["link-active"]'>
             <a [routerLink]='["/login"]' (click)='collapse()'>
               <span class='glyphicon glyphicon-th-list'>Log in</span>

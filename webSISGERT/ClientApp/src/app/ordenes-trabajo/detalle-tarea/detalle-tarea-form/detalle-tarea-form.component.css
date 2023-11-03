@@ -17,3 +17,15 @@
   margin-right: 0;
   margin-left: 8px;
 }
+
+.alinear_derecha{
+  text-align:right;
+}
+
+small{
+  color:cadetblue;
+}
+body {
+  display: flex;
+  align-items: stretch;
+}

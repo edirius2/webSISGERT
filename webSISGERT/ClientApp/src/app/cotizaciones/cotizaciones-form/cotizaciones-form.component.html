@@ -72,6 +72,7 @@
           </mat-option>
           <mat-option *ngFor="let maquinaria of listaMaquinarias" [value]="maquinaria.placa" (onSelectionChange)='getPostMaquinaria(maquinaria)'>
             <span>{{maquinaria.placa}}</span>
+            <small> {{maquinaria.tipo.descripcion}}</small>
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
@@ -101,13 +102,3 @@
   </fieldset>
 </form>
 
-<nav mat-tab-nav-bar ngClass="tabs">
-  <a mat-tab-link
-     [routerLink]="['/principal/cotizaciones-editar/' + CotizacionId + '/detallesTareasC/' + CotizacionId]"
-     routerLinkActive="active-link">Lista de Tareas</a>
-  <a mat-tab-link
-     [routerLink]="['/principal/cotizaciones-editar/' + CotizacionId + '/detallesGastosC/' + CotizacionId]">Gastos varios</a>
-  <a mat-tab-link
-     [routerLink]="['/principal/cotizaciones-editar/' + CotizacionId + '/detallesRepuestosC/' + CotizacionId]">Repuestos</a>
-</nav>
-<router-outlet></router-outlet>

@@ -1,5 +1,8 @@
-<h3>Lsita de detalles de repuestos</h3>
-<button class="btn btn-primary" [routerLink]='["/principal/ordenesTrabajo-editar/" + ordenTrabajoId + "/detalleRepuesto-agregar/" + ordenTrabajoId]'>Agregar Detalle</button>
+<h2>Lista de detalles de repuestos</h2>
+<div class="row justify-content-end">
+  <button class="btn btn-primary" [routerLink]='["/principal/menuOrdenes-editar/" + ordenTrabajoId + "/detallesRepuesto-agregar/" + ordenTrabajoId]'>Agregar Detalle Repuestos</button>
+</div>
+
 <table class="table">
   <thead>
     <tr>
@@ -13,9 +16,9 @@
     <tr *ngFor="let detalle of listaDetallesRepuesto">
       <td>{{detalle.repuesto.nombre}}</td>
       <td>{{detalle.cantidad}}</td>
-      <td>{{detalle.precio}}</td>
+      <td>{{detalle.precio|currency: 'PEN': 'symbol': '': 'es-PE'}}</td>
       <td>
-        <button class="btn btn-primary" [routerLink]='["/principal/ordenTrabajo-editar" + ordenTrabajoId + "/detalleRepuesto-editar/" + detalle.id]'>Editar</button>
+        <button class="btn btn-primary" [routerLink]='["/principal/menuOrdenes-editar" + ordenTrabajoId + "/detallesRepuesto-editar/" + detalle.id]'>Editar</button>
         <button class="btn btn-danger">Eliminar</button>
       </td>
     </tr>

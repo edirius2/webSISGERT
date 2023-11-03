@@ -1,5 +1,5 @@
 <h3>Lista de Repuestos</h3>
-<button class="btn btn-primary" [routerLink]='["/principal/cotizaciones-editar/" + cotizacionId + "/detalleRepuestoC-agregar/" + cotizacionId]'>Agregar Repuesto</button>
+<button class="btn btn-primary" [routerLink]='["/principal/menuCotizaciones-editar/" + cotizacionId + "/detalleRepuestoC-agregar/" + cotizacionId]'>Agregar Repuesto</button>
 <table class="table" >
   <thead>
     <tr>
@@ -14,7 +14,7 @@
       <td>{{detalle.cantidad}}</td>
       <td>{{detalle.costoRepuesto}}</td>
       <td>
-        <button class="btn btn-primary" [routerLink]='["/principal/detallesRepuestosC/" + cotizacionId + "/detalleRepuestoC-editar/" + detalle.id]'>Editar</button>
+        <button class="btn btn-primary" [routerLink]='["/principal/menuCotizaciones-editar/" + cotizacionId + "/detalleRepuestoC-editar/" + detalle.id]'>Editar</button>
         <button class="btn btn-danger">Eliminar</button>
       </td>
     </tr>

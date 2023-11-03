@@ -17,6 +17,8 @@ namespace webSISGERT.Models.OT
         public int Id { get; set; }
         [StringLength(maximumLength: 15, ErrorMessage = "El numero maximo de caracteres para el codigo es 15.")]
         public string Codigo { get; set; }
+        public int TipoOTId { get; set; }
+        public TipoOT tipoOT { get; set; }
         public Boolean Favorito { get; set; }
         public int ClienteId { get; set; }
         public virtual Cliente cliente { get; set; }

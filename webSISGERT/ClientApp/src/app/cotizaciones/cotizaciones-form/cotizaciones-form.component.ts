@@ -76,12 +76,12 @@ export class CotizacionesFormComponent implements OnInit {
       subscribe(clientesDesdeWS => this.listaClientes = clientesDesdeWS,
       error => console.error(error));
 
-    this.activatedRoute.params.subscribe(params => {
-      if (params['id'] == undefined) {
+    this.activatedRoute.paramMap.subscribe(params => {
+      if (params.get('id') == undefined) {
         return;
       }
       this.modoEdicion = true;
-      this.CotizacionId = params['id'];
+      this.CotizacionId = params.get('id');
       this.cotizacionesService.getCotizacion(this.CotizacionId).subscribe(cotizacionDesdeWs => this.cargarFormulario(cotizacionDesdeWs),
         error => console.error(error));
     }
@@ -89,6 +89,8 @@ export class CotizacionesFormComponent implements OnInit {
   }
 
   cargarFormulario(cotizacion: iCotizacion) {
+    console.log("probando formulario cotizacion");
+    console.log(cotizacion);
     this.clienteSeleccionado = cotizacion.cliente;
     this.maquinariaSeleccionada = cotizacion.maquinaria;
     this.codigo1 = cotizacion.codigo.substring(0, 2);

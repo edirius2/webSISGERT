@@ -23,3 +23,13 @@ td {
   color: darkblue;
   background-color: blue;
 }
+
+.cajaEstado{
+  margin-left:20px;
+  padding:1px;
+}
+
+
+small {
+  color: cadetblue;
+}

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using webSISGERT.Models.OT;
 using webSISGERT.Models.Cotizaciones;
+using webSISGERT.Models.cEmpleado;
 using Microsoft.AspNetCore.Identity;
 
 namespace webSISGERT.Models
@@ -32,6 +33,7 @@ namespace webSISGERT.Models
         public DbSet<webSISGERT.Models.OT.Tarea> Tarea { get; set; }
         public DbSet<Empleado> Empleados { get; set; }
 
+        public DbSet<TipoOT> TiposOT { get; set; }
         public DbSet<OrdenTrabajo> OrdenesTrabajo { get; set; }
         public DbSet<DetalleTarea> DetallesTareas { get; set; }
         public DbSet<DetalleEmpleado> DetallesEmpleados { get; set; }
@@ -47,7 +49,7 @@ namespace webSISGERT.Models
         public DbSet<DetalleCostoCotizacion> DetallesCostoCotizacion { get; set; }
         public DbSet<Cotizacion_OT> CotizacionesOrdenTrabajos { get; set; }
         public DbSet<webSISGERT.Models.OT.Costo> Costo { get; set; }
-
+        public DbSet<Especialidad> Especialidades { get; set; }
        
     }
 }

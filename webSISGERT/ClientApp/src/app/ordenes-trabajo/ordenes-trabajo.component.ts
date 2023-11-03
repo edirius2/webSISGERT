@@ -10,6 +10,8 @@ import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { ContenedorImagenComponent } from './contenedor-imagen/contenedor-imagen.component';
 import { MatDialog } from '@angular/material';
+import { ITipoOT } from '../tipos-ot/tipoOT';
+import { TiposOTService } from '../tipos-ot/tipos-ot.service';
 
 
 export interface DialogData {
@@ -25,19 +27,23 @@ export class OrdenesTrabajoComponent implements OnInit {
 
   ordenesTrabajo: iOrdenTrabajo[];
   sumaPagos: number;
+  tiposOT: ITipoOT[];
 
   clienteSeleccionado: ICliente;
   listaClientes: ICliente[];
   filtroClientes: Observable<ICliente[]>;
   stateCtrl = new FormControl();
 
+  numeroOrdenes: number;
+  tamano: number =10;
+  posicion: number = 10;
 
-  
+  modoTabla: boolean = true;
 
 
 
-  constructor(private ordenesTrabajosService: OrdenesTrabajoService, private contenedorOrdenTrabajo: contenedorOrdenTrabajoService, private clientesService: ClientesService,
-              public dialog: MatDialog) {
+  constructor(private ordenesTrabajosService: OrdenesTrabajoService, private contenedorOrdenTrabajo: contenedorOrdenTrabajoService,
+    private clientesService: ClientesService, public dialog: MatDialog, private tiposOTService: TiposOTService) {
     this.filtroClientes = this.stateCtrl.valueChanges.pipe(
       startWith(''),
       map(state => (state ? this._filterClientes(state) : this.listaClientes.slice())),
@@ -52,7 +58,13 @@ export class OrdenesTrabajoComponent implements OnInit {
       subscribe(clientesDesdeWS => this.listaClientes = clientesDesdeWS,
       error => console.error(error));
 
+    this.ordenesTrabajosService.getNumeroOrdenes().
+      subscribe(numeroDesdeWS => this.formatearPaginacion(numeroDesdeWS),
+        error => console.error(error));
 
+    this.tiposOTService.getTiposOT().
+      subscribe(tiposDesdeWS => this.tiposOT = tiposDesdeWS,
+        error => console.error(error));
   }
 
   prueba(ordenes: iOrdenTrabajo[]) {
@@ -95,5 +107,20 @@ export class OrdenesTrabajoComponent implements OnInit {
       console.log('The dialog was closed');
       //this.rutaInformePreliminar = result;
     });
+  }
+
+  formatearPaginacion(total: number) {
+    this.numeroOrdenes = total;
+    this.tamano = 10;
+    this.posicion = 1;
+  }
+
+  getServerData(e: any) {
+    this.posicion = e.pageIndex;
+    this.tamano = e.pageSize;
+
+    this.ordenesTrabajosService.getOrdenesTrabajoXPaginacion(this.tamano.toString(), (this.posicion * this.tamano).toString()).
+      subscribe(ordenesDesdeWS => this.prueba(ordenesDesdeWS),
+        error => console.error(error));
   }
 }

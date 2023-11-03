@@ -6,6 +6,6 @@ export interface IDetalleEmpleado {
   empleadoId: number,
   empleado: IEmpleado,
   ordenTrabajoId: number,
-  ordenTrabajo: iOrdenTrabajo
-
+  ordenTrabajo: iOrdenTrabajo,
+  horas:number
 }
